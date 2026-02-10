@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARQ Trading - کوچینگ حرفه‌ای معامله‌گری</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --bg: #fafbff;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+        ::-webkit-scrollbar-track { 
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, var(--primary), #8b5cf6);
+            border-radius: 4px;
+        }
+
+        /* Advanced Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(-20px) scaleY(1.1); }
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes slide-up-fade {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        @keyframes scale-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Organic Background Canvas */
+        #organic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glass Morphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 10px 15px -3px rgba(0, 0, 0, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 40px -5px rgba(59, 130, 246, 0.15),
+                0 10px 20px -5px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-flow 5s ease infinite;
+        }
+
+        /* Premium Buttons */
+        .btn-premium {
+            position: relative;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 10px 30px -5px rgba(59, 130, 246, 0.4),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: left 0.7s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 20px 40px -5px rgba(59, 130, 246, 0.5),
+                0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-premium:hover::before {
+            left: 100%;
+        }
+
+        .btn-premium:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Secondary Button */
+        .btn-secondary {
+            background: white;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .btn-secondary:hover {
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        /* Feature Cards with Icon Animation */
+        .feature-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            transform: scaleX(0);
+            transition: transform 0.5s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 
+                0 30px 60px -15px rgba(0, 0, 0, 0.1),
+                0 15px 30px -10px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 24px;
+            background: inherit;
+            opacity: 0.3;
+            filter: blur(10px);
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover .feature-icon::after {
+            opacity: 0.6;
+        }
+
+        /* Pricing Cards */
+        .pricing-card {
+            background: white;
+            border-radius: 32px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #f1f5f9;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured {
+            border-color: #f59e0b;
+            box-shadow: 
+                0 0 0 4px rgba(245, 158, 11, 0.1),
+                0 30px 60px -15px rgba(245, 158, 11, 0.2);
+            transform: scale(1.03);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.4);
+            animation: float-delayed 3s ease-in-out infinite;
+        }
+
+        /* Step Cards with Connection */
+        .step-card {
+            position: relative;
+            padding-right: 100px;
+        }
+
+        .step-number {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 28px;
+            color: #3b82f6;
+            box-shadow: 
+                0 10px 30px -5px rgba(59, 130, 246, 0.3),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 3px solid #eff6ff;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        .step-card:hover .step-number {
+            transform: translateY(-50%) scale(1.1) rotate(-5deg);
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.4);
+        }
+
+        .step-line {
+            position: absolute;
+            right: 34px;
+            top: 80px;
+            bottom: -60px;
+            width: 3px;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #e0e7ff);
+            border-radius: 3px;
+        }
+
+        .step-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+            transition: all 0.4s;
+        }
+
+        .step-card:hover .step-content {
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            border-color: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Animated Background Shapes */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        /* Counter Animation */
+        .counter {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        /* Ticker */
+        .ticker-wrap {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+            z-index: 50;
+            padding: 12px 0;
+        }
+
+        .ticker {
+            display: flex;
+            animation: ticker 35s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .ticker-up { color: #059669; background: rgba(16, 185, 129, 0.1); }
+        .ticker-down { color: #dc2626; background: rgba(239, 68, 68, 0.1); }
+
+        /* Navigation */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        /* Loading Animation for Elements */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: scale(1.02) translateY(-10px); }
+            .step-card { padding-right: 80px; }
+            .step-number { width: 60px; height: 60px; font-size: 24px; }
+            .blob { opacity: 0.2; }
+        }
+    </style>
+</head>
+<body class="antialiased pb-20">
+
+    <!-- Organic Animated Background -->
+    <canvas id="organic-canvas"></canvas>
+    
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 nav-glass transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3 group cursor-pointer">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-white text-xl shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                            ARQ
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="text-xs text-blue-600 font-bold tracking-widest uppercase">Trading Mentorship</div>
+                        <div class="text-lg font-black text-gray-800">کوچینگ حرفه‌ای</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <a href="#features" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">ویژگی‌ها</a>
+                    <a href="#path" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">مسیر آموزش</a>
+                    <a href="#pricing" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">تعرفه‌ها</a>
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="btn-premium px-6 py-3 rounded-xl font-bold flex items-center gap-2 text-sm">
+                        <i class="fab fa-telegram text-lg"></i>
+                        <span>ثبت‌نام</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-4 overflow-hidden">
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/80 backdrop-blur border border-blue-100 text-blue-700 text-sm font-semibold mb-8 animate-float shadow-lg shadow-blue-500/10">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span>در حال پذیرش هنرجوی جدید</span>
+                <i class="fas fa-arrow-left text-xs opacity-50"></i>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight text-gray-900 reveal">
+                جامع‌ترین <span class="text-gradient">منتورینگ</span><br>
+                <span class="relative inline-block">
+                    معامله‌گری ARQ
+                    <svg class="absolute -bottom-2 left-0 w-full h-3 text-blue-200 -z-10" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.00025 6.99997C25.7509 9.37499 83.5523 0.483221 198.002 2.48465" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed reveal" style="transition-delay: 0.1s">
+                از <span class="text-blue-600 font-bold bg-blue-50 px-2 py-1 rounded-lg">Smart Money Concepts</span> تا <span class="text-purple-600 font-bold bg-purple-50 px-2 py-1 rounded-lg">ICT</span> با دیدگاه <span class="text-amber-600 font-bold bg-amber-50 px-2 py-1 rounded-lg">ذهنیت قیمت</span>
+                <br>
+                <span class="text-lg mt-4 block">پلن معاملاتی اختصاصی + همراهی تا پاس کردن پراپ</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16 reveal" style="transition-delay: 0.2s">
+                <a href="https://t.me/ARQ_FX" target="_blank" class="btn-premium px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group">
+                    <i class="fab fa-telegram text-2xl group-hover:rotate-12 transition-transform"></i>
+                    <span>شروع یادگیری</span>
+                    <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#features" class="btn-secondary px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2">
+                    <span>مشاهده جزئیات</span>
+                    <i class="fas fa-chevron-down animate-bounce"></i>
+                </a>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="glass-card rounded-3xl p-8 max-w-4xl mx-auto reveal" style="transition-delay: 0.3s">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center group">
+                        <div class="counter mb-2" data-target="500">0</div>
+                        <div class="text-sm text-gray-500 font-medium group-hover:text-blue-600 transition-colors">هنرجوی موفق</div>
+                    </div>
+                    <div class="text-center group">
+                        <div class="counter mb-2" data-target="9">0</div>
+                        <div class="text-sm text-gray-500 font-medium group-hover:text-purple-600 transition-colors">سال تجربه</div>
+                    </div>
+                    <div class="text-center group">
+                        <div class="text-4xl font-black text-amber-500 mb-2 group-hover:scale-110 transition-transform">100%</div>
+                        <div class="text-sm text-gray-500 font-medium group-hover:text-amber-600 transition-colors">ستاپ اختصاصی</div>
+                    </div>
+                    <div class="text-center group">
+                        <div class="text-4xl font-black text-green-500 mb-2 group-hover:scale-110 transition-transform">24/7</div>
+                        <div class="text-sm text-gray-500 font-medium group-hover:text-green-600 transition-colors">پشتیبانی</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 px-4 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-bold mb-4">
+                    <i class="fas fa-sparkles"></i>
+                    <span>محوریت آموزش</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black mb-4 text-gray-900">
+                    آموزش بر مبنای <span class="text-gradient">SMC و ICT</span>
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">با دیدگاه ذهنیت قیمت و رویکرد شخصی‌سازی‌شده</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card reveal" style="transition-delay: 0.1s">
+                    <div class="feature-icon bg-blue-100 text-blue-600 mb-6">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">ذهنیت قیمت</h3>
+                    <p class="text-gray-600 leading-relaxed">آموزش Smart Money Concepts و ICT با رویکرد شخصی‌سازی‌شده و دیدگاه منحصربه‌فرد ARQ</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.2s">
+                    <div class="feature-icon bg-purple-100 text-purple-600 mb-6">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">پلن معاملاتی</h3>
+                    <p class="text-gray-600 leading-relaxed">طراحی پلن کاملاً شخصی‌سازی‌شده متناسب با تیپ شخصیتی: اسکلپر یا سوینگ تریدر</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.3s">
+                    <div class="feature-icon bg-green-100 text-green-600 mb-6">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">ستاپ‌های الگوریتمی</h3>
+                    <p class="text-gray-600 leading-relaxed">ترکیب دیدگاه تحلیل‌محور و الگوریتم‌محور با ستاپ‌های اختصاصی ورود و ترپ تریدینگ</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.1s">
+                    <div class="feature-icon bg-amber-100 text-amber-600 mb-6">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">بک‌تست سطح‌بندی</h3>
+                    <p class="text-gray-600 leading-relaxed">سیستم بک‌تست چندفازی و سطح‌بندی‌شده برای اطمینان از تسلط قبل ورود به بازار</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.2s">
+                    <div class="feature-icon bg-red-100 text-red-600 mb-6">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">اتاق لایو ترید</h3>
+                    <p class="text-gray-600 leading-relaxed">اجرای لایو تمام آموزه‌ها روی چارت به‌صورت عملی و real-time</p>
+                </div>
+
+                <div class="feature-card border-2 border-amber-200 bg-amber-50/50 reveal" style="transition-delay: 0.3s">
+                    <div class="feature-icon bg-amber-200 text-amber-700 mb-6">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-amber-700">همراهی تا پراپ</h3>
+                    <p class="text-gray-700 leading-relaxed">همراهی مداوم منتور تا پاس کردن اکانت پراپ و ورود به تیم معاملاتی ARQ</p>
+                </div>
+            </div>
+
+            <!-- Key Point -->
+            <div class="mt-16 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-3xl p-8 md:p-10 border border-blue-100 reveal">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl flex-shrink-0 shadow-xl shadow-blue-500/30 animate-float">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black mb-3 text-gray-900">نکته کلیدی</h3>
+                        <p class="text-gray-700 text-lg leading-relaxed">
+                            در این کوچینگ، شما <span class="text-blue-600 font-bold bg-white px-2 py-1 rounded-lg shadow-sm">صرفاً مفاهیم یاد نمی‌گیرید</span>، بلکه یک 
+                            <span class="text-amber-600 font-bold bg-white px-2 py-1 rounded-lg shadow-sm">پلن معاملاتی کامل</span> دریافت می‌کنید. 
+                            از زمان باز کردن چارت تا اتمام معامله، همه‌چیز در پلن شما تعریف شده است.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Content -->
+    <section class="py-24 px-4 bg-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50/50 to-purple-50/50"></div>
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-black mb-4 text-gray-900">بخش‌بندی <span class="text-gradient">مطالب</span></h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 reveal" style="transition-delay: 0.1s">
+                    <div class="flex items-center gap-5 mb-4">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-blue-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">01</div>
+                        <h3 class="text-2xl font-bold text-gray-900">ذهنیت قیمت</h3>
+                    </div>
+                    <p class="text-gray-600 text-lg leading-relaxed">تجزیه و تحلیل چارت با دیدگاه SMC و ICT + شناخت رفتار قیمت و ساختار بازار</p>
+                </div>
+
+                <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-purple-200 transition-all duration-500 reveal" style="transition-delay: 0.2s">
+                    <div class="flex items-center gap-5 mb-4">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-purple-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">02</div>
+                        <h3 class="text-2xl font-bold text-gray-900">سیستم معاملاتی</h3>
+                    </div>
+                    <p class="text-gray-600 text-lg leading-relaxed">ستاپ‌های ورود اختصاصی با الگوریتم‌های شخصی‌سازی‌شده و ترپ تریدینگ</p>
+                </div>
+
+                <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-green-200 transition-all duration-500 reveal" style="transition-delay: 0.1s">
+                    <div class="flex items-center gap-5 mb-4">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-green-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">03</div>
+                        <h3 class="text-2xl font-bold text-gray-900">بک‌تست سطح‌بندی‌شده</h3>
+                    </div>
+                    <p class="text-gray-600 text-lg leading-relaxed">تمرینات چندفازی برای تسلط کامل قبل از ورود به بازار واقعی</p>
+                </div>
+
+                <div class="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-amber-200 transition-all duration-500 reveal" style="transition-delay: 0.2s">
+                    <div class="flex items-center gap-5 mb-4">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-amber-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">04</div>
+                        <h3 class="text-2xl font-bold text-gray-900">مدیریت سرمایه</h3>
+                    </div>
+                    <p class="text-gray-600 text-lg leading-relaxed">روانشناسی معامله‌گری و مدیریت ریسک برای پاس کردن پراپ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Path Section -->
+    <section id="path" class="py-24 px-4 relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 text-sm font-bold mb-4 border border-blue-100">
+                    <i class="fas fa-route"></i>
+                    <span>ROADMAP</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black mb-4 text-gray-900">مسیر شما بعد از <span class="text-gradient">ثبت‌نام</span></h2>
+                <p class="text-gray-600 text-lg">هر قدم، بعد از تسلط واقعی روی قدم قبل</p>
+            </div>
+
+            <div class="space-y-10">
+                <div class="step-card reveal">
+                    <div class="step-line"></div>
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="text-xl font-bold mb-3 text-blue-600 flex items-center gap-2">
+                            <i class="fas fa-door-open"></i>
+                            ورود به اکوسیستم ARQ
+                        </h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-green-500 text-lg"></i> اضافه شدن به کانال‌های اختصاصی</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-green-500 text-lg"></i> ارتباط مستقیم با اکانت پشتیبانی</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-green-500 text-lg"></i> دسترسی به منابع ذهنیتی و ساختاری</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.1s">
+                    <div class="step-line"></div>
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="text-xl font-bold mb-3 text-purple-600 flex items-center gap-2">
+                            <i class="fas fa-id-card"></i>
+                            ثبت‌نام در سایت و فعال‌سازی لایسنس
+                        </h3>
+                        <p class="text-gray-600 mb-4">از این لحظه، مسیر آموزشی شما کاملاً قابل پیگیری و شفاف می‌شه.</p>
+                        <a href="https://ARQtrading.ir/" target="_blank" class="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-3 transition-all">
+                            <span>ورود به سایت ARQ</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.2s">
+                    <div class="step-line"></div>
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="text-xl font-bold mb-3 text-green-600 flex items-center gap-2">
+                            <i class="fas fa-graduation-cap"></i>
+                            آموزش + آزمون
+                        </h3>
+                        <p class="text-gray-600 mb-4">بعد از پایان هر بخش، آزمون فعال می‌شه. فقط با نمره بالای ۷۰٪ وارد مرحله بعد می‌شید.</p>
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-green-50 border border-green-200">
+                            <div class="text-4xl font-black text-green-600">70%</div>
+                            <div class="text-gray-600">نمره قبولی برای ورود به مرحله بعد</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.3s">
+                    <div class="step-line"></div>
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="text-xl font-bold mb-3 text-amber-600 flex items-center gap-2">
+                            <i class="fas fa-users"></i>
+                            جلسات آنلاین اختصاصی
+                        </h3>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200">
+                                <div class="font-bold text-gray-900 mb-1 flex items-center gap-2"><i class="fas fa-video text-amber-500"></i> جلسه اول</div>
+                                <div class="text-sm text-gray-600">پس از اتمام ذهنیت قیمت</div>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-blue-50 border border-blue-200">
+                                <div class="font-bold text-gray-900 mb-1 flex items-center gap-2"><i class="fas fa-video text-blue-500"></i> جلسه دوم</div>
+                                <div class="text-sm text-gray-600">پس از بک‌تست سطح‌بندی‌شده</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.4s">
+                    <div class="step-line"></div>
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="text-xl font-bold mb-3 text-pink-600 flex items-center gap-2">
+                            <i class="fas fa-clipboard-check"></i>
+                            بک‌تست و تأیید نهایی
+                        </h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-pink-500 text-lg"></i> اجرای بک‌تست چندفازی</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-pink-500 text-lg"></i> بررسی نتایج توسط منتور</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-pink-500 text-lg"></i> تأیید ساختار ذهنی و اجرایی</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.5s">
+                    <div class="step-number text-white bg-gradient-to-br from-amber-400 to-orange-500 border-none">6</div>
+                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl p-8 border-2 border-amber-300 shadow-xl shadow-amber-500/10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-700 flex items-center gap-3">
+                            <i class="fas fa-crown text-amber-500"></i>
+                            ورود به تیم معاملاتی ARQ
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-lg"></i> شروع اجرای واقعی در محیط حرفه‌ای</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-lg"></i> حرکت به سمت پاس کردن پراپ</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-lg"></i> همراهی مداوم منتور</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 p-8 rounded-3xl bg-gray-50 border border-gray-200 text-center reveal">
+                <p class="text-gray-700 text-lg italic leading-relaxed">
+                    "این مسیر طوری طراحی شده که: یا رشد کنی و جلو بری، یا متوجه بشی کجای مسیر نیاز به اصلاح داری — <span class="text-blue-600 font-bold bg-white px-3 py-1 rounded-lg shadow-sm">بدون خودفریبی</span>."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 px-4 bg-white relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-50 text-amber-700 text-sm font-bold mb-4 border border-amber-200">
+                    <i class="fas fa-tag"></i>
+                    <span>تعرفه‌ها</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black mb-4 text-gray-900">سرمایه‌گذاری روی <span class="text-gradient">آینده‌ت</span></h2>
+                <p class="text-gray-600 text-lg">مطالب در هر دو دوره یکسان است. تفاوت در تعداد جلسات و زمان همراهی.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-start">
+                <!-- Semi-Private -->
+                <div class="pricing-card p-8 reveal" style="transition-delay: 0.1s">
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-bold mb-4">
+                            <i class="fas fa-users"></i>
+                            <span>نیمه‌خصوصی</span>
+                        </div>
+                        <h3 class="text-3xl font-black mb-2 text-gray-900">۱۰ نفره</h3>
+                        <p class="text-gray-500">۶۰ روزه</p>
+                    </div>
+
+                    <div class="text-center mb-8">
+                        <div class="flex items-center justify-center gap-3 mb-2">
+                            <span class="text-gray-400 line-through text-xl">۲۵۰$</span>
+                        </div>
+                        <div class="text-6xl font-black text-gray-900">۲۰۰$</div>
+                    </div>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>دسترسی به تمام محتوا</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>عضویت در کانال Mindset Price</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>پشتیبانی گروهی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>۲ جلسه آنلاین گروهی</span>
+                        </li>
+                    </ul>
+
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="block w-full py-4 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-center transition-all text-lg">
+                        ثبت‌نام نیمه‌خصوصی
+                    </a>
+                </div>
+
+                <!-- Private -->
+                <div class="pricing-card featured p-8 reveal" style="transition-delay: 0.2s">
+                    <div class="pricing-badge">پرفروش‌ترین</div>
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-700 text-sm font-bold mb-4">
+                            <i class="fas fa-crown"></i>
+                            <span>خصوصی</span>
+                        </div>
+                        <h3 class="text-3xl font-black mb-2 text-gray-900">تک‌نفره</h3>
+                        <p class="text-gray-500">۹۰ روزه</p>
+                    </div>
+
+                    <div class="text-center mb-8">
+                        <div class="flex items-center justify-center gap-3 mb-2">
+                            <span class="text-gray-400 line-through text-xl">۱۲۰۰$</span>
+                        </div>
+                        <div class="text-6xl font-black text-amber-600">۷۰۰$</div>
+                    </div>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-800 p-3 rounded-xl bg-amber-50 border border-amber-100">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span class="font-bold text-amber-700">همراهی تا پاس کردن پراپ</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>۲ جلسه آنلاین اختصاصی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>پشتیبانی ۲۴/۷ اختصاصی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>پلن معاملاتی کاملاً شخصی‌سازی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>دسترسی مادام‌العمر به آپدیت‌ها</span>
+                        </li>
+                    </ul>
+
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="block w-full py-4 rounded-2xl btn-premium text-white font-bold text-center text-lg shadow-xl shadow-blue-500/30">
+                        ثبت‌نام خصوصی
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gift -->
+            <div class="mt-12 bg-white rounded-3xl p-6 max-w-2xl mx-auto shadow-lg border border-amber-200 flex items-center gap-6 reveal">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-amber-500/30 animate-float">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-amber-700 text-lg mb-1">هدیه ویژه دوره</h4>
+                    <p class="text-gray-600">عضویت در تیم معاملاتی ARQ + دسترسی به تاپیک‌های مهم + کانال Mindset Price</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600"></div>
+        <div class="absolute inset-0 opacity-20">
+            <canvas id="cta-canvas"></canvas>
+        </div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-black mb-6 text-white reveal">
+                آماده‌ای <span class="text-amber-300">حرفه‌ای</span> بشی؟
+            </h2>
+            <p class="text-xl text-blue-100 mb-10 reveal" style="transition-delay: 0.1s">همین حالا اولین قدم رو بردار. منتور ARQ منتظر توئه.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay: 0.2s">
+                <a href="https://t.me/ARQ_FX" target="_blank" class="bg-white text-blue-600 px-10 py-5 rounded-2xl font-bold text-xl flex items-center justify-center gap-3 shadow-2xl hover:scale-105 transition-transform group">
+                    <i class="fab fa-telegram text-2xl group-hover:rotate-12 transition-transform"></i>
+                    <span>شروع ثبت‌نام</span>
+                    <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                </a>
+                <a href="https://t.me/ARQPPT" target="_blank" class="bg-white/10 backdrop-blur text-white px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 border-2 border-white/30 hover:bg-white/20 transition-all">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>مشاهده نتایج</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-white text-xl shadow-lg">
+                        ARQ
+                    </div>
+                    <div>
+                        <div class="font-black text-gray-900 text-lg">ARQ Trading</div>
+                        <div class="text-xs text-gray-500">Professional Trading Mentorship</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-500 hover:text-white transition-all hover:scale-110">
+                        <i class="fab fa-telegram text-xl"></i>
+                    </a>
+                    <a href="https://t.me/ARQPPT" target="_blank" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-amber-500 hover:text-white transition-all hover:scale-110">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </a>
+                    <a href="https://ARQtrading.ir/" target="_blank" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-purple-500 hover:text-white transition-all hover:scale-110">
+                        <i class="fas fa-globe text-xl"></i>
+                    </a>
+                </div>
+
+                <div class="text-gray-500 text-sm font-medium">
+                    © 2024 ARQ Trading. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Price Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>EUR/USD 1.0845 ▲ 0.25%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>GBP/USD 1.2630 ▼ 0.12%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>USD/JPY 149.20 ▲ 0.45%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>XAU/USD 2035.50 ▲ 0.80%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>BTC/USD 42500 ▼ 1.20%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>EUR/USD 1.0845 ▲ 0.25%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>GBP/USD 1.2630 ▼ 0.12%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>USD/JPY 149.20 ▲ 0.45%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>XAU/USD 2035.50 ▲ 0.80%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>BTC/USD 42500 ▼ 1.20%</div>
+        </div>
+    </div>
+
+    <script>
+        // Organic Flowing Background
+        const canvas = document.getElementById('organic-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        let connections = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class FlowParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.life = 0;
+                this.maxLife = Math.random() * 200 + 100;
+                this.opacity = 0;
+                this.hue = Math.random() * 60 + 200; // Blue to purple range
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life++;
+                
+                // Fade in and out
+                if (this.life < 50) {
+                    this.opacity = this.life / 50 * 0.3;
+                } else if (this.life > this.maxLife - 50) {
+                    this.opacity = (this.maxLife - this.life) / 50 * 0.3;
+                }
+                
+                if (this.life >= this.maxLife) {
+                    this.reset();
+                }
+                
+                // Wrap around
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push(new FlowParticle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw connections
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.1 * (1 - dist/150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            init();
+        });
+
+        resize();
+        init();
+        animate();
+
+        // CTA Canvas - Floating particles
+        const ctaCanvas = document.getElementById('cta-canvas');
+        if (ctaCanvas) {
+            const ctaCtx = ctaCanvas.getContext('2d');
+            let ctaWidth, ctaHeight;
+            
+            function resizeCta() {
+                ctaWidth = ctaCanvas.width = ctaCanvas.offsetWidth;
+                ctaHeight = ctaCanvas.height = ctaCanvas.offsetHeight;
+            }
+            
+            const ctaParticles = [];
+            for (let i = 0; i < 30; i++) {
+                ctaParticles.push({
+                    x: Math.random() * 1000,
+                    y: Math.random() * 500,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 4 + 2
+                });
+            }
+            
+            function animateCta() {
+                ctaCtx.clearRect(0, 0, ctaWidth, ctaHeight);
+                
+                ctaParticles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > ctaWidth) p.vx *= -1;
+                    if (p.y < 0 || p.y > ctaHeight) p.vy *= -1;
+                    
+                    ctaCtx.beginPath();
+                    ctaCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctaCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctaCtx.fill();
+                });
+                
+                requestAnimationFrame(animateCta);
+            }
+            
+            resizeCta();
+            animateCta();
+            window.addEventListener('resize', resizeCta);
+        }
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + "+";
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Intersection Observer for reveals
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    if (entry.target.classList.contains('counter')) {
+                        animateCounters();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.classList.add('reveal');
+            observer.observe(el);
+        });
+
+        counters.forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
