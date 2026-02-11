@@ -217,12 +217,60 @@
             transform: translateY(-2px);
             box-shadow: 0 15px 40px -5px rgba(59, 130, 246, 0.5);
         }
+
+        /* Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: morph 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        @media (max-width: 768px) {
+            .blob {
+                opacity: 0.2;
+                filter: blur(40px);
+            }
+            .blob-1 {
+                width: 250px;
+                height: 250px;
+            }
+            .blob-2 {
+                width: 200px;
+                height: 200px;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Dynamic Background -->
     <canvas id="organic-canvas"></canvas>
+
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 nav-glass transition-all duration-500" id="navbar">
@@ -787,87 +835,106 @@
             }
         }
 
-        // Canvas Animation (Financial Network)
-        const canvas = document.getElementById('bgCanvas');
+        // Organic Flowing Background (same as index.html)
+        const canvas = document.getElementById('organic-canvas');
         const ctx = canvas.getContext('2d');
-        
         let width, height;
         let particles = [];
-        
+
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         }
-        
-        class Particle {
+
+        class FlowParticle {
             constructor() {
+                this.reset();
+            }
+
+            reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
-                this.size = Math.random() * 1.5;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.life = 0;
+                this.maxLife = Math.random() * 200 + 100;
+                this.opacity = 0;
+                this.hue = Math.random() * 60 + 200;
             }
-            
+
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life++;
+
+                if (this.life < 50) {
+                    this.opacity = this.life / 50 * 0.3;
+                } else if (this.life > this.maxLife - 50) {
+                    this.opacity = (this.maxLife - this.life) / 50 * 0.3;
+                }
+
+                if (this.life >= this.maxLife) {
+                    this.reset();
+                }
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
             }
-            
+
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(59, 130, 246, 0.3)';
+                ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.opacity})`;
                 ctx.fill();
             }
         }
-        
-        function initParticles() {
+
+        function init() {
             particles = [];
-            const count = window.innerWidth < 768 ? 30 : 60;
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
+            const particleCount = window.innerWidth < 768 ? 40 : 80;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new FlowParticle());
             }
         }
-        
+
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            
-            // Draw connections
+
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 120) {
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 150) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.05 - distance/2400})`;
-                        ctx.lineWidth = 0.5;
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.1 * (1 - dist/150)})`;
+                        ctx.lineWidth = 1;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
                     }
                 }
             }
-            
+
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
-            
+
             requestAnimationFrame(animate);
         }
-        
+
         window.addEventListener('resize', () => {
             resize();
-            initParticles();
+            init();
         });
-        
+
         resize();
-        initParticles();
+        init();
         animate();
 
         // Smooth Scroll
@@ -888,9 +955,9 @@
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                nav.classList.add('shadow-lg', 'bg-black/80');
+                nav.classList.add('shadow-lg');
             } else {
-                nav.classList.remove('shadow-lg', 'bg-black/80');
+                nav.classList.remove('shadow-lg');
             }
         });
     </script>
