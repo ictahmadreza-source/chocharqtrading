@@ -1116,434 +1116,293 @@
 
                 <div class="course-content">
                     <div>
-                        <div class="grid gap-3 mt-4">
-                    <!-- جلسه 01 با لینک آپارات -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                        <!-- Video Player -->
+                        <div id="mafia-player" class="mb-6 mt-4">
+                            <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden bg-gray-100">
+                                <span style="display: block;padding-top: 57%"></span>
+                                <iframe id="mafia-iframe" src="https://www.aparat.com/video/video/embed/videohash/o667310/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <h4 id="mafia-title" class="text-lg font-bold text-gray-900">دیدگاه اسمارت مانی نسبت به ساختار مارکت</h4>
+                                <p class="text-sm text-gray-600 mt-1">جلسه 01</p>
+                            </div>
+                        </div>
+
+                        <!-- Sessions List -->
+                        <div class="grid gap-2">
+                    <!-- جلسه 01 -->
+                    <button onclick="playMafiaVideo('o667310', 'دیدگاه اسمارت مانی نسبت به ساختار مارکت', '01')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">01</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">دیدگاه اسمارت مانی نسبت به ساختار مارکت</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/35" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/o667310" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">دیدگاه اسمارت مانی نسبت به ساختار مارکت</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/35" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <!-- Aparat Embed -->
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/o667310/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 02 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('i90h35p', 'دیدگاه اسمارت مانی نسبت به ساختار مارکت (بررسی روی چارت)', '02')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">02</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">دیدگاه اسمارت مانی نسبت به ساختار مارکت (بررسی روی چارت)</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/36" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/i90h35p" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">دیدگاه اسمارت مانی نسبت به ساختار مارکت (بررسی روی چارت)</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/36" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/i90h35p/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 03 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('n7007sw', 'نواحی گرانفروشی و ارزان فروشی - میتیگیت - OTE', '03')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">03</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">نواحی گرانفروشی و ارزان فروشی - میتیگیت - OTE</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/37" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/n7007sw" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نواحی گرانفروشی و ارزان فروشی - میتیگیت - OTE</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/37" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/n7007sw/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 04 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('w8412vj', 'انتخاب تایم فریم - تیپ شخصیتی تریدرها', '04')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">04</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">انتخاب تایم فریم - تیپ شخصیتی تریدرها</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/38" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/w8412vj" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">انتخاب تایم فریم - تیپ شخصیتی تریدرها</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/38" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/w8412vj/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 05 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('C6tLB', 'نواحی عرضه و تقاضا و فلیپ', '05')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">05</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">نواحی عرضه و تقاضا و فلیپ</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/39" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/C6tLB" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نواحی عرضه و تقاضا و فلیپ</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/39" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/C6tLB/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 06 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('d89vmqe', 'ترکیب استراکچر با نواحی - استراکچر رنج داخلی و فراکتال', '06')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">06</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">ترکیب استراکچر با نواحی - استراکچر رنج داخلی و فراکتال</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/42" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/d89vmqe" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">ترکیب استراکچر با نواحی - استراکچر رنج داخلی و فراکتال</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/42" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/d89vmqe/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 07 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('2fq6P', 'بررسی مطالب روی چارت بصورت تئوری', '07')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">07</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">بررسی مطالب روی چارت بصورت تئوری</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/44" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/2fq6P" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">بررسی مطالب روی چارت بصورت تئوری</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/44" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/2fq6P/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 08 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('wx0HC', 'نقدینگی / انواع نقدینگی / نقدینگی داخلی و وادارسازی', '08')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">08</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">نقدینگی / انواع نقدینگی / نقدینگی داخلی و وادارسازی</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/45" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/wx0HC" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نقدینگی / انواع نقدینگی / نقدینگی داخلی و وادارسازی</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/45" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/wx0HC/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 09 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('b707074', 'سقف و کف (ضعیف - قوی)', '09')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">09</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">سقف و کف (ضعیف - قوی)</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/46" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/b707074" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">سقف و کف (ضعیف - قوی)</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/46" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/b707074/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 10 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('y43g717', 'گپ ارزش بازار', '10')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">10</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">گپ ارزش بازار</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/50" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/y43g717" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">گپ ارزش بازار</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/50" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/y43g717/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 11 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('p859ef1', 'ساختار پیشرفته', '11')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">11</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">ساختار پیشرفته</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/54" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/p859ef1" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">ساختار پیشرفته</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/54" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/p859ef1/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 12 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('r80fk10', 'ساختار پیشرفته در چارت', '12')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">12</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">ساختار پیشرفته در چارت</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/56" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/r80fk10" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">ساختار پیشرفته در چارت</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/56" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/r80fk10/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 13 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('c114mz1', 'جریان سفارشات', '13')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">13</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">جریان سفارشات</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/58" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/c114mz1" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">جریان سفارشات</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/58" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/c114mz1/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 14 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('gnxj07f', 'اجرای جریان سفارشات در چارت', '14')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">14</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">اجرای جریان سفارشات در چارت</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/62" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/gnxj07f" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">اجرای جریان سفارشات در چارت</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/62" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/gnxj07f/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
                         </div>
                     </a>
 
                     <!-- جلسه 15 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('wzc14du', 'بهینه سازی نواحی', '15')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">15</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">بهینه سازی نواحی</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/64" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/wzc14du" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">بهینه سازی نواحی</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/64" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/wzc14du/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 16 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('kryg1f1', 'نقاط ورود', '16')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">16</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">نقاط ورود</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/71" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/kryg1f1" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نقاط ورود</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/71" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/kryg1f1/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
 
                     <!-- جلسه 17 -->
-                    <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                        <div class="flex items-start gap-3 mb-3">
+                    <button onclick="playMafiaVideo('ohqlule', 'اجرای نقاط ورود روی چارت - مدل کانفرم انتری CE (پایانی)', '17')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
+                        <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">17</div>
                             <div class="flex-grow">
-                                <h4 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">اجرای نقاط ورود روی چارت - مدل کانفرم انتری CE (پایانی)</h4>
-                                <div class="flex items-center gap-3 text-xs font-semibold">
-                                    <a href="https://t.me/ARQtrading/72" target="_blank" class="flex items-center gap-1 text-purple-600 hover:text-purple-700">
-                                        <i class="fab fa-telegram"></i>
-                                        <span>تلگرام</span>
-                                    </a>
-                                    <span class="text-gray-300">|</span>
-                                    <a href="https://www.aparat.com/v/ohqlule" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                        <i class="fas fa-play-circle"></i>
-                                        <span>آپارات</span>
-                                    </a>
-                                </div>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">اجرای نقاط ورود روی چارت - مدل کانفرم انتری CE (پایانی)</h5>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/72" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
                             </div>
                         </div>
-                        <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                            <span style="display: block;padding-top: 57%"></span>
-                            <iframe src="https://www.aparat.com/video/video/embed/videohash/ohqlule/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                        </div>
-                    </div>
+                    </button>
                 </div>
 
                 <div class="mt-6 bg-purple-50 rounded-2xl p-4 border border-purple-200">
@@ -1590,229 +1449,164 @@
             </h4>
         </div>
 
-        <div class="grid gap-3">
+        <div>
+                        <!-- Video Player -->
+                        <div id="price-player" class="mb-6 mt-4">
+                            <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden bg-gray-100">
+                                <span style="display: block;padding-top: 57%"></span>
+                                <iframe id="price-iframe" src="https://www.aparat.com/video/video/embed/videohash/kgq379a/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <h4 id="price-title" class="text-lg font-bold text-gray-900">فازبندی استراکچر نقطه A - R - Q</h4>
+                                <p class="text-sm text-gray-600 mt-1">جلسه 01</p>
+                            </div>
+                        </div>
+
+                        <!-- Sessions List -->
+                        <div class="grid gap-2">
             <!-- جلسه 01 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('kgq379a', 'فازبندی استراکچر نقطه A - R - Q', '01')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">01</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">فازبندی استراکچر نقطه A - R - Q</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/299" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/kgq379a" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">فازبندی استراکچر نقطه A - R - Q</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/299" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/kgq379a/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 02 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('hpd9l1u', 'نواحی تصمیم‌گیری و سفارشات', '02')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">02</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">نواحی تصمیم‌گیری و سفارشات</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/305" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/hpd9l1u" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">نواحی تصمیم‌گیری و سفارشات</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/305" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/hpd9l1u/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 03 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('xhf0c7p', 'ذهنیت دستکاری درون نواحی', '03')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">03</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">ذهنیت دستکاری درون نواحی</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/307" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/xhf0c7p" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">ذهنیت دستکاری درون نواحی</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/307" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/xhf0c7p/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 04 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('git68nr', 'تئوری جریان سفارشات پابلیک', '04')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">04</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">تئوری جریان سفارشات پابلیک</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/309" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/git68nr" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">تئوری جریان سفارشات پابلیک</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/309" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/git68nr/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 05 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('cfn129b', 'جریان سفارشات پیشرفته - بخش یک', '05')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">05</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">جریان سفارشات پیشرفته - بخش یک</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/311" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/cfn129b" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">جریان سفارشات پیشرفته - بخش یک</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/311" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/cfn129b/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 06 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('aqiu04e', 'جریان سفارشات پیشرفته - بخش دوم', '06')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">06</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">جریان سفارشات پیشرفته - بخش دوم</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/313" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/aqiu04e" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">جریان سفارشات پیشرفته - بخش دوم</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/313" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/aqiu04e/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 07 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('mna28ci', 'نقدینگی در نقاب جریان سفارش', '07')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">07</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">نقدینگی در نقاب جریان سفارش</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/316" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/mna28ci" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">نقدینگی در نقاب جریان سفارش</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/316" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/mna28ci/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 08 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('hrvg94q', 'ترپ‌سازی (دستکاری) داخلی و خارجی', '08')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">08</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">ترپ‌سازی (دستکاری) داخلی و خارجی</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/319" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/hrvg94q" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">ترپ‌سازی (دستکاری) داخلی و خارجی</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/319" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/hrvg94q/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-                </div>
-            </div>
+            </button>
 
             <!-- جلسه 09 -->
-            <div class="group bg-white rounded-xl p-4 md:p-5 border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div class="flex items-start gap-3 mb-3">
+            <button onclick="playPriceVideo('plch435', 'نظم ذهنی سطح یک', '09')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
+                <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">09</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">نظم ذهنی سطح یک</h5>
-                        <div class="flex items-center gap-3 text-xs font-semibold">
-                            <a href="https://t.me/ARQtrading/321" target="_blank" class="flex items-center gap-1 text-amber-600 hover:text-amber-700">
-                                <i class="fab fa-telegram"></i>
-                                <span>تلگرام</span>
-                            </a>
-                            <span class="text-gray-300">|</span>
-                            <a href="https://www.aparat.com/v/plch435" target="_blank" class="flex items-center gap-1 text-red-600 hover:text-red-700">
-                                <i class="fas fa-play-circle"></i>
-                                <span>آپارات</span>
-                            </a>
-                        </div>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">نظم ذهنی سطح یک</h5>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/321" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
                     </div>
                 </div>
-                <div class="h_iframe-aparat_embed_frame rounded-lg overflow-hidden">
-                    <span style="display: block;padding-top: 57%"></span>
-                    <iframe src="https://www.aparat.com/video/video/embed/videohash/plch435/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+            </button>
                 </div>
             </div>
 
@@ -2883,6 +2677,34 @@
                 content.style.maxHeight = content.scrollHeight + "px";
                 if (icon) icon.style.transform = 'rotate(180deg)';
             }
+        }
+
+        // Play Mafia Video
+        function playMafiaVideo(videoHash, title, sessionNumber) {
+            const iframe = document.getElementById('mafia-iframe');
+            const titleEl = document.getElementById('mafia-title');
+            const sessionEl = titleEl.nextElementSibling;
+            
+            iframe.src = `https://www.aparat.com/video/video/embed/videohash/${videoHash}/vt/frame`;
+            titleEl.textContent = title;
+            sessionEl.textContent = `جلسه ${sessionNumber}`;
+            
+            // Scroll to player
+            document.getElementById('mafia-player').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Play Price Mentality Video
+        function playPriceVideo(videoHash, title, sessionNumber) {
+            const iframe = document.getElementById('price-iframe');
+            const titleEl = document.getElementById('price-title');
+            const sessionEl = titleEl.nextElementSibling;
+            
+            iframe.src = `https://www.aparat.com/video/video/embed/videohash/${videoHash}/vt/frame`;
+            titleEl.textContent = title;
+            sessionEl.textContent = `جلسه ${sessionNumber}`;
+            
+            // Scroll to player
+            document.getElementById('price-player').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // Mobile Menu Toggle
