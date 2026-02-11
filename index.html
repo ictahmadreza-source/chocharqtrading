@@ -657,8 +657,25 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            padding: 1.5rem;
+            padding: 1rem 1.25rem;
             border-radius: 1.5rem;
+        }
+
+        .course-header h3 {
+            line-height: 1.2;
+        }
+
+        .course-header > div {
+            min-height: 60px;
+        }
+
+        @media (min-width: 768px) {
+            .course-header {
+                padding: 1rem 1.5rem;
+            }
+            .course-header > div {
+                min-height: 64px;
+            }
         }
 
         .course-header::before {
@@ -1077,18 +1094,17 @@
             <div class="reveal course-accordion">
                 <div class="course-header" style="--gradient-from: #a855f7; --gradient-to: #9333ea;" onclick="toggleCourse(this.parentElement)">
                     <div class="flex items-center justify-between relative z-10">
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-3xl shadow-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
                                 🥂
                             </div>
-                            <div>
-                                <div class="text-sm font-semibold opacity-90 mb-1">پیشنیاز دوره ذهنیت قیمت</div>
-                                <h3 class="text-xl md:text-2xl font-black">کورس مافیا آنالیز</h3>
-                                <div class="text-sm opacity-80 mt-1">17 جلسه</div>
+                            <div class="min-w-0">
+                                <h3 class="text-lg md:text-xl font-black truncate">کورس مافیا آنالیز</h3>
+                                <div class="text-xs opacity-80 mt-0.5">17 جلسه</div>
                             </div>
                         </div>
-                        <div class="course-toggle-icon">
-                            <i class="fas fa-chevron-down text-2xl"></i>
+                        <div class="course-toggle-icon flex-shrink-0">
+                            <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -1543,18 +1559,17 @@
             <div class="reveal course-accordion">
                 <div class="course-header" style="--gradient-from: #f59e0b; --gradient-to: #ea580c;" onclick="toggleCourse(this.parentElement)">
                     <div class="flex items-center justify-between relative z-10">
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-3xl shadow-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
                                 ♟
                             </div>
-                            <div>
-                                <div class="text-sm font-semibold opacity-90 mb-1">دوره جامع و پیشرفته</div>
-                                <h3 class="text-xl md:text-2xl font-black">کورس ذهنیت قیمت</h3>
-                                <div class="text-sm opacity-80 mt-1">19 جلسه در 5 بخش</div>
+                            <div class="min-w-0">
+                                <h3 class="text-lg md:text-xl font-black truncate">کورس ذهنیت قیمت</h3>
+                                <div class="text-xs opacity-80 mt-0.5">19 جلسه • 5 بخش</div>
                             </div>
                         </div>
-                        <div class="course-toggle-icon">
-                            <i class="fas fa-chevron-down text-2xl"></i>
+                        <div class="course-toggle-icon flex-shrink-0">
+                            <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -1952,18 +1967,17 @@
 <div class="reveal course-accordion">
     <div class="course-header" style="--gradient-from: #2563eb; --gradient-to: #0891b2;" onclick="toggleCourse(this.parentElement)">
         <div class="flex items-center justify-between relative z-10">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-3xl shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
                     ⚡
                 </div>
-                <div>
-                    <div class="text-sm font-semibold opacity-90 mb-1">پیشنیاز: کورس ذهنیت قیمت</div>
-                    <h3 class="text-xl md:text-2xl font-black">کورس ARQ FLOW</h3>
-                    <div class="text-sm opacity-80 mt-1">12 جلسه</div>
+                <div class="min-w-0">
+                    <h3 class="text-lg md:text-xl font-black truncate">کورس ARQ FLOW</h3>
+                    <div class="text-xs opacity-80 mt-0.5">12 جلسه</div>
                 </div>
             </div>
-            <div class="course-toggle-icon">
-                <i class="fas fa-chevron-down text-2xl"></i>
+            <div class="course-toggle-icon flex-shrink-0">
+                <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
             </div>
         </div>
     </div>
@@ -2145,17 +2159,17 @@
 <div class="reveal course-accordion">
     <div class="course-header" style="--gradient-from: #10b981; --gradient-to: #059669;" onclick="toggleCourse(this.parentElement)">
         <div class="flex items-center justify-between relative z-10">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-3xl shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
                     💎
                 </div>
-                <div>
-                    <h3 class="text-xl md:text-2xl font-black">محتوای اضافی و ویدیوهای متفرقه</h3>
-                    <div class="text-sm opacity-80 mt-1">مینی کورس‌ها و لایو تریدها</div>
+                <div class="min-w-0">
+                    <h3 class="text-lg md:text-xl font-black truncate">محتوای اضافی و متفرقه</h3>
+                    <div class="text-xs opacity-80 mt-0.5">مینی کورس و لایو ترید</div>
                 </div>
             </div>
-            <div class="course-toggle-icon">
-                <i class="fas fa-chevron-down text-2xl"></i>
+            <div class="course-toggle-icon flex-shrink-0">
+                <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
             </div>
         </div>
     </div>
