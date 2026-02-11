@@ -723,6 +723,133 @@
         .course-toggle-icon {
             transition: transform 0.3s;
         }
+
+        /* استایل جدید برای دکمه‌های جلسات */
+        .session-btn {
+            position: relative;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(139, 92, 246, 0.03) 100%);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            border: 2px solid rgba(139, 92, 246, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            text-align: right;
+        }
+
+        .session-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0) 0%, rgba(139, 92, 246, 0.08) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .session-btn:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.15), 0 10px 10px -5px rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .session-btn:hover::before {
+            opacity: 1;
+        }
+
+        .session-number {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1rem;
+            flex-shrink: 0;
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3), 0 4px 6px -2px rgba(139, 92, 246, 0.2);
+            transition: all 0.3s;
+        }
+
+        .session-btn:hover .session-number {
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 15px 20px -3px rgba(139, 92, 246, 0.4), 0 6px 8px -2px rgba(139, 92, 246, 0.3);
+        }
+
+        .session-icon-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .session-telegram {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .session-telegram:hover {
+            background: #8b5cf6;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .session-play {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
+        }
+
+        .session-btn:hover .session-play {
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px -1px rgba(139, 92, 246, 0.4);
+        }
+
+        /* استایل برای کورس ذهنیت قیمت (رنگ نارنجی) */
+        .session-btn-amber {
+            background: linear-gradient(135deg, #ffffff 0%, rgba(245, 158, 11, 0.03) 100%);
+            border-color: rgba(245, 158, 11, 0.15);
+        }
+
+        .session-btn-amber::before {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0) 0%, rgba(245, 158, 11, 0.08) 100%);
+        }
+
+        .session-btn-amber:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.15), 0 10px 10px -5px rgba(245, 158, 11, 0.1);
+        }
+
+        .session-number-amber {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3), 0 4px 6px -2px rgba(245, 158, 11, 0.2);
+        }
+
+        .session-btn-amber:hover .session-number-amber {
+            box-shadow: 0 15px 20px -3px rgba(245, 158, 11, 0.4), 0 6px 8px -2px rgba(245, 158, 11, 0.3);
+        }
+
+        .session-telegram-amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .session-telegram-amber:hover {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .session-play-amber {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.3);
+        }
+
+        .session-btn-amber:hover .session-play-amber {
+            box-shadow: 0 6px 8px -1px rgba(245, 158, 11, 0.4);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -1097,19 +1224,25 @@
 
             <!-- کورس مافیا آنالیز -->
             <div class="reveal course-accordion">
-                <div class="course-header" style="--gradient-from: #a855f7; --gradient-to: #9333ea;" onclick="toggleCourse(this.parentElement)">
-                    <div class="flex items-center justify-between relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
-                                🥂
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="text-lg md:text-xl font-black truncate">کورس مافیا آنالیز</h3>
-                                <div class="text-xs opacity-80 mt-0.5">17 جلسه</div>
+                <div class="course-header feature-card group cursor-pointer" style="--gradient-from: #f3e8ff; --gradient-to: #e9d5ff;" onclick="toggleCourse(this.parentElement)">
+                    <div class="flex items-start gap-4 relative z-10">
+                        <div class="feature-icon bg-purple-100 text-purple-600">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="heading-card font-bold mb-2 text-gray-900 group-hover:text-purple-600 transition-colors">
+                                کورس مافیا آنالیز
+                            </h3>
+                            <p class="text-gray-700 text-sm mb-3">
+                                آموزش کامل تحلیل تکنیکال پیشرفته با رویکرد اسمارت مانی - 17 جلسه
+                            </p>
+                            <div class="flex items-center gap-2 text-sm text-purple-700 font-semibold">
+                                <i class="fas fa-video"></i>
+                                <span>17 جلسه آموزشی</span>
                             </div>
                         </div>
-                        <div class="course-toggle-icon flex-shrink-0">
-                            <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
+                        <div class="course-toggle-icon flex-shrink-0 text-purple-600">
+                            <i class="fas fa-chevron-down text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -1131,225 +1264,249 @@
                         <!-- Sessions List -->
                         <div class="grid gap-2">
                     <!-- جلسه 01 -->
-                    <button onclick="playMafiaVideo('o667310', 'دیدگاه اسمارت مانی نسبت به ساختار مارکت', '01')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">01</div>
+                    <button onclick="playMafiaVideo('o667310', 'دیدگاه اسمارت مانی نسبت به ساختار مارکت', '01')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">01</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">دیدگاه اسمارت مانی نسبت به ساختار مارکت</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">دیدگاه اسمارت مانی نسبت به ساختار مارکت</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه اول</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/35" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/35" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 02 -->
-                    <button onclick="playMafiaVideo('i90h35p', 'دیدگاه اسمارت مانی نسبت به ساختار مارکت (بررسی روی چارت)', '02')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">02</div>
+                    <button onclick="playMafiaVideo('i90h35p', 'دیدگاه اسمارت مانی نسبت به ساختار مارکت (بررسی روی چارت)', '02')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">02</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">دیدگاه اسمارت مانی نسبت به ساختار مارکت (بررسی روی چارت)</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">دیدگاه اسمارت مانی نسبت به ساختار مارکت (بررسی روی چارت)</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه دوم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/36" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/36" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 03 -->
-                    <button onclick="playMafiaVideo('n7007sw', 'نواحی گرانفروشی و ارزان فروشی - میتیگیت - OTE', '03')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">03</div>
+                    <button onclick="playMafiaVideo('n7007sw', 'نواحی گرانفروشی و ارزان فروشی - میتیگیت - OTE', '03')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">03</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نواحی گرانفروشی و ارزان فروشی - میتیگیت - OTE</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">نواحی گرانفروشی و ارزان فروشی - میتیگیت - OTE</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه سوم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/37" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/37" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 04 -->
-                    <button onclick="playMafiaVideo('w8412vj', 'انتخاب تایم فریم - تیپ شخصیتی تریدرها', '04')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">04</div>
+                    <button onclick="playMafiaVideo('w8412vj', 'انتخاب تایم فریم - تیپ شخصیتی تریدرها', '04')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">04</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">انتخاب تایم فریم - تیپ شخصیتی تریدرها</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">انتخاب تایم فریم - تیپ شخصیتی تریدرها</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه چهارم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/38" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/38" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 05 -->
-                    <button onclick="playMafiaVideo('C6tLB', 'نواحی عرضه و تقاضا و فلیپ', '05')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">05</div>
+                    <button onclick="playMafiaVideo('C6tLB', 'نواحی عرضه و تقاضا و فلیپ', '05')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">05</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نواحی عرضه و تقاضا و فلیپ</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">نواحی عرضه و تقاضا و فلیپ</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه پنجم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/39" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/39" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 06 -->
-                    <button onclick="playMafiaVideo('d89vmqe', 'ترکیب استراکچر با نواحی - استراکچر رنج داخلی و فراکتال', '06')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">06</div>
+                    <button onclick="playMafiaVideo('d89vmqe', 'ترکیب استراکچر با نواحی - استراکچر رنج داخلی و فراکتال', '06')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">06</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">ترکیب استراکچر با نواحی - استراکچر رنج داخلی و فراکتال</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">ترکیب استراکچر با نواحی - استراکچر رنج داخلی و فراکتال</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه ششم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/42" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/42" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 07 -->
-                    <button onclick="playMafiaVideo('2fq6P', 'بررسی مطالب روی چارت بصورت تئوری', '07')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">07</div>
+                    <button onclick="playMafiaVideo('2fq6P', 'بررسی مطالب روی چارت بصورت تئوری', '07')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">07</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">بررسی مطالب روی چارت بصورت تئوری</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">بررسی مطالب روی چارت بصورت تئوری</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه هفتم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/44" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/44" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 08 -->
-                    <button onclick="playMafiaVideo('wx0HC', 'نقدینگی / انواع نقدینگی / نقدینگی داخلی و وادارسازی', '08')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">08</div>
+                    <button onclick="playMafiaVideo('wx0HC', 'نقدینگی / انواع نقدینگی / نقدینگی داخلی و وادارسازی', '08')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">08</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نقدینگی / انواع نقدینگی / نقدینگی داخلی و وادارسازی</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">نقدینگی / انواع نقدینگی / نقدینگی داخلی و وادارسازی</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه هشتم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/45" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/45" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 09 -->
-                    <button onclick="playMafiaVideo('b707074', 'سقف و کف (ضعیف - قوی)', '09')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">09</div>
+                    <button onclick="playMafiaVideo('b707074', 'سقف و کف (ضعیف - قوی)', '09')" class="group session-btn">
+                        <div class="relative flex items-center gap-4">
+                            <div class="session-number">09</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">سقف و کف (ضعیف - قوی)</h5>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">سقف و کف (ضعیف - قوی)</h5>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-clock"></i>
+                                    <span>جلسه نهم</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/46" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/46" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram">
+                                    <i class="fab fa-telegram text-lg"></i>
                                 </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <div class="session-icon-btn session-play">
+                                    <i class="fas fa-play text-sm"></i>
+                                </div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 10 -->
-                    <button onclick="playMafiaVideo('y43g717', 'گپ ارزش بازار', '10')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">10</div>
+                    <button onclick="playMafiaVideo('y43g717', 'گپ ارزش بازار', '10')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">10</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">گپ ارزش بازار</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/50" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">گپ ارزش بازار</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/50" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 11 -->
-                    <button onclick="playMafiaVideo('p859ef1', 'ساختار پیشرفته', '11')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">11</div>
+                    <button onclick="playMafiaVideo('p859ef1', 'ساختار پیشرفته', '11')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">11</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">ساختار پیشرفته</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/54" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">ساختار پیشرفته</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/54" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 12 -->
-                    <button onclick="playMafiaVideo('r80fk10', 'ساختار پیشرفته در چارت', '12')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">12</div>
+                    <button onclick="playMafiaVideo('r80fk10', 'ساختار پیشرفته در چارت', '12')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">12</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">ساختار پیشرفته در چارت</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/56" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">ساختار پیشرفته در چارت</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/56" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 13 -->
-                    <button onclick="playMafiaVideo('c114mz1', 'جریان سفارشات', '13')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">13</div>
+                    <button onclick="playMafiaVideo('c114mz1', 'جریان سفارشات', '13')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">13</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">جریان سفارشات</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/58" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">جریان سفارشات</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/58" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 14 -->
-                    <button onclick="playMafiaVideo('gnxj07f', 'اجرای جریان سفارشات در چارت', '14')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">14</div>
+                    <button onclick="playMafiaVideo('gnxj07f', 'اجرای جریان سفارشات در چارت', '14')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">14</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">اجرای جریان سفارشات در چارت</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/62" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">اجرای جریان سفارشات در چارت</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/62" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
@@ -1357,49 +1514,31 @@
                     </a>
 
                     <!-- جلسه 15 -->
-                    <button onclick="playMafiaVideo('wzc14du', 'بهینه سازی نواحی', '15')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">15</div>
+                    <button onclick="playMafiaVideo('wzc14du', 'بهینه سازی نواحی', '15')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">15</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">بهینه سازی نواحی</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/64" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">بهینه سازی نواحی</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/64" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 16 -->
-                    <button onclick="playMafiaVideo('kryg1f1', 'نقاط ورود', '16')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">16</div>
+                    <button onclick="playMafiaVideo('kryg1f1', 'نقاط ورود', '16')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">16</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">نقاط ورود</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/71" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">نقاط ورود</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/71" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
 
                     <!-- جلسه 17 -->
-                    <button onclick="playMafiaVideo('ohqlule', 'اجرای نقاط ورود روی چارت - مدل کانفرم انتری CE (پایانی)', '17')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-purple-400 hover:shadow-md transition-all duration-300 text-right">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">17</div>
+                    <button onclick="playMafiaVideo('ohqlule', 'اجرای نقاط ورود روی چارت - مدل کانفرم انتری CE (پایانی)', '17')" class="group session-btn">
+                        <div class="relative flex items-center gap-4"><div class="session-number">17</div>
                             <div class="flex-grow">
-                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-sm">اجرای نقاط ورود روی چارت - مدل کانفرم انتری CE (پایانی)</h5>
-                            </div>
-                            <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                                <a href="https://t.me/ARQtrading/72" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 px-2 py-1 rounded hover:bg-purple-50">
-                                    <i class="fab fa-telegram"></i>
-                                </a>
-                                <span class="text-purple-600"><i class="fas fa-play-circle"></i></span>
+                                <h5 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-base mb-1">اجرای نقاط ورود روی چارت - مدل کانفرم انتری CE (پایانی)</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                                <a href="https://t.me/ARQtrading/72" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play"><i class="fas fa-play text-sm"></i></div>
                             </div>
                         </div>
                     </button>
@@ -1421,19 +1560,25 @@
 
             <!-- کورس ذهنیت قیمت -->
             <div class="reveal course-accordion">
-                <div class="course-header" style="--gradient-from: #f59e0b; --gradient-to: #ea580c;" onclick="toggleCourse(this.parentElement)">
-                    <div class="flex items-center justify-between relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
-                                ♟
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="text-lg md:text-xl font-black truncate">کورس ذهنیت قیمت</h3>
-                                <div class="text-xs opacity-80 mt-0.5">19 جلسه • 5 بخش</div>
+                <div class="course-header feature-card group cursor-pointer" style="--gradient-from: #fef3c7; --gradient-to: #fde68a;" onclick="toggleCourse(this.parentElement)">
+                    <div class="flex items-start gap-4 relative z-10">
+                        <div class="feature-icon bg-amber-100 text-amber-600">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="heading-card font-bold mb-2 text-gray-900 group-hover:text-amber-600 transition-colors">
+                                کورس ذهنیت قیمت
+                            </h3>
+                            <p class="text-gray-700 text-sm mb-3">
+                                درک عمیق رفتار قیمت و روانشناسی بازار - 19 جلسه در 5 بخش
+                            </p>
+                            <div class="flex items-center gap-2 text-sm text-amber-700 font-semibold">
+                                <i class="fas fa-video"></i>
+                                <span>19 جلسه آموزشی</span>
                             </div>
                         </div>
-                        <div class="course-toggle-icon flex-shrink-0">
-                            <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
+                        <div class="course-toggle-icon flex-shrink-0 text-amber-600">
+                            <i class="fas fa-chevron-down text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -1465,145 +1610,91 @@
                         <!-- Sessions List -->
                         <div class="grid gap-2">
             <!-- جلسه 01 -->
-            <button onclick="playPriceVideo('kgq379a', 'فازبندی استراکچر نقطه A - R - Q', '01')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">01</div>
+            <button onclick="playPriceVideo('kgq379a', 'فازبندی استراکچر نقطه A - R - Q', '01')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">01</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">فازبندی استراکچر نقطه A - R - Q</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/299" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">فازبندی استراکچر نقطه A - R - Q</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/299" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 02 -->
-            <button onclick="playPriceVideo('hpd9l1u', 'نواحی تصمیم‌گیری و سفارشات', '02')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">02</div>
+            <button onclick="playPriceVideo('hpd9l1u', 'نواحی تصمیم‌گیری و سفارشات', '02')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">02</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">نواحی تصمیم‌گیری و سفارشات</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/305" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">نواحی تصمیم‌گیری و سفارشات</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/305" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 03 -->
-            <button onclick="playPriceVideo('xhf0c7p', 'ذهنیت دستکاری درون نواحی', '03')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">03</div>
+            <button onclick="playPriceVideo('xhf0c7p', 'ذهنیت دستکاری درون نواحی', '03')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">03</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">ذهنیت دستکاری درون نواحی</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/307" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">ذهنیت دستکاری درون نواحی</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/307" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 04 -->
-            <button onclick="playPriceVideo('git68nr', 'تئوری جریان سفارشات پابلیک', '04')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">04</div>
+            <button onclick="playPriceVideo('git68nr', 'تئوری جریان سفارشات پابلیک', '04')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">04</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">تئوری جریان سفارشات پابلیک</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/309" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">تئوری جریان سفارشات پابلیک</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/309" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 05 -->
-            <button onclick="playPriceVideo('cfn129b', 'جریان سفارشات پیشرفته - بخش یک', '05')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">05</div>
+            <button onclick="playPriceVideo('cfn129b', 'جریان سفارشات پیشرفته - بخش یک', '05')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">05</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">جریان سفارشات پیشرفته - بخش یک</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/311" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">جریان سفارشات پیشرفته - بخش یک</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/311" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 06 -->
-            <button onclick="playPriceVideo('aqiu04e', 'جریان سفارشات پیشرفته - بخش دوم', '06')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">06</div>
+            <button onclick="playPriceVideo('aqiu04e', 'جریان سفارشات پیشرفته - بخش دوم', '06')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">06</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">جریان سفارشات پیشرفته - بخش دوم</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/313" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">جریان سفارشات پیشرفته - بخش دوم</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/313" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 07 -->
-            <button onclick="playPriceVideo('mna28ci', 'نقدینگی در نقاب جریان سفارش', '07')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">07</div>
+            <button onclick="playPriceVideo('mna28ci', 'نقدینگی در نقاب جریان سفارش', '07')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">07</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">نقدینگی در نقاب جریان سفارش</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/316" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">نقدینگی در نقاب جریان سفارش</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/316" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 08 -->
-            <button onclick="playPriceVideo('hrvg94q', 'ترپ‌سازی (دستکاری) داخلی و خارجی', '08')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">08</div>
+            <button onclick="playPriceVideo('hrvg94q', 'ترپ‌سازی (دستکاری) داخلی و خارجی', '08')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">08</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">ترپ‌سازی (دستکاری) داخلی و خارجی</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/319" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">ترپ‌سازی (دستکاری) داخلی و خارجی</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/319" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
 
             <!-- جلسه 09 -->
-            <button onclick="playPriceVideo('plch435', 'نظم ذهنی سطح یک', '09')" class="group bg-white rounded-xl p-3 md:p-4 border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-300 text-right">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:scale-110 transition-transform">09</div>
+            <button onclick="playPriceVideo('plch435', 'نظم ذهنی سطح یک', '09')" class="group session-btn session-btn-amber">
+                <div class="relative flex items-center gap-4"><div class="session-number session-number-amber">09</div>
                     <div class="flex-grow">
-                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-sm">نظم ذهنی سطح یک</h5>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-semibold flex-shrink-0">
-                        <a href="https://t.me/ARQtrading/321" target="_blank" onclick="event.stopPropagation()" class="flex items-center gap-1 text-amber-600 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <span class="text-amber-600"><i class="fas fa-play-circle"></i></span>
+                        <h5 class="font-bold text-gray-900 group-hover:text-amber-600 transition-colors text-base mb-1">نظم ذهنی سطح یک</h5><div class="flex items-center gap-2 text-xs text-gray-500"><i class="fas fa-clock"></i><span>جلسه</span></div></div><div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="https://t.me/ARQtrading/321" target="_blank" onclick="event.stopPropagation()" class="session-icon-btn session-telegram-amber"><i class="fab fa-telegram text-lg"></i></a><div class="session-icon-btn session-play-amber"><i class="fas fa-play text-sm"></i></div>
                     </div>
                 </div>
             </button>
@@ -1764,19 +1855,25 @@
 
             <!-- کورس ARQ FLOW -->
             <div class="reveal course-accordion">
-                <div class="course-header" style="--gradient-from: #2563eb; --gradient-to: #0891b2;" onclick="toggleCourse(this.parentElement)">
-                    <div class="flex items-center justify-between relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
-                                ⚡
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="text-lg md:text-xl font-black truncate">کورس ARQ FLOW</h3>
-                                <div class="text-xs opacity-80 mt-0.5">12 جلسه</div>
+                <div class="course-header feature-card group cursor-pointer" style="--gradient-from: #dbeafe; --gradient-to: #bfdbfe;" onclick="toggleCourse(this.parentElement)">
+                    <div class="flex items-start gap-4 relative z-10">
+                        <div class="feature-icon bg-blue-100 text-blue-600">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="heading-card font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
+                                کورس ARQ FLOW
+                            </h3>
+                            <p class="text-gray-700 text-sm mb-3">
+                                سیستم معاملاتی کامل و جامع ARQ - از ورود تا خروج با دقت بالا - 12 جلسه
+                            </p>
+                            <div class="flex items-center gap-2 text-sm text-blue-700 font-semibold">
+                                <i class="fas fa-video"></i>
+                                <span>12 جلسه آموزشی</span>
                             </div>
                         </div>
-                        <div class="course-toggle-icon flex-shrink-0">
-                            <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
+                        <div class="course-toggle-icon flex-shrink-0 text-blue-600">
+                            <i class="fas fa-chevron-down text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -1956,19 +2053,25 @@
 
             <!-- محتوای اضافی و متفرقه -->
             <div class="reveal course-accordion">
-                <div class="course-header" style="--gradient-from: #10b981; --gradient-to: #059669;" onclick="toggleCourse(this.parentElement)">
-                    <div class="flex items-center justify-between relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg flex-shrink-0">
-                                💎
-                            </div>
-                            <div class="min-w-0">
-                                <h3 class="text-lg md:text-xl font-black truncate">محتوای اضافی و متفرقه</h3>
-                                <div class="text-xs opacity-80 mt-0.5">مینی کورس و لایو ترید</div>
+                <div class="course-header feature-card group cursor-pointer" style="--gradient-from: #d1fae5; --gradient-to: #a7f3d0;" onclick="toggleCourse(this.parentElement)">
+                    <div class="flex items-start gap-4 relative z-10">
+                        <div class="feature-icon bg-green-100 text-green-600">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="heading-card font-bold mb-2 text-gray-900 group-hover:text-green-600 transition-colors">
+                                محتوای اضافی و متفرقه
+                            </h3>
+                            <p class="text-gray-700 text-sm mb-3">
+                                مینی کورس سرمایه‌گذاری، لایو ترید و محتوای ویژه بونوس
+                            </p>
+                            <div class="flex items-center gap-2 text-sm text-green-700 font-semibold">
+                                <i class="fas fa-gift"></i>
+                                <span>محتوای ویژه</span>
                             </div>
                         </div>
-                        <div class="course-toggle-icon flex-shrink-0">
-                            <i class="fas fa-chevron-down text-xl md:text-2xl"></i>
+                        <div class="course-toggle-icon flex-shrink-0 text-green-600">
+                            <i class="fas fa-chevron-down text-2xl"></i>
                         </div>
                     </div>
                 </div>
