@@ -1,1 +1,2150 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ARQ Trading - کوچینگ حرفه‌ای معامله‌گری</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --bg: #fafbff;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
 
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #334155;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        @media (max-width: 640px) {
+            html { font-size: 14px; }
+        }
+
+        @media (min-width: 1920px) {
+            html { font-size: 18px; }
+        }
+
+        @media (min-width: 2560px) {
+            html { font-size: 20px; }
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            width: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        [data-theme="dark"] .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .nav-glass {
+            background: rgba(15, 23, 42, 0.85) !important;
+            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+        }
+
+        [data-theme="dark"] .feature-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+
+        [data-theme="dark"] .text-gray-900 {
+            color: #f1f5f9 !important;
+        }
+
+        [data-theme="dark"] .text-gray-800 {
+            color: #e2e8f0 !important;
+        }
+
+        [data-theme="dark"] .text-gray-700 {
+            color: #cbd5e1 !important;
+        }
+
+        [data-theme="dark"] .text-gray-600 {
+            color: #94a3b8 !important;
+        }
+
+        [data-theme="dark"] .bg-white {
+            background-color: #1e293b !important;
+        }
+
+        [data-theme="dark"] .bg-gray-50 {
+            background-color: #0f172a !important;
+        }
+
+        [data-theme="dark"] .bg-gray-100 {
+            background-color: #1e293b !important;
+        }
+
+        [data-theme="dark"] .border-gray-200 {
+            border-color: #334155 !important;
+        }
+
+        .theme-toggle {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle i {
+            font-size: 1.125rem;
+            color: var(--text);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(20deg);
+        }
+
+        /* Dark mode styles for FAQ */
+        [data-theme="dark"] .faq-item {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(71, 85, 105, 0.3);
+        }
+
+        [data-theme="dark"] .faq-item:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Dark mode styles for pricing cards */
+        [data-theme="dark"] .pricing-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(71, 85, 105, 0.3);
+        }
+
+        [data-theme="dark"] .pricing-card:hover {
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="dark"] .pricing-card.featured {
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 30px 60px -15px rgba(245, 158, 11, 0.3), 0 0 0 1px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Dark mode for gradient backgrounds */
+        [data-theme="dark"] .bg-gradient-to-br {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%) !important;
+        }
+
+        [data-theme="dark"] .border-purple-200 {
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+
+        [data-theme="dark"] .bg-purple-50 {
+            background-color: rgba(139, 92, 246, 0.1) !important;
+        }
+
+        [data-theme="dark"] .bg-blue-50 {
+            background-color: rgba(59, 130, 246, 0.1) !important;
+        }
+
+        [data-theme="dark"] .bg-amber-50 {
+            background-color: rgba(245, 158, 11, 0.1) !important;
+        }
+
+        [data-theme="dark"] .bg-green-50 {
+            background-color: rgba(34, 197, 94, 0.1) !important;
+        }
+
+        [data-theme="dark"] .text-purple-600 {
+            color: #c084fc !important;
+        }
+
+        [data-theme="dark"] .text-purple-700 {
+            color: #a78bfa !important;
+        }
+
+        [data-theme="dark"] .text-blue-600 {
+            color: #60a5fa !important;
+        }
+
+        [data-theme="dark"] .text-blue-700 {
+            color: #3b82f6 !important;
+        }
+
+        [data-theme="dark"] .text-amber-600 {
+            color: #fbbf24 !important;
+        }
+
+        [data-theme="dark"] .text-amber-700 {
+            color: #f59e0b !important;
+        }
+
+        [data-theme="dark"] .text-green-600 {
+            color: #4ade80 !important;
+        }
+
+        [data-theme="dark"] .text-green-700 {
+            color: #22c55e !important;
+        }
+
+        [data-theme="dark"] .border-amber-500 {
+            border-color: rgba(245, 158, 11, 0.5) !important;
+        }
+
+        [data-theme="dark"] .border-blue-500 {
+            border-color: rgba(59, 130, 246, 0.5) !important;
+        }
+
+        [data-theme="dark"] .border-green-500 {
+            border-color: rgba(34, 197, 94, 0.5) !important;
+        }
+
+        /* Dark mode for all sections with bg-white or gradients */
+        [data-theme="dark"] section:not(#hero) {
+            background: rgba(15, 23, 42, 0.3) !important;
+        }
+
+        [data-theme="dark"] section.bg-gradient-to-br,
+        [data-theme="dark"] section.bg-gradient-to-b {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.3) 0%, rgba(51, 65, 85, 0.3) 100%) !important;
+        }
+
+        /* Dark mode for inline bg classes in coaching */
+        [data-theme="dark"] .bg-blue-50:not(.hover\:bg-blue-50) {
+            background-color: rgba(59, 130, 246, 0.1) !important;
+        }
+
+        [data-theme="dark"] .bg-amber-50 {
+            background-color: rgba(245, 158, 11, 0.1) !important;
+        }
+
+        /* Dark mode for gradient boxes */
+        [data-theme="dark"] .bg-gradient-to-r.from-blue-50.via-purple-50 {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%) !important;
+        }
+
+        /* Dark mode for inline bg-white spans */
+        [data-theme="dark"] span.bg-white,
+        [data-theme="dark"] .bg-white.px-2 {
+            background-color: rgba(51, 65, 85, 0.4) !important;
+        }
+
+        /* Dark mode for sections with explicit bg-white */
+        [data-theme="dark"] section.bg-white {
+            background: rgba(15, 23, 42, 0.3) !important;
+        }
+
+        /* Dark mode for white cards in coaching */
+        [data-theme="dark"] .bg-white.rounded-2xl,
+        [data-theme="dark"] .bg-white.rounded-3xl,
+        [data-theme="dark"] .group.bg-white {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        /* Dark mode for step cards */
+        [data-theme="dark"] .step-card {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        [data-theme="dark"] .step-content {
+            background: transparent !important;
+        }
+
+        /* Dark mode for colored bg boxes in steps */
+        [data-theme="dark"] .bg-green-50.border,
+        [data-theme="dark"] .bg-amber-50.border,
+        [data-theme="dark"] .bg-blue-50.border {
+            background-color: rgba(51, 65, 85, 0.3) !important;
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        /* Dark mode for final step gradient box */
+        [data-theme="dark"] .bg-gradient-to-r.from-amber-50 {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%) !important;
+            border-color: rgba(245, 158, 11, 0.4) !important;
+        }
+
+        /* Dark mode for roadmap/path cards */
+        [data-theme="dark"] .bg-gradient-to-r.from-blue-500,
+        [data-theme="dark"] .bg-gradient-to-br.from-blue-500,
+        [data-theme="dark"] .bg-gradient-to-br.from-purple-500,
+        [data-theme="dark"] .bg-gradient-to-br.from-green-500,
+        [data-theme="dark"] .bg-gradient-to-br.from-amber-500 {
+            opacity: 0.9;
+        }
+
+        /* Dark mode for CTA section - keep gradient visible */
+        [data-theme="dark"] section .bg-gradient-to-br.from-blue-600 {
+            background: linear-gradient(135deg, rgb(37, 99, 235) 0%, rgb(124, 58, 237) 50%, rgb(219, 39, 119) 100%) !important;
+        }
+
+        /* Dark mode for footer */
+        [data-theme="dark"] footer {
+            background: rgba(15, 23, 42, 0.95) !important;
+            border-top-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        /* Container Queries for better responsiveness */
+        .container-adaptive {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container-adaptive {
+                max-width: 640px;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container-adaptive {
+                max-width: 768px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container-adaptive {
+                max-width: 1024px;
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container-adaptive {
+                max-width: 1280px;
+            }
+        }
+
+        @media (min-width: 1536px) {
+            .container-adaptive {
+                max-width: 1536px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .container-adaptive {
+                max-width: 1800px;
+            }
+        }
+
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+        ::-webkit-scrollbar-track { 
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, var(--primary), #8b5cf6);
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        @keyframes slide-up-fade {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-delayed { animation: float-delayed 5s ease-in-out infinite; }
+        .animate-slide-up { animation: slide-up-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        /* Glass Morphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 10px 15px -3px rgba(0, 0, 0, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 40px -5px rgba(59, 130, 246, 0.15),
+                0 10px 20px -5px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .glass-card:hover {
+                transform: translateY(-4px) scale(1.01);
+            }
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-flow 5s ease infinite;
+        }
+
+        /* Canvas Background */
+        #organic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Premium Buttons */
+        .btn-premium {
+            position: relative;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 10px 30px -5px rgba(59, 130, 246, 0.4),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            white-space: nowrap;
+        }
+
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: left 0.7s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 20px 40px -5px rgba(59, 130, 246, 0.5),
+                0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-premium:hover::before {
+            left: 100%;
+        }
+
+        .btn-premium:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        @media (max-width: 640px) {
+            .btn-premium {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Secondary Button */
+        .btn-secondary {
+            background: white;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .btn-secondary:hover {
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        @media (max-width: 640px) {
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            transform: scaleX(0);
+            transition: transform 0.5s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 30px 60px -15px rgba(0, 0, 0, 0.1),
+                0 15px 30px -10px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 768px) {
+            .feature-card {
+                padding: 1.5rem;
+            }
+            .feature-card:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 640px) {
+            .feature-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
+            }
+        }
+
+        /* Pricing Cards */
+        .pricing-card {
+            background: white;
+            border-radius: 32px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #f1f5f9;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .pricing-card:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        .pricing-card.featured {
+            border-color: #f59e0b;
+            box-shadow: 
+                0 0 0 4px rgba(245, 158, 11, 0.1),
+                0 30px 60px -15px rgba(245, 158, 11, 0.2);
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 768px) {
+            .pricing-card.featured {
+                transform: scale(1);
+                order: -1;
+            }
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        @media (max-width: 768px) {
+            .pricing-card.featured:hover {
+                transform: scale(1.02) translateY(-5px);
+            }
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.4);
+            animation: float-delayed 3s ease-in-out infinite;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 640px) {
+            .pricing-badge {
+                font-size: 12px;
+                padding: 6px 16px;
+            }
+        }
+
+        /* Step Cards */
+        .step-card {
+            position: relative;
+            padding-right: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .step-card {
+                padding-right: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .step-card {
+                padding-right: 70px;
+            }
+        }
+
+        .step-number {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 28px;
+            color: #3b82f6;
+            box-shadow: 
+                0 10px 30px -5px rgba(59, 130, 246, 0.3),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 3px solid #eff6ff;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .step-number {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                border-radius: 16px;
+            }
+        }
+
+        .step-card:hover .step-number {
+            transform: translateY(-50%) scale(1.1) rotate(-5deg);
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.4);
+        }
+
+        .step-line {
+            position: absolute;
+            right: 34px;
+            top: 80px;
+            bottom: -60px;
+            width: 3px;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #e0e7ff);
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .step-line {
+                right: 29px;
+                top: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .step-line {
+                right: 24px;
+                top: 60px;
+            }
+        }
+
+        .step-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+            transition: all 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            .step-content {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .step-content {
+                padding: 1.25rem;
+                border-radius: 16px;
+            }
+        }
+
+        .step-card:hover .step-content {
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            border-color: rgba(59, 130, 246, 0.1);
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: right;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 640px) {
+            .faq-question {
+                padding: 1.25rem;
+            }
+        }
+
+        .faq-question:hover {
+            background: #f8fafc;
+        }
+
+        .faq-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-left: 1rem;
+            transition: all 0.4s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 640px) {
+            .faq-answer-content {
+                padding: 0 1.25rem 1.25rem;
+            }
+        }
+
+        .faq-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #ecfdf5;
+            color: #059669;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: morph 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        @media (max-width: 768px) {
+            .blob {
+                opacity: 0.2;
+                filter: blur(40px);
+            }
+            .blob-1 {
+                width: 250px;
+                height: 250px;
+            }
+            .blob-2 {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* Counter */
+        .counter {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        /* Ticker */
+        .ticker-wrap {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+            z-index: 50;
+            padding: 12px 0;
+        }
+
+        [data-theme="dark"] .ticker-wrap {
+            background: rgba(15, 23, 42, 0.95) !important;
+            border-top-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        @media (max-width: 640px) {
+            .ticker-wrap {
+                padding: 8px 0;
+            }
+        }
+
+        .ticker {
+            display: flex;
+            animation: ticker 35s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 30px;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(12px, 2vw, 14px);
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.02);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 640px) {
+            .ticker-item {
+                margin: 0 15px;
+            }
+        }
+
+        .ticker-up { color: #059669; background: rgba(16, 185, 129, 0.1); }
+        .ticker-down { color: #dc2626; background: rgba(239, 68, 68, 0.1); }
+
+        /* Navigation */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typography Scale */
+        .heading-hero {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+        }
+
+        .heading-section {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.2;
+        }
+
+        .heading-card {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            line-height: 1.3;
+        }
+
+        .text-body {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            line-height: 1.6;
+        }
+
+        /* Grid Layouts */
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-features {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .grid-pricing {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .grid-pricing {
+                grid-template-columns: repeat(2, 1fr);
+                align-items: start;
+            }
+        }
+
+        /* Aspect Ratios */
+        .aspect-icon {
+            aspect-ratio: 1;
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .glass-card:hover,
+            .feature-card:hover,
+            .pricing-card:hover {
+                transform: none;
+            }
+            
+            .btn-premium:hover,
+            .btn-secondary:hover {
+                transform: none;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .ticker-wrap,
+            #organic-canvas,
+            .blob,
+            nav {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased pb-20">
+
+    <!-- Organic Animated Background -->
+    <canvas id="organic-canvas"></canvas>
+    
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 nav-glass transition-all duration-500" id="navbar">
+        <div class="container-adaptive">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3 group cursor-pointer">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-white text-xl shadow-lg transition-transform duration-500 group-hover:scale-110">
+                            ARQ
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="text-xs text-blue-600 font-bold tracking-widest uppercase">Trading Mentorship</div>
+                        <div class="text-lg font-black text-gray-800">کوچینگ حرفه‌ای</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="theme-toggle" title="تغییر تم">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    
+                    <!-- Desktop Menu -->
+                    <a href="/" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">
+                        <i class="fas fa-archive ml-2"></i>
+                        آرشیو دوره‌ها
+                    </a>
+                    <a href="#features" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">ویژگی‌ها</a>
+                    <a href="#path" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">مسیر آموزش</a>
+                    <a href="#faq" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">سوالات</a>
+                    <a href="#pricing" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">تعرفه‌ها</a>
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="btn-premium px-5 py-3 rounded-xl font-bold flex items-center gap-2 text-sm">
+                        <i class="fab fa-telegram text-lg"></i>
+                        <span class="hidden sm:inline">ثبت‌نام</span>
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl hover:bg-blue-50 transition-all">
+                        <i class="fas fa-bars text-2xl text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="lg:hidden hidden bg-white rounded-2xl mt-4 p-4 shadow-xl border border-gray-100">
+                <div class="flex flex-col gap-2">
+                    <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                        <i class="fas fa-archive"></i>
+                        <span>آرشیو دوره‌ها</span>
+                    </a>
+                    <a href="#features" onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                        <i class="fas fa-star"></i>
+                        <span>ویژگی‌ها</span>
+                    </a>
+                    <a href="#path" onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                        <i class="fas fa-route"></i>
+                        <span>مسیر آموزش</span>
+                    </a>
+                    <a href="#faq" onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                        <i class="fas fa-question-circle"></i>
+                        <span>سوالات</span>
+                    </a>
+                    <a href="#pricing" onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                        <i class="fas fa-tag"></i>
+                        <span>تعرفه‌ها</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-4 overflow-hidden">
+        <div class="container-adaptive text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/80 backdrop-blur border border-blue-100 text-blue-700 text-sm font-semibold mb-8 animate-float shadow-lg">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span>در حال پذیرش هنرجوی جدید</span>
+            </div>
+            
+            <h1 class="heading-hero font-black mb-6 text-gray-900 reveal">
+                جامع‌ترین <span class="text-gradient">منتورینگ</span><br>
+                <span class="relative inline-block">
+                    معامله‌گری ARQ
+                    <svg class="absolute -bottom-2 left-0 w-full h-3 text-blue-200 -z-10 hidden sm:block" viewBox="0 0 200 9" fill="none">
+                        <path d="M2.00025 6.99997C25.7509 9.37499 83.5523 0.483221 198.002 2.48465" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </h1>
+            
+            <p class="text-lg md:text-xl lg:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed reveal" style="transition-delay: 0.1s">
+                از <span class="text-blue-600 font-bold bg-blue-50 px-2 py-1 rounded-lg">Smart Money Concepts</span> تا <span class="text-purple-600 font-bold bg-purple-50 px-2 py-1 rounded-lg">ICT</span> با دیدگاه <span class="text-amber-600 font-bold bg-amber-50 px-2 py-1 rounded-lg">ذهنیت قیمت</span>
+                <br class="hidden sm:block">
+                <span class="text-base md:text-lg mt-4 block">پلن معاملاتی اختصاصی + همراهی تا پاس کردن پراپ</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12 reveal" style="transition-delay: 0.2s">
+                <a href="https://t.me/ARQ_FX" target="_blank" class="btn-premium px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3">
+                    <i class="fab fa-telegram text-2xl"></i>
+                    <span>شروع یادگیری</span>
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <a href="#features" class="btn-secondary px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2">
+                    <span>مشاهده جزئیات</span>
+                    <i class="fas fa-chevron-down animate-bounce"></i>
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 max-w-4xl mx-auto reveal" style="transition-delay: 0.3s">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                    <div class="text-center">
+                        <div class="counter mb-2" data-target="500">0</div>
+                        <div class="text-sm text-gray-500 font-medium">هنرجوی موفق</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="counter mb-2" data-target="9">0</div>
+                        <div class="text-sm text-gray-500 font-medium">سال تجربه</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-black text-amber-500 mb-2">100%</div>
+                        <div class="text-sm text-gray-500 font-medium">ستاپ اختصاصی</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-black text-green-500 mb-2">24/7</div>
+                        <div class="text-sm text-gray-500 font-medium">پشتیبانی</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 md:py-24 px-4 relative">
+        <div class="container-adaptive">
+            <div class="text-center mb-12 md:mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-bold mb-4">
+                    <i class="fas fa-sparkles"></i>
+                    <span>محوریت آموزش</span>
+                </div>
+                <h2 class="heading-section font-black mb-4 text-gray-900">
+                    آموزش بر مبنای <span class="text-gradient">SMC و ICT</span>
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">با دیدگاه ذهنیت قیمت و رویکرد شخصی‌سازی‌شده</p>
+            </div>
+
+            <div class="grid-features">
+                <div class="feature-card reveal" style="transition-delay: 0.1s">
+                    <div class="feature-icon bg-blue-100 text-blue-600 mb-4 md:mb-6">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="heading-card font-bold mb-3 text-gray-900">ذهنیت قیمت</h3>
+                    <p class="text-body text-gray-600 flex-grow">آموزش Smart Money Concepts و ICT با رویکرد شخصی‌سازی‌شده و دیدگاه منحصربه‌فرد ARQ</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.2s">
+                    <div class="feature-icon bg-purple-100 text-purple-600 mb-4 md:mb-6">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h3 class="heading-card font-bold mb-3 text-gray-900">پلن معاملاتی</h3>
+                    <p class="text-body text-gray-600 flex-grow">طراحی پلن کاملاً شخصی‌سازی‌شده متناسب با تیپ شخصیتی: اسکلپر یا سوینگ تریدر</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.3s">
+                    <div class="feature-icon bg-green-100 text-green-600 mb-4 md:mb-6">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="heading-card font-bold mb-3 text-gray-900">ستاپ‌های الگوریتمی</h3>
+                    <p class="text-body text-gray-600 flex-grow">ترکیب دیدگاه تحلیل‌محور و الگوریتم‌محور با ستاپ‌های اختصاصی ورود و ترپ تریدینگ</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.1s">
+                    <div class="feature-icon bg-amber-100 text-amber-600 mb-4 md:mb-6">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="heading-card font-bold mb-3 text-gray-900">بک‌تست سطح‌بندی</h3>
+                    <p class="text-body text-gray-600 flex-grow">سیستم بک‌تست چندفازی و سطح‌بندی‌شده برای اطمینان از تسلط قبل ورود به بازار</p>
+                </div>
+
+                <div class="feature-card reveal" style="transition-delay: 0.2s">
+                    <div class="feature-icon bg-red-100 text-red-600 mb-4 md:mb-6">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="heading-card font-bold mb-3 text-gray-900">اتاق لایو ترید</h3>
+                    <p class="text-body text-gray-600 flex-grow">اجرای لایو تمام آموزه‌ها روی چارت به‌صورت عملی و real-time</p>
+                </div>
+
+                <div class="feature-card border-2 border-amber-200 bg-amber-50/50 reveal" style="transition-delay: 0.3s">
+                    <div class="feature-icon bg-amber-200 text-amber-700 mb-4 md:mb-6">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="heading-card font-bold mb-3 text-amber-700">همراهی تا پراپ</h3>
+                    <p class="text-body text-gray-700 flex-grow">همراهی مداوم منتور تا پاس کردن اکانت پراپ و ورود به تیم معاملاتی ARQ</p>
+                </div>
+            </div>
+
+            <!-- Key Point -->
+            <div class="mt-12 md:mt-16 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-3xl p-6 md:p-10 border border-blue-100 reveal">
+                <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl md:text-3xl flex-shrink-0 shadow-xl shadow-blue-500/30 animate-float">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl md:text-2xl font-black mb-3 text-gray-900">نکته کلیدی</h3>
+                        <p class="text-gray-700 text-base md:text-lg leading-relaxed">
+                            در این کوچینگ، شما <span class="text-blue-600 font-bold bg-white px-2 py-1 rounded-lg shadow-sm">صرفاً مفاهیم یاد نمی‌گیرید</span>، بلکه یک 
+                            <span class="text-amber-600 font-bold bg-white px-2 py-1 rounded-lg shadow-sm">پلن معاملاتی کامل</span> دریافت می‌کنید. 
+                            از زمان باز کردن چارت تا اتمام معامله، همه‌چیز در پلن شما تعریف شده است.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Content -->
+    <section class="py-16 md:py-24 px-4 bg-white relative overflow-hidden">
+        <div class="container-adaptive relative z-10">
+            <div class="text-center mb-12 md:mb-16 reveal">
+                <h2 class="heading-section font-black mb-4 text-gray-900">بخش‌بندی <span class="text-gradient">مطالب</span></h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 md:gap-6">
+                <div class="group bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 reveal" style="transition-delay: 0.1s">
+                    <div class="flex items-center gap-4 md:gap-5 mb-4">
+                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl md:text-2xl font-black shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-all duration-500 flex-shrink-0">01</div>
+                        <h3 class="text-lg md:text-2xl font-bold text-gray-900">ذهنیت قیمت</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">تجزیه و تحلیل چارت با دیدگاه SMC و ICT + شناخت رفتار قیمت و ساختار بازار</p>
+                </div>
+
+                <div class="group bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-purple-200 transition-all duration-500 reveal" style="transition-delay: 0.2s">
+                    <div class="flex items-center gap-4 md:gap-5 mb-4">
+                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white text-xl md:text-2xl font-black shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-all duration-500 flex-shrink-0">02</div>
+                        <h3 class="text-lg md:text-2xl font-bold text-gray-900">سیستم معاملاتی</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">ستاپ‌های ورود اختصاصی با الگوریتم‌های شخصی‌سازی‌شده و ترپ تریدینگ</p>
+                </div>
+
+                <div class="group bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-green-200 transition-all duration-500 reveal" style="transition-delay: 0.1s">
+                    <div class="flex items-center gap-4 md:gap-5 mb-4">
+                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white text-xl md:text-2xl font-black shadow-lg shadow-green-500/30 group-hover:scale-110 transition-all duration-500 flex-shrink-0">03</div>
+                        <h3 class="text-lg md:text-2xl font-bold text-gray-900">بک‌تست سطح‌بندی‌شده</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">تمرینات چندفازی برای تسلط کامل قبل از ورود به بازار واقعی</p>
+                </div>
+
+                <div class="group bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-amber-200 transition-all duration-500 reveal" style="transition-delay: 0.2s">
+                    <div class="flex items-center gap-4 md:gap-5 mb-4">
+                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-xl md:text-2xl font-black shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-all duration-500 flex-shrink-0">04</div>
+                        <h3 class="text-lg md:text-2xl font-bold text-gray-900">مدیریت سرمایه</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">روانشناسی معامله‌گری و مدیریت ریسک برای پاس کردن پراپ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Path Section -->
+    <section id="path" class="py-16 md:py-24 px-4 relative">
+        <div class="container-adaptive">
+            <div class="text-center mb-12 md:mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 text-sm font-bold mb-4 border border-blue-100">
+                    <i class="fas fa-route"></i>
+                    <span>ROADMAP</span>
+                </div>
+                <h2 class="heading-section font-black mb-4 text-gray-900">مسیر شما بعد از <span class="text-gradient">ثبت‌نام</span></h2>
+                <p class="text-gray-600 text-lg">هر قدم، بعد از تسلط واقعی روی قدم قبل</p>
+            </div>
+
+            <div class="space-y-8 md:space-y-10 max-w-3xl mx-auto">
+                <div class="step-card reveal">
+                    <div class="step-line"></div>
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="text-lg md:text-xl font-bold mb-3 text-blue-600 flex items-center gap-2">
+                            <i class="fas fa-door-open"></i>
+                            ورود به اکوسیستم ARQ
+                        </h3>
+                        <ul class="space-y-2 md:space-y-3 text-gray-600 text-sm md:text-base">
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-check-circle text-green-500"></i> اضافه شدن به کانال‌های اختصاصی</li>
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-check-circle text-green-500"></i> ارتباط مستقیم با اکانت پشتیبانی</li>
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-check-circle text-green-500"></i> دسترسی به منابع ذهنیتی و ساختاری</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.1s">
+                    <div class="step-line"></div>
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="text-lg md:text-xl font-bold mb-3 text-purple-600 flex items-center gap-2">
+                            <i class="fas fa-id-card"></i>
+                            ثبت‌نام در سایت و فعال‌سازی لایسنس
+                        </h3>
+                        <p class="text-gray-600 mb-4 text-sm md:text-base">از این لحظه، مسیر آموزشی شما کاملاً قابل پیگیری و شفاف می‌شه.</p>
+                        <a href="https://ARQtrading.ir/" target="_blank" class="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-3 transition-all text-sm md:text-base">
+                            <span>ورود به سایت ARQ</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.2s">
+                    <div class="step-line"></div>
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="text-lg md:text-xl font-bold mb-3 text-green-600 flex items-center gap-2">
+                            <i class="fas fa-graduation-cap"></i>
+                            آموزش + آزمون
+                        </h3>
+                        <p class="text-gray-600 mb-4 text-sm md:text-base">بعد از پایان هر بخش، آزمون فعال می‌شه. فقط با نمره بالای ۷۰٪ وارد مرحله بعد می‌شید.</p>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-green-50 border border-green-200">
+                            <div class="text-3xl md:text-4xl font-black text-green-600">70%</div>
+                            <div class="text-gray-600 text-sm md:text-base">نمره قبولی برای ورود به مرحله بعد</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.3s">
+                    <div class="step-line"></div>
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="text-lg md:text-xl font-bold mb-3 text-amber-600 flex items-center gap-2">
+                            <i class="fas fa-users"></i>
+                            جلسات آنلاین اختصاصی
+                        </h3>
+                        <div class="grid sm:grid-cols-2 gap-3 md:gap-4">
+                            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
+                                <div class="font-bold text-gray-900 mb-1 flex items-center gap-2 text-sm md:text-base"><i class="fas fa-video text-amber-500"></i> جلسه اول</div>
+                                <div class="text-xs md:text-sm text-gray-600">پس از اتمام ذهنیت قیمت</div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+                                <div class="font-bold text-gray-900 mb-1 flex items-center gap-2 text-sm md:text-base"><i class="fas fa-video text-blue-500"></i> جلسه دوم</div>
+                                <div class="text-xs md:text-sm text-gray-600">پس از بک‌تست سطح‌بندی‌شده</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.4s">
+                    <div class="step-line"></div>
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="text-lg md:text-xl font-bold mb-3 text-pink-600 flex items-center gap-2">
+                            <i class="fas fa-clipboard-check"></i>
+                            بک‌تست و تأیید نهایی
+                        </h3>
+                        <ul class="space-y-2 md:space-y-3 text-gray-600 text-sm md:text-base">
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-check-circle text-pink-500"></i> اجرای بک‌تست چندفازی</li>
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-check-circle text-pink-500"></i> بررسی نتایج توسط منتور</li>
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-check-circle text-pink-500"></i> تأیید ساختار ذهنی و اجرایی</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-card reveal" style="transition-delay: 0.5s">
+                    <div class="step-number text-white bg-gradient-to-br from-amber-400 to-orange-500 border-none">6</div>
+                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl md:rounded-3xl p-6 md:p-8 border-2 border-amber-300 shadow-xl shadow-amber-500/10">
+                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-amber-700 flex items-center gap-2 md:gap-3">
+                            <i class="fas fa-crown text-amber-500"></i>
+                            ورود به تیم معاملاتی ARQ
+                        </h3>
+                        <ul class="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-star text-amber-500"></i> شروع اجرای واقعی در محیط حرفه‌ای</li>
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-star text-amber-500"></i> حرکت به سمت پاس کردن پراپ</li>
+                            <li class="flex items-center gap-2 md:gap-3"><i class="fas fa-star text-amber-500"></i> همراهی مداوم منتور</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 md:mt-16 p-6 md:p-8 rounded-2xl md:rounded-3xl bg-gray-50 border border-gray-200 text-center reveal">
+                <p class="text-gray-700 text-base md:text-lg italic leading-relaxed">
+                    "این مسیر طوری طراحی شده که: یا رشد کنی و جلو بری، یا متوجه بشی کجای مسیر نیاز به اصلاح داری — <span class="text-blue-600 font-bold bg-white px-2 py-1 rounded-lg shadow-sm">بدون خودفریبی</span>."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 md:py-24 px-4 bg-white relative">
+        <div class="container-adaptive">
+            <div class="text-center mb-12 md:mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 text-purple-700 text-sm font-bold mb-4 border border-purple-200">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </div>
+                <h2 class="heading-section font-black mb-4 text-gray-900">سوالات <span class="text-gradient">متداول</span></h2>
+                <p class="text-gray-600 text-lg">پاسخ به پرسش‌های رایج شما</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item reveal" style="transition-delay: 0.1s">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <div class="flex items-center gap-4">
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <span class="font-bold text-gray-900 text-base md:text-lg">بعد از آموزش چقدر به تمرین نیاز داریم؟</span>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <div class="faq-badge">
+                                <i class="fas fa-check-circle"></i>
+                                پاسخ
+                            </div>
+                            <p class="text-gray-600 leading-relaxed">
+                                میانگین زمان لازم برای انتقال کامل مطالب پلن به شما بین <strong class="text-blue-600">سه هفته تا یک ماه</strong> است. پس از آن، بسته به زمانی که می‌گذارید و همراهی با تیم ARQ، رشد شما ادامه خواهد داشت.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item reveal" style="transition-delay: 0.15s">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <div class="flex items-center gap-4">
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <span class="font-bold text-gray-900 text-base md:text-lg">ورودها فقط در تایم ۱۵ ثانیه انجام می‌شود؟</span>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <div class="faq-badge">
+                                <i class="fas fa-check-circle"></i>
+                                پاسخ
+                            </div>
+                            <p class="text-gray-600 leading-relaxed">
+                                ستاپ‌های معاملاتی <strong class="text-purple-600">الگوریتم‌محور</strong> هستند و تریگرهای ورود می‌توانند از تایم <strong>۱۵ ثانیه</strong> تا <strong>۱ دقیقه، ۵ دقیقه، ۱۵ دقیقه</strong> و حتی <strong>۱ ساعته</strong> کاستومایز شوند.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item reveal" style="transition-delay: 0.2s">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <div class="flex items-center gap-4">
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <span class="font-bold text-gray-900 text-base md:text-lg">آیا فقط روی یک نماد خاص کار می‌کند؟</span>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <div class="faq-badge">
+                                <i class="fas fa-check-circle"></i>
+                                پاسخ
+                            </div>
+                            <p class="text-gray-600 leading-relaxed">
+                                پلن معاملاتی به‌گونه‌ای طراحی شده که حتی می‌توانید از آن در چارچوب <strong class="text-green-600">۱۵ دقیقه‌ای بورس ایران</strong> استفاده کنید. تحلیل و بررسی در <strong>هر چارتی</strong> قابل اجراست.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item reveal" style="transition-delay: 0.25s">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <div class="flex items-center gap-4">
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <span class="font-bold text-gray-900 text-base md:text-lg">برگزاری جلسات به چه صورت است؟</span>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <div class="faq-badge">
+                                <i class="fas fa-check-circle"></i>
+                                پاسخ
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                جلسات به صورت <strong class="text-amber-600">فلوچارت‌بندی‌شده و بخش‌بندی‌شده</strong> پیش می‌روند. معمولاً <strong>هفته‌ای یک جلسه آنلاین</strong> به همراه یک بخش آفلاین برگزار می‌شود.
+                            </p>
+                            <div class="bg-gray-50 rounded-xl p-4 space-y-2 text-sm">
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>کوچینگ به صورت آنلاین و آفلاین انجام می‌شود</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>ابتدا مطالب بخش‌بندی‌شده را تا سرفصل مشخص‌شده توسط منتور تماشا می‌کنید</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>رفع اشکال کلی بخش مشخص‌شده توسط منتور در جلسه آنلاین انجام می‌شود</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>جلسات به همین ترتیب تا اتمام مطالب ادامه می‌یابند</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>ادامه‌ی رفع اشکال توسط منتور به‌صورت مستقیم انجام می‌شود</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-check text-green-500 mt-1"></i>
+                                    <span>پس از اتمام جلسات، فعالیت شما در گروه و خانواده‌ی ARQ Trading ادامه خواهد داشت</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 md:py-24 px-4 bg-gradient-to-b from-white to-gray-50 relative">
+        <div class="container-adaptive">
+            <div class="text-center mb-12 md:mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 text-amber-700 text-sm font-bold mb-4 border border-amber-200">
+                    <i class="fas fa-tag"></i>
+                    <span>تعرفه‌ها</span>
+                </div>
+                <h2 class="heading-section font-black mb-4 text-gray-900">سرمایه‌گذاری روی <span class="text-gradient">آینده‌ت</span></h2>
+                <p class="text-gray-600 text-lg">مطالب در هر دو دوره یکسان است. تفاوت در تعداد جلسات و زمان همراهی.</p>
+            </div>
+
+            <div class="grid-pricing">
+                <!-- Semi-Private -->
+                <div class="pricing-card p-6 md:p-8 reveal" style="transition-delay: 0.1s">
+                    <div class="text-center mb-6 md:mb-8">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-bold mb-4">
+                            <i class="fas fa-users"></i>
+                            <span>نیمه‌خصوصی</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-black mb-2 text-gray-900">۱۰ نفره</h3>
+                        <p class="text-gray-500 text-sm md:text-base">۶۰ روزه</p>
+                    </div>
+
+                    <div class="text-center mb-6 md:mb-8">
+                        <div class="flex items-center justify-center gap-3 mb-2">
+                            <span class="text-gray-400 line-through text-lg">۲۵۰$</span>
+                        </div>
+                        <div class="text-5xl md:text-6xl font-black text-gray-900">۲۰۰$</div>
+                    </div>
+
+                    <ul class="space-y-3 md:space-y-4 mb-6 md:mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>دسترسی به تمام محتوا</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>عضویت در کانال Mindset Price</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>پشتیبانی گروهی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-green-500 text-lg"></i>
+                            <span>۲ جلسه آنلاین گروهی</span>
+                        </li>
+                    </ul>
+
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="block w-full py-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-center transition-all text-base md:text-lg">
+                        ثبت‌نام نیمه‌خصوصی
+                    </a>
+                </div>
+
+                <!-- Private -->
+                <div class="pricing-card featured p-6 md:p-8 reveal" style="transition-delay: 0.2s">
+                    <div class="pricing-badge">پرفروش‌ترین</div>
+                    <div class="text-center mb-6 md:mb-8">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-700 text-sm font-bold mb-4">
+                            <i class="fas fa-crown"></i>
+                            <span>خصوصی</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-black mb-2 text-gray-900">تک‌نفره</h3>
+                        <p class="text-gray-500 text-sm md:text-base">۹۰ روزه</p>
+                    </div>
+
+                    <div class="text-center mb-6 md:mb-8">
+                        <div class="flex items-center justify-center gap-3 mb-2">
+                            <span class="text-gray-400 line-through text-lg">۱۲۰۰$</span>
+                        </div>
+                        <div class="text-5xl md:text-6xl font-black text-amber-600">۷۰۰$</div>
+                    </div>
+
+                    <ul class="space-y-3 md:space-y-4 mb-6 md:mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-gray-800 p-3 rounded-xl bg-amber-50 border border-amber-100 text-sm md:text-base">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span class="font-bold text-amber-700">همراهی تا پاس کردن پراپ</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>۲۲ جلسه آنلاین اختصاصی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>پشتیبانی ۲۴/۷ اختصاصی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>پلن معاملاتی کاملاً شخصی‌سازی</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-3 rounded-xl bg-gray-50 text-sm md:text-base">
+                            <i class="fas fa-check text-amber-500 text-lg"></i>
+                            <span>دسترسی مادام‌العمر به آپدیت‌ها</span>
+                        </li>
+                    </ul>
+
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="block w-full py-4 rounded-xl btn-premium text-white font-bold text-center text-base md:text-lg shadow-xl shadow-blue-500/30">
+                        ثبت‌نام خصوصی
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gift -->
+            <div class="mt-8 md:mt-12 bg-white rounded-2xl md:rounded-3xl p-4 md:p-6 max-w-2xl mx-auto shadow-lg border border-amber-200 flex flex-col sm:flex-row items-center gap-4 md:gap-6 reveal">
+                <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-xl md:text-2xl shadow-lg shadow-amber-500/30 animate-float flex-shrink-0">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="text-center sm:text-right">
+                    <h4 class="font-bold text-amber-700 text-base md:text-lg mb-1">هدیه ویژه دوره</h4>
+                    <p class="text-gray-600 text-sm md:text-base">عضویت در تیم معاملاتی ARQ + دسترسی به تاپیک‌های مهم + کانال Mindset Price</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 md:py-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600"></div>
+        <div class="absolute inset-0 opacity-20">
+            <canvas id="cta-canvas"></canvas>
+        </div>
+        <div class="container-adaptive text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 text-white reveal">
+                آماده‌ای <span class="text-amber-300">حرفه‌ای</span> بشی؟
+            </h2>
+            <p class="text-base md:text-lg lg:text-xl text-blue-100 mb-8 md:mb-10 reveal" style="transition-delay: 0.1s">همین حالا اولین قدم رو بردار. منتور ARQ منتظر توئه.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay: 0.2s">
+                <a href="https://t.me/ARQ_FX" target="_blank" class="bg-white text-blue-600 px-8 md:px-10 py-4 md:py-5 rounded-2xl font-bold text-lg md:text-xl flex items-center justify-center gap-3 shadow-2xl hover:scale-105 transition-transform">
+                    <i class="fab fa-telegram text-2xl"></i>
+                    <span>شروع ثبت‌نام</span>
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <a href="https://t.me/ARQPPT" target="_blank" class="bg-white/10 backdrop-blur text-white px-8 md:px-10 py-4 md:py-5 rounded-2xl font-bold text-base md:text-lg flex items-center justify-center gap-2 border-2 border-white/30 hover:bg-white/20 transition-all">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>مشاهده نتایج</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8 md:py-12 px-4">
+        <div class="container-adaptive">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg">
+                        ARQ
+                    </div>
+                    <div>
+                        <div class="font-black text-gray-900 text-base md:text-lg">ARQ Trading</div>
+                        <div class="text-xs md:text-sm text-gray-500">Professional Trading Mentorship</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 md:gap-6">
+                    <a href="https://t.me/ARQ_FX" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-500 hover:text-white transition-all hover:scale-110">
+                        <i class="fab fa-telegram text-lg md:text-xl"></i>
+                    </a>
+                    <a href="https://t.me/ARQPPT" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-amber-500 hover:text-white transition-all hover:scale-110">
+                        <i class="fas fa-chart-line text-lg md:text-xl"></i>
+                    </a>
+                    <a href="https://ARQtrading.ir/" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-purple-500 hover:text-white transition-all hover:scale-110">
+                        <i class="fas fa-globe text-lg md:text-xl"></i>
+                    </a>
+                </div>
+
+                <div class="text-gray-500 text-xs md:text-sm font-medium text-center md:text-right">
+                    © 2024 ARQ Trading. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Price Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>EUR/USD 1.0845 ▲ 0.25%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>GBP/USD 1.2630 ▼ 0.12%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>USD/JPY 149.20 ▲ 0.45%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>XAU/USD 2035.50 ▲ 0.80%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>BTC/USD 42500 ▼ 1.20%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>EUR/USD 1.0845 ▲ 0.25%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>GBP/USD 1.2630 ▼ 0.12%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>USD/JPY 149.20 ▲ 0.45%</div>
+            <div class="ticker-item ticker-up"><i class="fas fa-chart-line ml-2"></i>XAU/USD 2035.50 ▲ 0.80%</div>
+            <div class="ticker-item ticker-down"><i class="fas fa-chart-line ml-2"></i>BTC/USD 42500 ▼ 1.20%</div>
+        </div>
+    </div>
+
+    <script>
+        // Organic Flowing Background
+        const canvas = document.getElementById('organic-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class FlowParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.life = 0;
+                this.maxLife = Math.random() * 200 + 100;
+                this.opacity = 0;
+                this.hue = Math.random() * 60 + 200;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life++;
+                
+                if (this.life < 50) {
+                    this.opacity = this.life / 50 * 0.3;
+                } else if (this.life > this.maxLife - 50) {
+                    this.opacity = (this.maxLife - this.life) / 50 * 0.3;
+                }
+                
+                if (this.life >= this.maxLife) {
+                    this.reset();
+                }
+                
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particles = [];
+            const particleCount = window.innerWidth < 768 ? 40 : 80;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new FlowParticle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.1 * (1 - dist/150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            init();
+        });
+
+        resize();
+        init();
+        animate();
+
+        // CTA Canvas
+        const ctaCanvas = document.getElementById('cta-canvas');
+        if (ctaCanvas) {
+            const ctaCtx = ctaCanvas.getContext('2d');
+            let ctaWidth, ctaHeight;
+            
+            function resizeCta() {
+                ctaWidth = ctaCanvas.width = ctaCanvas.offsetWidth;
+                ctaHeight = ctaCanvas.height = ctaCanvas.offsetHeight;
+            }
+            
+            const ctaParticles = [];
+            for (let i = 0; i < 30; i++) {
+                ctaParticles.push({
+                    x: Math.random() * 1000,
+                    y: Math.random() * 500,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 4 + 2
+                });
+            }
+            
+            function animateCta() {
+                ctaCtx.clearRect(0, 0, ctaWidth, ctaHeight);
+                
+                ctaParticles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > ctaWidth) p.vx *= -1;
+                    if (p.y < 0 || p.y > ctaHeight) p.vy *= -1;
+                    
+                    ctaCtx.beginPath();
+                    ctaCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctaCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctaCtx.fill();
+                });
+                
+                requestAnimationFrame(animateCta);
+            }
+            
+            resizeCta();
+            animateCta();
+            window.addEventListener('resize', resizeCta);
+        }
+
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                faq.classList.remove('active');
+            });
+            
+            // Toggle current
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + "+";
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    if (entry.target.classList.contains('counter')) {
+                        animateCounters();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        counters.forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            html.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        })();
+
+        // Navbar effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Touch device detection
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            document.body.classList.add('touch-device');
+        }
+    </script>
+</body>
+</html>
