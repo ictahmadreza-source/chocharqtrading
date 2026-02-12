@@ -1,1 +1,352 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وبلاگ ARQ Trading - احمد | آموزش معامله‌گری حرفه‌ای ICT و SMC</title>
+    <meta name="description" content="وبلاگ آموزشی ARQ Trading توسط احمد - آموزش کامل معامله‌گری با رویکرد Smart Money Concepts و ICT. کوچینگ حرفه‌ای، دوره‌های رایگان و مسیر کامل تا پاس کردن پراپ.">
+    <meta name="keywords" content="ARQ Trading, ای آر کیو, احمد معامله‌گر, کوچینگ معامله‌گری, آموزش ICT, Smart Money Concepts, SMC, آموزش فارکس, پراپ فرم, prop firm, معامله‌گری حرفه‌ای, تحلیل تکنیکال">
+    <meta name="author" content="احمد - ARQ Trading">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.arqcoaching.ir/blog">
+    <meta property="og:title" content="وبلاگ ARQ Trading - احمد | آموزش معامله‌گری حرفه‌ای">
+    <meta property="og:description" content="آموزش کامل معامله‌گری با رویکرد Smart Money Concepts و ICT توسط احمد">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="وبلاگ ARQ Trading - احمد">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.arqcoaching.ir/blog">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "وبلاگ ARQ Trading",
+      "description": "آموزش معامله‌گری حرفه‌ای با رویکرد Smart Money Concepts",
+      "url": "https://www.arqcoaching.ir/blog",
+      "author": {
+        "@type": "Person",
+        "name": "احمد",
+        "jobTitle": "معامله‌گر حرفه‌ای و مربی معامله‌گری"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ARQ Trading",
+        "url": "https://www.arqcoaching.ir"
+      }
+    }
+    </script>
+    
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --bg: #fafbff;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
 
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .article-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(71, 85, 105, 0.3);
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.3;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        [data-theme="dark"] .bg-white {
+            background-color: rgba(30, 41, 59, 0.6) !important;
+        }
+
+        [data-theme="dark"] .bg-gray-50 {
+            background-color: rgba(15, 23, 42, 0.5) !important;
+        }
+
+        [data-theme="dark"] .border-gray-200 {
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 py-4">
+        <div class="container">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-white text-lg">
+                        ARQ
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-gray-900">ARQ Trading</div>
+                        <div class="text-xs text-gray-500">وبلاگ آموزشی</div>
+                    </div>
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="/" class="text-sm font-medium text-gray-600 hover:text-blue-600">خانه</a>
+                    <a href="/coaching" class="text-sm font-medium text-gray-600 hover:text-blue-600">کوچینگ</a>
+                    <a href="/guide" class="text-sm font-medium text-gray-600 hover:text-blue-600">راهنما</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-20">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/">خانه</a>
+                <i class="fas fa-chevron-left text-xs"></i>
+                <span>وبلاگ</span>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-black mb-6 text-gray-900">
+                    وبلاگ <span class="text-gradient">ARQ Trading</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                    آموزش معامله‌گری حرفه‌ای با رویکرد <strong>Smart Money Concepts</strong> و <strong>ICT</strong> توسط <strong class="text-blue-600">احمد</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-8 md:py-12">
+        <div class="container">
+            <div class="max-w-5xl mx-auto">
+
+                <!-- About Ahmad & ARQ Philosophy -->
+                <article class="article-card mb-8 p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-black mb-4 text-gray-900">
+                        <i class="fas fa-user-circle text-blue-600 ml-2"></i>
+                        معرفی احمد و فلسفه ARQ Trading
+                    </h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            سلام، من <strong>احمد</strong> هستم، بنیان‌گذار <strong>ARQ Trading</strong> (ای‌آر‌کیو). بیش از چند سال است که در حوزه معامله‌گری فعالیت می‌کنم و تصمیم گرفتم تجربیات و دانش خودم رو به صورت کاملاً <strong>رایگان</strong> در اختیار علاقه‌مندان قرار بدم.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            <strong>ARQ</strong> مخفف <em>Analysis, Risk, Quality</em> هست - سه ستون اصلی معامله‌گری حرفه‌ای. فلسفه من ساده است: <strong class="text-blue-600">یاد بگیر، تمرین کن، حرفه‌ای شو</strong>.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            در ARQ Trading، ما بر اساس <strong>Smart Money Concepts (SMC)</strong> و <strong>ICT (Inner Circle Trader)</strong> آموزش می‌دیم. این رویکرد به شما کمک می‌کنه تا بازار رو از دیدگاه نهنگ‌ها و موسسات بزرگ ببینید، نه خرده‌معامله‌گران.
+                        </p>
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="/coaching" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>کوچینگ حرفه‌ای ARQ</span>
+                        </a>
+                        <a href="/" class="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-200 transition">
+                            <i class="fas fa-book-open"></i>
+                            <span>دوره‌های رایگان</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Educational Path -->
+                <article class="article-card mb-8 p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-black mb-4 text-gray-900">
+                        <i class="fas fa-route text-purple-600 ml-2"></i>
+                        مسیر آموزشی ARQ: از صفر تا حرفه‌ای
+                    </h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            یکی از سوالات پرتکرار این است: <strong>"از کجا شروع کنم؟"</strong> در ARQ Trading، ما یک مسیر کاملاً ساختاریافته طراحی کردیم که شما رو از مبتدی به یک معامله‌گر حرفه‌ای تبدیل می‌کنه.
+                        </p>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">بخش اول: آموزش‌های رایگان</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <div>
+                                    <strong>کورس مافیا آنالیز (17 جلسه):</strong> آموزش کامل تحلیل تکنیکال پیشرفته با رویکرد Smart Money
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <div>
+                                    <strong>کورس ذهنیت قیمت (19 جلسه):</strong> درک عمیق رفتار قیمت و روانشناسی بازار
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <div>
+                                    <strong>کورس ARQ FLOW (12 جلسه):</strong> سیستم معاملاتی کامل از ورود تا خروج
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <div>
+                                    <strong>شروع و ذهنیت ساخت پلن:</strong> اولین قدم برای ورود به دنیای معامله‌گری
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="bg-blue-50 border-r-4 border-blue-500 p-4 rounded-lg mt-6">
+                            <p class="text-gray-700">
+                                <i class="fas fa-info-circle text-blue-600 ml-2"></i>
+                                <strong>نکته مهم:</strong> تمام این دوره‌ها کاملاً رایگان هستند و در <a href="https://t.me/ARQtrading" target="_blank" class="text-blue-600 font-bold hover:underline">کانال تلگرام ARQ Trading</a> قرار دارند.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ARQ Coaching -->
+                <article class="article-card mb-8 p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-black mb-4 text-gray-900">
+                        <i class="fas fa-user-tie text-amber-600 ml-2"></i>
+                        کوچینگ حرفه‌ای ARQ با احمد
+                    </h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            اگر می‌خواهید سریع‌تر و با همراهی مستقیم من (<strong>احمد</strong>) به یک معامله‌گر حرفه‌ای تبدیل بشید، <strong>کوچینگ ARQ</strong> برای شماست.
+                        </p>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">در کوچینگ ARQ چه می‌آموزید؟</h3>
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                                <h4 class="font-bold text-gray-900 mb-2">
+                                    <i class="fas fa-brain text-purple-600 ml-2"></i>
+                                    ذهنیت قیمت
+                                </h4>
+                                <p class="text-sm text-gray-600">آموزش SMC و ICT با رویکرد شخصی‌سازی‌شده</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-bold text-gray-900 mb-2">
+                                    <i class="fas fa-chess-knight text-blue-600 ml-2"></i>
+                                    پلن معاملاتی اختصاصی
+                                </h4>
+                                <p class="text-sm text-gray-600">طراحی پلن کاملاً شخصی متناسب با شما</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                                <h4 class="font-bold text-gray-900 mb-2">
+                                    <i class="fas fa-robot text-green-600 ml-2"></i>
+                                    ستاپ‌های الگوریتمی
+                                </h4>
+                                <p class="text-sm text-gray-600">ستاپ‌های اختصاصی ورود و ترپ تریدینگ</p>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                                <h4 class="font-bold text-gray-900 mb-2">
+                                    <i class="fas fa-trophy text-amber-600 ml-2"></i>
+                                    همراهی تا پراپ
+                                </h4>
+                                <p class="text-sm text-gray-600">همراهی مداوم تا پاس کردن اکانت پراپ</p>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            در کوچینگ، شما <strong class="text-blue-600">صرفاً مفاهیم یاد نمی‌گیرید</strong>، بلکه یک <strong class="text-amber-600">پلن معاملاتی کامل</strong> دریافت می‌کنید که از زمان باز کردن چارت تا اتمام معامله، همه‌چیز در آن تعریف شده است.
+                        </p>
+
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-200 mt-6">
+                            <h4 class="font-bold text-gray-900 mb-3 text-lg">
+                                <i class="fas fa-star text-amber-500 ml-2"></i>
+                                مسیر کوچینگ ARQ
+                            </h4>
+                            <ol class="space-y-2 text-gray-700">
+                                <li><strong>1.</strong> ورود به اکوسیستم ARQ و دسترسی به منابع اختصاصی</li>
+                                <li><strong>2.</strong> ثبت‌نام در سایت و فعال‌سازی لایسنس</li>
+                                <li><strong>3.</strong> آموزش + آزمون (نمره بالای 70% برای ورود به مرحله بعد)</li>
+                                <li><strong>4.</strong> جلسات آنلاین اختصاصی با احمد</li>
+                                <li><strong>5.</strong> بک‌تست سطح‌بندی‌شده و تأیید نهایی</li>
+                                <li><strong>6.</strong> ورود به تیم معاملاتی ARQ و حرکت به سمت پراپ</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="/coaching" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl transition">
+                                <i class="fas fa-rocket"></i>
+                                <span>شروع کوچینگ با احمد</span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Student Results -->
