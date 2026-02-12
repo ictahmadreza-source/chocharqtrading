@@ -22,6 +22,14 @@
             --border: #e2e8f0;
         }
 
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #334155;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -55,6 +63,403 @@
             line-height: 1.6;
             min-height: 100vh;
             width: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        [data-theme="dark"] .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .nav-glass {
+            background: rgba(15, 23, 42, 0.85) !important;
+            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+        }
+
+        [data-theme="dark"] .feature-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+
+        [data-theme="dark"] .text-gray-900 {
+            color: #f1f5f9 !important;
+        }
+
+        [data-theme="dark"] .text-gray-800 {
+            color: #e2e8f0 !important;
+        }
+
+        [data-theme="dark"] .text-gray-700 {
+            color: #cbd5e1 !important;
+        }
+
+        [data-theme="dark"] .text-gray-600 {
+            color: #94a3b8 !important;
+        }
+
+        [data-theme="dark"] .bg-white {
+            background-color: #1e293b !important;
+        }
+
+        [data-theme="dark"] .bg-gray-50 {
+            background-color: #0f172a !important;
+        }
+
+        [data-theme="dark"] .bg-gray-100 {
+            background-color: #1e293b !important;
+        }
+
+        [data-theme="dark"] .border-gray-200 {
+            border-color: #334155 !important;
+        }
+
+        .theme-toggle {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle i {
+            font-size: 1.125rem;
+            color: var(--text);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(20deg);
+        }
+
+        /* Dark mode styles for FAQ */
+        [data-theme="dark"] .faq-item {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        [data-theme="dark"] .faq-item:hover {
+            border-color: rgba(59, 130, 246, 0.4) !important;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Dark mode for FAQ section background */
+        [data-theme="dark"] #faq {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(30, 41, 59, 0.8) 100%) !important;
+        }
+
+        /* Dark mode for courses section */
+        [data-theme="dark"] #courses {
+            background: rgba(15, 23, 42, 0.3) !important;
+        }
+
+        /* Dark mode for detailed course content section (جلسات دوره‌ها) */
+        [data-theme="dark"] section.bg-gradient-to-b.from-gray-50 {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%) !important;
+        }
+
+        /* Dark mode for "تمام کورس‌ها کامل شده‌اند" box */
+        [data-theme="dark"] .bg-gradient-to-r.from-blue-50 {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%) !important;
+        }
+
+        [data-theme="dark"] .border-blue-100 {
+            border-color: rgba(59, 130, 246, 0.3) !important;
+        }
+
+        /* Dark mode for inline bg-white spans */
+        [data-theme="dark"] span.bg-white {
+            background-color: rgba(51, 65, 85, 0.4) !important;
+        }
+
+        /* Dark mode for course content backgrounds */
+        [data-theme="dark"] #courses .bg-purple-50,
+        [data-theme="dark"] #courses .bg-amber-50,
+        [data-theme="dark"] #courses .bg-blue-50,
+        [data-theme="dark"] #courses .bg-green-50 {
+            background-color: rgba(51, 65, 85, 0.2) !important;
+        }
+
+        /* Dark mode for course section borders */
+        [data-theme="dark"] #courses .border-purple-500,
+        [data-theme="dark"] #courses .border-amber-500,
+        [data-theme="dark"] #courses .border-blue-500,
+        [data-theme="dark"] #courses .border-green-500 {
+            border-color: rgba(139, 92, 246, 0.4) !important;
+        }
+
+        [data-theme="dark"] #courses .border-r-4.border-amber-500 {
+            border-color: rgba(245, 158, 11, 0.4) !important;
+        }
+
+        [data-theme="dark"] #courses .border-r-4.border-blue-500 {
+            border-color: rgba(59, 130, 246, 0.4) !important;
+        }
+
+        [data-theme="dark"] #courses .border-r-4.border-green-500 {
+            border-color: rgba(34, 197, 94, 0.4) !important;
+        }
+
+        /* Dark mode for FAQ glass-cards */
+        [data-theme="dark"] #faq .glass-card {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        [data-theme="dark"] #faq .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4) !important;
+        }
+
+        [data-theme="dark"] #faq button:hover {
+            background: rgba(51, 65, 85, 0.3) !important;
+        }
+
+        [data-theme="dark"] .faq-answer-content {
+            color: #cbd5e1 !important;
+        }
+
+        [data-theme="dark"] .faq-answer {
+            background: rgba(51, 65, 85, 0.3) !important;
+        }
+
+        /* Dark mode for FAQ backgrounds - simplified */
+        [data-theme="dark"] #faq [class*="bg-"][class*="-50"] {
+            background-color: rgba(51, 65, 85, 0.3) !important;
+        }
+
+        [data-theme="dark"] #faq button:hover[class*="hover:bg-"] {
+            background-color: rgba(51, 65, 85, 0.4) !important;
+        }
+
+        [data-theme="dark"] [class*="border-"][class*="-100"] {
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        /* Dark mode styles for session buttons */
+        [data-theme="dark"] .session-btn {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(139, 92, 246, 0.1) 100%) !important;
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+
+        [data-theme="dark"] .session-btn:hover {
+            border-color: rgba(139, 92, 246, 0.6) !important;
+            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.3), 0 10px 10px -5px rgba(139, 92, 246, 0.2) !important;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(139, 92, 246, 0.15) 100%) !important;
+        }
+
+        [data-theme="dark"] .session-btn-amber {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(245, 158, 11, 0.1) 100%) !important;
+            border-color: rgba(245, 158, 11, 0.3) !important;
+        }
+
+        [data-theme="dark"] .session-btn-amber:hover {
+            border-color: rgba(245, 158, 11, 0.6) !important;
+            box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.3), 0 10px 10px -5px rgba(245, 158, 11, 0.2) !important;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(245, 158, 11, 0.15) 100%) !important;
+        }
+
+        [data-theme="dark"] .session-number {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(168, 85, 247, 0.4)) !important;
+            color: #e9d5ff !important;
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.4) !important;
+        }
+
+        [data-theme="dark"] .session-number-amber {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(251, 146, 60, 0.4)) !important;
+            color: #fef3c7 !important;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.4) !important;
+        }
+
+        [data-theme="dark"] .session-icon-btn {
+            background: rgba(51, 65, 85, 0.5) !important;
+            border-color: rgba(71, 85, 105, 0.4) !important;
+        }
+
+        [data-theme="dark"] .session-telegram {
+            color: #60a5fa !important;
+        }
+
+        [data-theme="dark"] .session-telegram-amber {
+            color: #fbbf24 !important;
+        }
+
+        [data-theme="dark"] .session-play {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(168, 85, 247, 0.4)) !important;
+            color: #e9d5ff !important;
+        }
+
+        [data-theme="dark"] .session-play-amber {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(251, 146, 60, 0.4)) !important;
+            color: #fef3c7 !important;
+        }
+
+        [data-theme="dark"] .session-icon-btn:hover {
+            background: rgba(71, 85, 105, 0.6) !important;
+        }
+
+        /* Dark mode for video player and course sections */
+        [data-theme="dark"] .h_iframe-aparat_embed_frame {
+            background-color: rgba(15, 23, 42, 0.8) !important;
+        }
+
+        [data-theme="dark"] #mafia-title,
+        [data-theme="dark"] #price-title {
+            color: #f1f5f9 !important;
+        }
+
+        /* Dark mode for pricing cards */
+        [data-theme="dark"] .pricing-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(71, 85, 105, 0.3);
+        }
+
+        [data-theme="dark"] .pricing-card:hover {
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="dark"] .pricing-card.featured {
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1), 0 30px 60px -15px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Dark mode for feature icons */
+        [data-theme="dark"] .feature-icon {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .bg-purple-100 {
+            background-color: rgba(139, 92, 246, 0.15) !important;
+        }
+
+        [data-theme="dark"] .bg-blue-100 {
+            background-color: rgba(59, 130, 246, 0.15) !important;
+        }
+
+        [data-theme="dark"] .bg-amber-100 {
+            background-color: rgba(245, 158, 11, 0.15) !important;
+        }
+
+        [data-theme="dark"] .bg-green-100 {
+            background-color: rgba(34, 197, 94, 0.15) !important;
+        }
+
+        /* Dark mode for course toggle icon */
+        [data-theme="dark"] .course-toggle-icon {
+            color: inherit !important;
+        }
+
+        /* Dark mode for gray text colors */
+        [data-theme="dark"] .text-gray-500 {
+            color: #94a3b8 !important;
+        }
+
+        [data-theme="dark"] .text-gray-400 {
+            color: #64748b !important;
+        }
+
+        /* Dark mode for hover states */
+        [data-theme="dark"] .hover\:bg-blue-50:hover {
+            background-color: rgba(59, 130, 246, 0.1) !important;
+        }
+
+        [data-theme="dark"] .hover\:text-blue-600:hover {
+            color: #60a5fa !important;
+        }
+
+        [data-theme="dark"] .hover\:bg-purple-50:hover {
+            background-color: rgba(139, 92, 246, 0.1) !important;
+        }
+
+        /* Dark mode for border colors */
+        [data-theme="dark"] .border-gray-100 {
+            border-color: rgba(71, 85, 105, 0.3) !important;
+        }
+
+        [data-theme="dark"] .border-blue-200 {
+            border-color: rgba(59, 130, 246, 0.3) !important;
+        }
+
+        /* Dark mode for FAQ numbered badges */
+        [data-theme="dark"] .faq-item .w-8.h-8 {
+            background-color: rgba(59, 130, 246, 0.2) !important;
+        }
+
+        /* Dark mode for section backgrounds with gradients */
+        [data-theme="dark"] section[class*="from-indigo-50"],
+        [data-theme="dark"] section[class*="from-blue-50"],
+        [data-theme="dark"] section[class*="via-purple-50"] {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.3) 0%, rgba(51, 65, 85, 0.3) 100%) !important;
+        }
+
+        /* Dark mode for coaching section */
+        [data-theme="dark"] .bg-gradient-to-br {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%) !important;
+        }
+
+        [data-theme="dark"] .border-purple-200 {
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+
+        [data-theme="dark"] .bg-purple-50 {
+            background-color: rgba(139, 92, 246, 0.1) !important;
+        }
+
+        [data-theme="dark"] .bg-blue-50 {
+            background-color: rgba(59, 130, 246, 0.1) !important;
+        }
+
+        [data-theme="dark"] .bg-amber-50 {
+            background-color: rgba(245, 158, 11, 0.1) !important;
+        }
+
+        [data-theme="dark"] .bg-green-50 {
+            background-color: rgba(34, 197, 94, 0.1) !important;
+        }
+
+        [data-theme="dark"] .text-purple-600 {
+            color: #c084fc !important;
+        }
+
+        [data-theme="dark"] .text-purple-700 {
+            color: #a78bfa !important;
+        }
+
+        [data-theme="dark"] .text-blue-600 {
+            color: #60a5fa !important;
+        }
+
+        [data-theme="dark"] .text-blue-700 {
+            color: #3b82f6 !important;
+        }
+
+        [data-theme="dark"] .text-amber-600 {
+            color: #fbbf24 !important;
+        }
+
+        [data-theme="dark"] .text-amber-700 {
+            color: #f59e0b !important;
+        }
+
+        [data-theme="dark"] .text-green-600 {
+            color: #4ade80 !important;
+        }
+
+        [data-theme="dark"] .text-green-700 {
+            color: #22c55e !important;
         }
 
         .container-adaptive {
@@ -464,11 +869,31 @@
             max-height: 0;
             overflow: hidden;
             opacity: 0;
-            transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+            transition: max-height 0.25s ease-out, opacity 0.2s ease-out;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .faq-answer.active {
             opacity: 1;
+            will-change: max-height;
+        }
+
+        /* Faster transitions in dark mode */
+        [data-theme="dark"] .faq-answer {
+            transition: max-height 0.2s ease-out, opacity 0.15s ease-out;
+        }
+
+        [data-theme="dark"] .course-content {
+            transition: max-height 0.25s ease, opacity 0.2s ease;
+        }
+
+        /* GPU acceleration for dark mode */
+        [data-theme="dark"] .glass-card,
+        [data-theme="dark"] .session-btn,
+        [data-theme="dark"] .feature-card {
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .faq-answer-content {
@@ -712,11 +1137,12 @@
             max-height: 0;
             overflow: hidden;
             opacity: 0;
-            transition: max-height 0.6s ease, opacity 0.4s ease;
+            transition: max-height 0.3s ease, opacity 0.25s ease;
         }
 
         .course-content.active {
             opacity: 1;
+            will-change: max-height;
         }
 
         /* آیکون چرخش */
@@ -879,8 +1305,13 @@
                 </div>
 
                 <div class="flex items-center gap-2">
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="theme-toggle" title="تغییر تم">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    
                     <!-- Desktop Menu -->
-                    <a href="coaching.html" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">
+                    <a href="/coaching" class="hidden lg:flex px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300">
                         <i class="fas fa-user-tie ml-2"></i>
                         کوچینگ
                     </a>
@@ -908,7 +1339,7 @@
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="lg:hidden hidden bg-white rounded-2xl mt-4 p-4 shadow-xl border border-gray-100">
                 <div class="flex flex-col gap-2">
-                    <a href="coaching.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                    <a href="/coaching" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all">
                         <i class="fas fa-user-tie"></i>
                         <span>کوچینگ</span>
                     </a>
@@ -1036,7 +1467,7 @@
                                 </div>
                             </div>
 
-                            <a href="coaching.html" class="inline-flex items-center gap-3 btn-premium px-8 py-4 rounded-2xl font-bold text-lg shadow-2xl shadow-purple-500/30">
+                            <a href="/coaching" class="inline-flex items-center gap-3 btn-premium px-8 py-4 rounded-2xl font-bold text-lg shadow-2xl shadow-purple-500/30">
                                 <i class="fas fa-graduation-cap text-2xl"></i>
                                 <span>مشاهده جزئیات کوچینگ</span>
                                 <i class="fas fa-arrow-left"></i>
@@ -2648,20 +3079,20 @@
             window.addEventListener('resize', resizeCta);
         }
 
-        // FAQ Toggle
+        // FAQ Toggle - Optimized
         function toggleFaq(button) {
             const item = button.parentElement;
-            const isActive = item.classList.contains('active');
             const icon = button.querySelector('.faq-icon');
-
             const answer = item.querySelector('.faq-answer');
             
-            // Close all other FAQs
-            document.querySelectorAll('.glass-card').forEach(faq => {
-                if (faq !== item && faq.querySelector('.faq-answer')) {
+            // Close all other FAQs - optimized
+            const allFaqs = document.querySelectorAll('.glass-card');
+            for (let i = 0; i < allFaqs.length; i++) {
+                const faq = allFaqs[i];
+                if (faq !== item) {
                     const otherAnswer = faq.querySelector('.faq-answer');
                     const otherIcon = faq.querySelector('.faq-icon');
-                    if (otherAnswer) {
+                    if (otherAnswer && otherAnswer.classList.contains('active')) {
                         otherAnswer.classList.remove('active');
                         otherAnswer.style.maxHeight = null;
                     }
@@ -2669,7 +3100,7 @@
                         otherIcon.style.transform = 'rotate(0deg)';
                     }
                 }
-            });
+            }
 
             // Toggle current
             if (answer.classList.contains('active')) {
@@ -2758,7 +3189,7 @@
             document.body.classList.add('touch-device');
         }
 
-        // Course Accordion Toggle
+        // Course Accordion Toggle - Optimized
         function toggleCourse(element) {
             const content = element.querySelector('.course-content');
             const icon = element.querySelector('.course-toggle-icon');
@@ -2772,6 +3203,13 @@
                 content.classList.add('active');
                 content.style.maxHeight = content.scrollHeight + "px";
                 if (icon) icon.style.transform = 'rotate(180deg)';
+                
+                // Set to none after animation completes
+                setTimeout(() => {
+                    if (content.classList.contains('active')) {
+                        content.style.maxHeight = 'none';
+                    }
+                }, 300);
             }
         }
 
@@ -2809,11 +3247,108 @@
             menu.classList.toggle('hidden');
         }
 
-        // اطمینان از بسته بودن همه کورس‌ها در ابتدا
+        // Theme Toggle
+        function toggleTheme() {
+            console.log('🎨 Toggle Theme Started');
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            const currentTheme = html.getAttribute('data-theme');
+            
+            console.log('Current theme:', currentTheme);
+            
+            if (currentTheme === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+                console.log('✅ Switched to LIGHT mode');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+                console.log('✅ Switched to DARK mode');
+            }
+            
+            // Force repaint
+            document.body.style.display = 'none';
+            document.body.offsetHeight;
+            document.body.style.display = '';
+            
+            console.log('Theme toggle completed');
+        }
+
+        // Load saved theme on page load
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Page Loading...');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            console.log('Saved theme from localStorage:', savedTheme);
+            
+            html.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                console.log('✅ Dark mode applied on load');
+            } else {
+                console.log('✅ Light mode applied on load');
+            }
+            
+            // اطمینان از بسته بودن همه کورس‌ها در ابتدا
             document.querySelectorAll('.course-accordion').forEach(course => {
                 course.classList.remove('active');
             });
+            
+            console.log('✅ Page loaded successfully');
+            
+            // Debug: Check dark mode styles after 1 second
+            setTimeout(() => {
+                if (html.getAttribute('data-theme') === 'dark') {
+                    console.log('🔍 Checking Dark Mode Styles...');
+                    
+                    // Check FAQ glass-card
+                    const faqCard = document.querySelector('#faq .glass-card');
+                    if (faqCard) {
+                        const faqBg = window.getComputedStyle(faqCard).backgroundColor;
+                        const faqBorder = window.getComputedStyle(faqCard).borderColor;
+                        console.log('✅ FAQ glass-card background:', faqBg);
+                        console.log('✅ FAQ glass-card border:', faqBorder);
+                    } else {
+                        console.log('⚠️ FAQ glass-card not found!');
+                    }
+                    
+                    // Check session button
+                    const sessionBtn = document.querySelector('.session-btn');
+                    if (sessionBtn) {
+                        const sessionBg = window.getComputedStyle(sessionBtn).background;
+                        const sessionBorder = window.getComputedStyle(sessionBtn).borderColor;
+                        console.log('✅ Session button background:', sessionBg);
+                        console.log('✅ Session button border:', sessionBorder);
+                    } else {
+                        console.log('⚠️ Session button not found!');
+                    }
+                    
+                    // Check courses section
+                    const coursesSection = document.querySelector('#courses');
+                    if (coursesSection) {
+                        const coursesBg = window.getComputedStyle(coursesSection).backgroundColor;
+                        console.log('✅ Courses section background:', coursesBg);
+                    }
+                    
+                    const bodyBg = window.getComputedStyle(document.body).background;
+                    console.log('✅ Body background:', bodyBg);
+                    
+                    // Check all FAQ glass-cards
+                    const allFaqs = document.querySelectorAll('#faq .glass-card');
+                    console.log('✅ Total FAQ glass-cards found:', allFaqs.length);
+                    
+                    // Check all session buttons
+                    const allSessions = document.querySelectorAll('.session-btn');
+                    console.log('✅ Total session buttons found:', allSessions.length);
+                }
+            }, 1000);
         });
     </script>
 
