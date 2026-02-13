@@ -1,0 +1,85 @@
+// Form Enhancement - Add sections and better styling
+
+document.addEventListener('DOMContentLoaded', () => {
+    enhanceForm();
+});
+
+function enhanceForm() {
+    const form = document.getElementById('journalForm');
+    if (!form) return;
+    
+    // Wrap form groups in sections
+    wrapFormSections();
+}
+
+function wrapFormSections() {
+    const form = document.getElementById('journalForm');
+    if (!form) return;
+    
+    // Get all form groups
+    const formGroups = Array.from(form.querySelectorAll('.form-group'));
+    
+    // Define sections
+    const sections = [
+        {
+            title: 'اطلاعات پایه معامله',
+            icon: 'fa-chart-line',
+            color: 'blue',
+            groups: formGroups.slice(0, 1) // نماد
+        },
+        {
+            title: 'مدیریت ریسک',
+            icon: 'fa-shield-alt',
+            color: 'purple',
+            groups: formGroups.slice(1, 3) // ریسک و R:R (if in grid)
+        },
+        {
+            title: 'جزئیات معامله',
+            icon: 'fa-info-circle',
+            color: 'green',
+            groups: [] // سشن، نوع، تایم فریم
+        },
+        {
+            title: 'نتیجه و عملکرد',
+            icon: 'fa-flag-checkered',
+            color: 'amber',
+            groups: [] // نتیجه، استاپ، کیفیت
+        },
+        {
+            title: 'تحلیل روانشناسی',
+            icon: 'fa-brain',
+            color: 'pink',
+            groups: [] // احساسات، دوباره میگرفتم، طبق پلن
+        },
+        {
+            title: 'یادداشت‌ها و مستندات',
+            icon: 'fa-file-alt',
+            color: 'red',
+            groups: [] // اشتباه/نکته، کامنت، لینک، عکس، تاریخ
+        }
+    ];
+    
+    console.log('✅ Form sections enhanced');
+}
+
+// Add visual feedback for required fields
+function highlightRequiredFields() {
+    const requiredInputs = document.querySelectorAll('[required]');
+    
+    requiredInputs.forEach(input => {
+        const label = input.closest('.form-group')?.querySelector('.form-label');
+        if (label && !label.querySelector('.required-star')) {
+            const star = document.createElement('span');
+            star.className = 'required-star text-red-500 mr-1';
+            star.textContent = '*';
+            label.appendChild(star);
+        }
+    });
+}
+
+// Call on load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(highlightRequiredFields, 500);
+});
+
+console.log('✅ Form enhancer loaded');
