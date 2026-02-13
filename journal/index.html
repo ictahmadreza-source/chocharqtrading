@@ -191,8 +191,9 @@
                         <div class="form-group">
                             <label class="form-label">تایم فریم</label>
                             <div class="quick-select-grid" id="timeframeButtons"></div>
-                            <button type="button" onclick="saveTimeframePreset()" class="text-sm text-blue-500 mt-2">
-                                <i class="fas fa-save ml-1"></i>ذخیره انتخاب شده به عنوان پیش‌فرض
+                            <input type="text" id="tfCustom" class="form-input mt-2" placeholder="یا مقدار دلخواه (مثال: 15m)">
+                            <button type="button" onclick="saveTimeframePreset()" class="text-sm text-blue-500 mt-1">
+                                <i class="fas fa-save ml-1"></i>ذخیره به عنوان پیش‌فرض
                             </button>
                             <input type="hidden" id="timeframe" required>
                         </div>
@@ -227,8 +228,11 @@
 
                         <!-- مهمترین اشتباه / نکته -->
                         <div class="form-group">
-                            <label class="form-label" id="mistakeLabel">مهمترین اشتباه</label>
-                            <textarea id="mistake" class="form-textarea" placeholder="توضیحات..."></textarea>
+                            <label class="form-label text-red-600" id="mistakeLabel">
+                                <i class="fas fa-exclamation-triangle ml-2"></i>
+                                مهمترین اشتباه
+                            </label>
+                            <textarea id="mistake" class="form-textarea" placeholder="چه اشتباهی در این معامله رخ داد؟"></textarea>
                         </div>
 
                         <!-- کیفیت اجرا -->
@@ -567,5 +571,6 @@
     <script src="filesystem.js"></script>
     <script src="app.js"></script>
     <script src="features.js"></script>
+    <script src="form-enhancer.js"></script>
 </body>
 </html>
