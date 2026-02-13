@@ -232,6 +232,9 @@ function loadProfileData() {
     updateSymbolSelect();
     updateStopButtons();
     updateJournalList();
+    
+    // Initialize quick buttons
+    initializeQuickButtons();
 }
 
 // Symbol Management
@@ -437,21 +440,80 @@ function saveJournal(event) {
     const form = document.getElementById('journalForm');
     const editingId = form?.dataset.editingId;
     
+    // Get values from hidden inputs (set by quick buttons)
+    const symbolValue = document.getElementById('symbol')?.value;
+    const riskValue = document.getElementById('risk')?.value;
+    const rrValue = document.getElementById('riskReward')?.value;
+    const sessionValue = document.getElementById('session')?.value;
+    const tradeTypeValue = document.getElementById('tradeType')?.value;
+    const timeframeValue = document.getElementById('timeframe')?.value;
+    const resultValue = document.getElementById('result')?.value;
+    const qualityValue = document.getElementById('quality')?.value;
+    const emotionValue = document.getElementById('emotion')?.value;
+    const wouldRetakeValue = document.getElementById('wouldRetake')?.value;
+    const followedPlanValue = document.getElementById('followedPlan')?.value;
+    
+    // Validate required fields
+    if (!symbolValue) {
+        alert('لطفاً نماد را انتخاب کنید');
+        return;
+    }
+    if (!riskValue) {
+        alert('لطفاً ریسک را وارد کنید');
+        return;
+    }
+    if (!rrValue) {
+        alert('لطفاً نسبت ریسک به ریوارد را وارد کنید');
+        return;
+    }
+    if (!sessionValue) {
+        alert('لطفاً سشن معاملاتی را انتخاب کنید');
+        return;
+    }
+    if (!tradeTypeValue) {
+        alert('لطفاً نوع معامله را انتخاب کنید');
+        return;
+    }
+    if (!timeframeValue) {
+        alert('لطفاً تایم فریم را انتخاب کنید');
+        return;
+    }
+    if (!resultValue) {
+        alert('لطفاً نتیجه را انتخاب کنید');
+        return;
+    }
+    if (!qualityValue) {
+        alert('لطفاً کیفیت اجرا را انتخاب کنید');
+        return;
+    }
+    if (!emotionValue) {
+        alert('لطفاً احساسات غالب را انتخاب کنید');
+        return;
+    }
+    if (!wouldRetakeValue) {
+        alert('لطفاً گزینه "دوباره می‌گرفتم" را انتخاب کنید');
+        return;
+    }
+    if (!followedPlanValue) {
+        alert('لطفاً گزینه "طبق پلن بود" را انتخاب کنید');
+        return;
+    }
+    
     const journal = {
         id: editingId ? parseInt(editingId) : Date.now(),
-        symbol: document.getElementById('symbol')?.value || '',
-        risk: document.getElementById('risk')?.value || '',
-        riskReward: document.getElementById('riskReward')?.value || '',
-        session: document.getElementById('session')?.value || '',
-        tradeType: document.getElementById('tradeType')?.value || '',
-        timeframe: document.getElementById('timeframe')?.value || '',
-        result: document.getElementById('result')?.value || '',
-        stopType: document.getElementById('stopType')?.value || '',
+        symbol: symbolValue,
+        risk: riskValue,
+        riskReward: rrValue,
+        session: sessionValue,
+        tradeType: tradeTypeValue,
+        timeframe: timeframeValue,
+        result: resultValue,
+        stopType: document.getElementById('stopType')?.value || document.getElementById('stopCustom')?.value || '',
         mistake: document.getElementById('mistake')?.value || '',
-        quality: document.getElementById('quality')?.value || '',
-        emotion: document.getElementById('emotion')?.value || '',
-        wouldRetake: document.querySelector('input[name="wouldRetake"]:checked')?.value || '',
-        followedPlan: document.querySelector('input[name="followedPlan"]:checked')?.value || '',
+        quality: qualityValue,
+        emotion: emotionValue,
+        wouldRetake: wouldRetakeValue,
+        followedPlan: followedPlanValue,
         comment: document.getElementById('comment')?.value || '',
         chartLink: document.getElementById('chartLink')?.value || '',
         tradeDate: document.getElementById('tradeDate')?.value || '',
@@ -625,3 +687,221 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('✅ App.js loaded successfully');
+
+
+// Initialize Quick Select Buttons
+function initializeQuickButtons() {
+    // Symbol buttons
+    updateSymbolButtons();
+    
+    // Risk buttons
+    updateRiskButtons();
+    
+    // Risk:Reward buttons
+    updateRRButtons();
+    
+    // Timeframe buttons
+    updateTimeframeButtons();
+    
+    // Generic quick buttons (session, tradeType, result, emotion, etc.)
+    document.querySelectorAll('.quick-btn[data-field]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const field = this.dataset.field;
+            const value = this.dataset.value;
+            
+            // Remove active from siblings
+            this.parentElement.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+            
+            // Add active to this button
+            this.classList.add('active');
+            
+            // Set hidden input value
+            const input = document.getElementById(field);
+            if (input) {
+                input.value = value;
+            }
+        });
+    });
+}
+
+// Update Symbol Buttons
+function updateSymbolButtons() {
+    const container = document.getElementById('symbolButtons');
+    if (!container || !profileSettings.symbols) return;
+    
+    container.innerHTML = profileSettings.symbols.map(symbol => `
+        <button type="button" class="quick-btn" onclick="selectSymbol('${symbol}')">${symbol}</button>
+    `).join('');
+}
+
+function selectSymbol(symbol) {
+    document.getElementById('symbol').value = symbol;
+    document.querySelectorAll('#symbolButtons .quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === symbol) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+// Update Risk Buttons
+function updateRiskButtons() {
+    const container = document.getElementById('riskButtons');
+    if (!container) return;
+    
+    const risks = profileSettings.riskPresets || ['0.5', '1', '1.5', '2', '3'];
+    container.innerHTML = risks.map(risk => `
+        <button type="button" class="quick-btn" onclick="selectRisk('${risk}')">${risk}%</button>
+    `).join('');
+    
+    // Custom risk input
+    const customInput = document.getElementById('riskCustom');
+    if (customInput) {
+        customInput.addEventListener('input', function() {
+            if (this.value) {
+                document.getElementById('risk').value = this.value;
+                document.querySelectorAll('#riskButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
+            }
+        });
+    }
+}
+
+function selectRisk(risk) {
+    document.getElementById('risk').value = risk;
+    document.getElementById('riskCustom').value = '';
+    document.querySelectorAll('#riskButtons .quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === risk + '%') {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function saveRiskPreset() {
+    const customValue = document.getElementById('riskCustom').value;
+    if (!customValue) {
+        alert('لطفاً ابتدا مقدار دلخواه را وارد کنید');
+        return;
+    }
+    
+    if (!profileSettings.riskPresets) {
+        profileSettings.riskPresets = ['0.5', '1', '1.5', '2', '3'];
+    }
+    
+    if (!profileSettings.riskPresets.includes(customValue)) {
+        profileSettings.riskPresets.push(customValue);
+        saveProfileSettings();
+        updateRiskButtons();
+        alert('ریسک به پیش‌فرض‌ها اضافه شد');
+    }
+}
+
+// Update Risk:Reward Buttons
+function updateRRButtons() {
+    const container = document.getElementById('rrButtons');
+    if (!container) return;
+    
+    const rrs = profileSettings.rrPresets || ['1:1', '1:2', '1:3', '1:4', '1:5'];
+    container.innerHTML = rrs.map(rr => `
+        <button type="button" class="quick-btn" onclick="selectRR('${rr}')">${rr}</button>
+    `).join('');
+    
+    // Custom RR input
+    const customInput = document.getElementById('rrCustom');
+    if (customInput) {
+        customInput.addEventListener('input', function() {
+            if (this.value) {
+                document.getElementById('riskReward').value = this.value;
+                document.querySelectorAll('#rrButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
+            }
+        });
+    }
+}
+
+function selectRR(rr) {
+    document.getElementById('riskReward').value = rr;
+    document.getElementById('rrCustom').value = '';
+    document.querySelectorAll('#rrButtons .quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === rr) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function saveRRPreset() {
+    const customValue = document.getElementById('rrCustom').value;
+    if (!customValue) {
+        alert('لطفاً ابتدا مقدار دلخواه را وارد کنید');
+        return;
+    }
+    
+    if (!profileSettings.rrPresets) {
+        profileSettings.rrPresets = ['1:1', '1:2', '1:3', '1:4', '1:5'];
+    }
+    
+    if (!profileSettings.rrPresets.includes(customValue)) {
+        profileSettings.rrPresets.push(customValue);
+        saveProfileSettings();
+        updateRRButtons();
+        alert('نسبت به پیش‌فرض‌ها اضافه شد');
+    }
+}
+
+// Update Timeframe Buttons
+function updateTimeframeButtons() {
+    const container = document.getElementById('timeframeButtons');
+    if (!container) return;
+    
+    const timeframes = profileSettings.timeframePresets || ['1m', '5m', '15m', '30m', '1h', '4h', '1d'];
+    container.innerHTML = timeframes.map(tf => `
+        <button type="button" class="quick-btn" onclick="selectTimeframe('${tf}')">${tf}</button>
+    `).join('');
+}
+
+function selectTimeframe(tf) {
+    document.getElementById('timeframe').value = tf;
+    document.querySelectorAll('#timeframeButtons .quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === tf) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function saveTimeframePreset() {
+    const selected = document.getElementById('timeframe').value;
+    if (!selected) {
+        alert('لطفاً ابتدا یک تایم فریم انتخاب کنید');
+        return;
+    }
+    
+    alert('تایم فریم انتخاب شده: ' + selected);
+}
+
+// Update Stop Buttons (already exists but let's make sure it's called)
+function selectStop(stop) {
+    document.getElementById('stopType').value = stop;
+    document.getElementById('stopCustom').value = '';
+    document.querySelectorAll('#stopButtons .quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === stop) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+// Custom stop input handler
+document.addEventListener('DOMContentLoaded', () => {
+    const stopCustom = document.getElementById('stopCustom');
+    if (stopCustom) {
+        stopCustom.addEventListener('input', function() {
+            if (this.value) {
+                document.getElementById('stopType').value = this.value;
+                document.querySelectorAll('#stopButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
+            }
+        });
+    }
+});
+
+console.log('✅ Quick select buttons initialized');
