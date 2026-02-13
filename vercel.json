@@ -1,6 +1,12 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/journal",
+      "destination": "/journal/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
