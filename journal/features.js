@@ -352,6 +352,154 @@ function showSettings() {
     if (document.getElementById('currentDbPath')) {
         document.getElementById('currentDbPath').value = dbPath || 'تنظیم نشده';
     }
+    if (document.getElementById('currentProfileName')) {
+        document.getElementById('currentProfileName').value = currentProfile || 'انتخاب نشده';
+    }
 }
 
 console.log('✅ Features module loaded');
+
+
+// Database Path Management
+function updateDbPathButton() {
+    const btn = document.getElementById('dbPathBtn');
+    const status = document.getElementById('dbPathStatus');
+    
+    if (!btn || !status) return;
+    
+    if (dbPath) {
+        btn.classList.remove('not-set');
+        btn.classList.add('is-set');
+        status.innerHTML = '<i class="fas fa-check-circle ml-1"></i>تنظیم شده';
+        btn.title = `مسیر: ${dbPath}`;
+    } else {
+        btn.classList.remove('is-set');
+        btn.classList.add('not-set');
+        status.innerHTML = '<i class="fas fa-exclamation-circle ml-1"></i>تنظیم نشده';
+        btn.title = 'مسیر دیتابیس تنظیم نشده است';
+    }
+}
+
+function showDbPathModal() {
+    const modal = document.getElementById('dbPathModal');
+    const input = document.getElementById('dbPathInput');
+    
+    if (input) {
+        input.value = dbPath || '';
+    }
+    
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+function updateDbPath() {
+    const input = document.getElementById('dbPathInput');
+    const newPath = input?.value.trim();
+    
+    if (!newPath) {
+        alert('لطفاً مسیر پوشه را وارد کنید');
+        return;
+    }
+    
+    // Check if path is changing
+    if (dbPath && dbPath !== newPath) {
+        if (!confirm('تغییر مسیر دیتابیس باعث بارگذاری مجدد صفحه می‌شود.\n\nآیا ادامه می‌دهید؟')) {
+            return;
+        }
+    }
+    
+    // Save new path
+    localStorage.setItem('journalDbPath', newPath);
+    dbPath = newPath;
+    
+    // Clear current profile if path changed
+    if (currentProfile) {
+        localStorage.removeItem('currentProfile');
+    }
+    
+    closeModal('dbPathModal');
+    
+    // Reload page
+    alert('مسیر دیتابیس با موفقیت تنظیم شد. صفحه بارگذاری مجدد می‌شود...');
+    setTimeout(() => location.reload(), 500);
+}
+
+// Override showProfileManager to check dbPath
+const originalShowProfileManager = window.showProfileManager;
+window.showProfileManager = function() {
+    if (!dbPath) {
+        alert('⚠️ ابتدا باید مسیر دیتابیس را تنظیم کنید.\n\nلطفاً روی دکمه "تنظیم نشده" در بالای صفحه کلیک کنید.');
+        showDbPathModal();
+        return;
+    }
+    
+    if (originalShowProfileManager) {
+        originalShowProfileManager();
+    }
+};
+
+// Override showSection to check requirements
+const originalShowSection = window.showSection;
+window.showSection = function(section) {
+    // Check if dbPath is set
+    if (!dbPath && section !== 'settings') {
+        alert('⚠️ ابتدا باید مسیر دیتابیس را تنظیم کنید.');
+        showDbPathModal();
+        return;
+    }
+    
+    // Check if profile is selected
+    if (!currentProfile && section !== 'settings' && dbPath) {
+        alert('⚠️ ابتدا باید یک پروفایل انتخاب یا ایجاد کنید.');
+        showProfileManager();
+        return;
+    }
+    
+    // Call original function
+    if (originalShowSection) {
+        originalShowSection(section);
+    } else {
+        // Fallback implementation
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.dataset.section === section) {
+                item.classList.add('active');
+            }
+        });
+        
+        document.getElementById('profileManager')?.classList.add('hidden');
+        document.getElementById('newJournalSection')?.classList.add('hidden');
+        document.getElementById('journalListSection')?.classList.add('hidden');
+        document.getElementById('dashboardSection')?.classList.add('hidden');
+        document.getElementById('settingsSection')?.classList.add('hidden');
+        
+        if (section === 'new-journal') {
+            document.getElementById('newJournalSection')?.classList.remove('hidden');
+        } else if (section === 'journal-list') {
+            document.getElementById('journalListSection')?.classList.remove('hidden');
+            if (typeof updateJournalList === 'function') updateJournalList();
+            if (typeof setupFilters === 'function') setupFilters();
+        } else if (section === 'dashboard') {
+            document.getElementById('dashboardSection')?.classList.remove('hidden');
+            if (typeof showDashboard === 'function') showDashboard();
+        } else if (section === 'settings') {
+            document.getElementById('settingsSection')?.classList.remove('hidden');
+            if (typeof showSettings === 'function') showSettings();
+        }
+    }
+};
+
+// Update sidebar click handlers
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const section = item.dataset.section;
+            if (section) {
+                showSection(section);
+            }
+        });
+    });
+});
+
+console.log('✅ Database path management loaded');

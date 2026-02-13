@@ -25,6 +25,10 @@
                     <span class="text-lg font-semibold text-gray-700">ژورنال معاملاتی</span>
                 </div>
                 <div class="flex items-center gap-4">
+                    <button id="dbPathBtn" onclick="showDbPathModal()" class="text-sm px-3 py-1.5 rounded-lg border-2 transition-all" title="مسیر دیتابیس">
+                        <i class="fas fa-folder ml-1"></i>
+                        <span id="dbPathStatus">تنظیم نشده</span>
+                    </button>
                     <span id="currentProfile" class="text-sm text-gray-600"></span>
                     <a href="/" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">
                         <i class="fas fa-home ml-1"></i>
@@ -345,10 +349,148 @@
                             <i class="fas fa-list ml-2 text-blue-500"></i>
                             لیست ژورنال‌ها
                         </h2>
-                        <span class="text-sm text-gray-600" id="journalCount"></span>
+                        <div class="flex gap-2">
+                            <input type="text" id="searchJournal" class="form-input" placeholder="جستجو..." style="width: 200px;">
+                            <select id="filterResult" class="form-select" style="width: 150px;">
+                                <option value="">همه نتایج</option>
+                                <option value="TP">تیک پروفیت</option>
+                                <option value="SL">استاپ لاس</option>
+                                <option value="BE">ریسک فری</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div id="journalListContainer"></div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="glass-card mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                        <i class="fas fa-chart-line ml-2 text-blue-500"></i>
+                        داشبورد و آمار
+                    </h2>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">کل معاملات</p>
+                                <p class="text-3xl font-bold text-gray-900" id="totalTrades">0</p>
+                            </div>
+                            <i class="fas fa-chart-bar text-4xl text-blue-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">درصد موفقیت</p>
+                                <p class="text-3xl font-bold text-green-600" id="winRate">0%</p>
+                            </div>
+                            <i class="fas fa-percentage text-4xl text-green-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">معاملات برنده</p>
+                                <p class="text-3xl font-bold text-green-600" id="winTrades">0</p>
+                            </div>
+                            <i class="fas fa-arrow-up text-4xl text-green-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">معاملات بازنده</p>
+                                <p class="text-3xl font-bold text-red-600" id="lossTrades">0</p>
+                            </div>
+                            <i class="fas fa-arrow-down text-4xl text-red-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                    <div class="glass-card">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">نتایج بر اساس نماد</h3>
+                        <div id="symbolStats"></div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">نتایج بر اساس سشن</h3>
+                        <div id="sessionStats"></div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">نتایج بر اساس تایم فریم</h3>
+                    <div id="timeframeStats"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settingsSection" class="hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="glass-card">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-cog ml-2 text-blue-500"></i>
+                        تنظیمات
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">مسیر دیتابیس فعلی</label>
+                        <input type="text" id="currentDbPath" class="form-input" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">پروفایل فعلی</label>
+                        <input type="text" id="currentProfileName" class="form-input" readonly>
+                    </div>
+                    
+                    <hr class="my-6 border-gray-200">
+                    
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">پشتیبان‌گیری و بازیابی</h3>
+                    
+                    <div class="form-group">
+                        <button onclick="exportData()" class="btn-primary w-full">
+                            <i class="fas fa-download ml-2"></i>
+                            دانلود بک‌آپ (JSON)
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">بازیابی از بک‌آپ</label>
+                        <input type="file" id="importFile" accept=".json" class="form-input">
+                        <button onclick="importData()" class="btn-secondary mt-2 w-full">
+                            <i class="fas fa-upload ml-2"></i>
+                            بازیابی داده‌ها
+                        </button>
+                    </div>
+                    
+                    <hr class="my-6 border-gray-200">
+                    
+                    <h3 class="text-lg font-bold text-red-600 mb-4">منطقه خطر</h3>
+                    
+                    <div class="form-group">
+                        <button onclick="clearAllData()" class="btn-danger w-full">
+                            <i class="fas fa-trash ml-2"></i>
+                            پاک کردن تمام داده‌ها
+                        </button>
+                        <p class="text-xs text-gray-500 mt-2">
+                            <i class="fas fa-exclamation-triangle ml-1"></i>
+                            این عمل قابل بازگشت نیست!
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -392,6 +534,31 @@
             <div class="flex gap-4">
                 <button onclick="addStop()" class="btn-primary flex-1">افزودن</button>
                 <button onclick="closeModal('stopModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dbPathModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">
+                <i class="fas fa-folder-open text-blue-500 ml-2"></i>
+                تنظیم مسیر دیتابیس
+            </h3>
+            <p class="text-sm text-gray-600 mb-4">مسیر پوشه‌ای که می‌خواهید داده‌های ژورنال در آن ذخیره شود را وارد کنید.</p>
+            <div class="form-group">
+                <label class="form-label">مسیر پوشه</label>
+                <input type="text" id="dbPathInput" class="form-input" placeholder="مثال: C:\TradingJournal" dir="ltr">
+                <p class="text-xs text-gray-500 mt-2">
+                    <i class="fas fa-info-circle ml-1"></i>
+                    تغییر مسیر باعث بارگذاری مجدد صفحه می‌شود
+                </p>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="updateDbPath()" class="btn-primary flex-1">
+                    <i class="fas fa-check ml-2"></i>
+                    تایید و اعمال
+                </button>
+                <button onclick="closeModal('dbPathModal')" class="btn-secondary">انصراف</button>
             </div>
         </div>
     </div>

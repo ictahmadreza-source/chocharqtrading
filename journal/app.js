@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSettings();
     setupEventListeners();
     autoFillDateTime();
+    updateDbPathButton();
 });
 
 // Load Settings
