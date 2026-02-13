@@ -19,8 +19,8 @@ function loadSettings() {
     currentProfile = localStorage.getItem('currentProfile');
     
     if (dbPath) {
-        document.getElementById('setupScreen').classList.add('hidden');
-        document.getElementById('selected
+        document.getElementById('setupScreen')?.classList.add('hidden');
+        loadProfiles();
         
         if (currentProfile) {
             loadProfileData();
@@ -33,7 +33,7 @@ function loadSettings() {
 
 // Setup Database
 function setupDatabase() {
-    const path = document.getElementById('dbPath').value.trim();
+    const path = document.getElementById('dbPath')?.value.trim();
     
     if (!path) {
         alert('لطفاً مسیر پوشه را وارد کنید');
@@ -43,7 +43,8 @@ function setupDatabase() {
     dbPath = path;
     localStorage.setItem('journalDbPath', dbPath);
     
-    document.getElementById('setupScreen').classList.add('hidden');
+    document.getElementById('setupScreen')?.classList.add('hidden');
+    updateDbPathButton();
     showProfileManager();
 }
 
@@ -55,14 +56,17 @@ function loadProfiles() {
 }
 
 function showProfileManager() {
-    document.getElementById('profileManager').classList.remove('hidden');
-    document.getElementById('newJournalSection').classList.add('hidden');
-    document.getElementById('journalListSection').classList.add('hidden');
-    updateProfileList();
+    document.getElementById('profileManager')?.classList.remove('hidden');
+    document.getElementById('newJournalSection')?.classList.add('hidden');
+    document.getElementById('journalListSection')?.classList.add('hidden');
+    document.getElementById('dashboardSection')?.classList.add('hidden');
+    document.getElementById('settingsSection')?.classList.add('hidden');
+    loadProfiles();
 }
 
 function updateProfileList() {
     const container = document.getElementById('profileList');
+    if (!container) return;
     
     if (profiles.length === 0) {
         container.innerHTML = '<p class="text-gray-500 text-center">هنوز پروفایلی ایجاد نشده است</p>';
@@ -83,11 +87,11 @@ function updateProfileList() {
 }
 
 function showNewProfileForm() {
-    document.getElementById('newProfileModal').classList.add('active');
+    document.getElementById('newProfileModal')?.classList.add('active');
 }
 
 function createProfile() {
-    const name = document.getElementById('newProfileName').value.trim();
+    const name = document.getElementById('newProfileName')?.value.trim();
     
     if (!name) {
         alert('لطفاً نام پروفایل را وارد کنید');
@@ -104,11 +108,13 @@ function createProfile() {
     
     // Initialize profile settings
     const settings = {
-        symbols: ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY']
+        symbols: ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY'],
+        stops: ['فیک چاک', 'بریک استراکچر', 'تایم استاپ']
     };
     localStorage.setItem(`profile_${dbPath}_${name}`, JSON.stringify(settings));
     
-    document.getElementById('newProfileName').value = '';
+    const input = document.getElementById('newProfileName');
+    if (input) input.value = '';
     closeModal('newProfileModal');
     updateProfileList();
 }
@@ -116,10 +122,11 @@ function createProfile() {
 function selectProfile(profile) {
     currentProfile = profile;
     localStorage.setItem('currentProfile', profile);
-    document.getElementById('currentProfile').textContent = `پروفایل: ${profile}`;
+    const elem = document.getElementById('currentProfile');
+    if (elem) elem.textContent = `پروفایل: ${profile}`;
     
     loadProfileData();
-    document.getElementById('profileManager').classList.add('hidden');
+    document.getElementById('profileManager')?.classList.add('hidden');
     showSection('new-journal');
 }
 
@@ -138,7 +145,8 @@ function deleteProfile(event, profile) {
     if (currentProfile === profile) {
         currentProfile = null;
         localStorage.removeItem('currentProfile');
-        document.getElementById('currentProfile').textContent = '';
+        const elem = document.getElementById('currentProfile');
+        if (elem) elem.textContent = '';
     }
     
     updateProfileList();
@@ -147,18 +155,24 @@ function deleteProfile(event, profile) {
 // Load Profile Data
 function loadProfileData() {
     const settings = localStorage.getItem(`profile_${dbPath}_${currentProfile}`);
-    profileSettings = settings ? JSON.parse(settings) : { symbols: ['XAUUSD', 'EURUSD'] };
+    profileSettings = settings ? JSON.parse(settings) : { 
+        symbols: ['XAUUSD', 'EURUSD'],
+        stops: ['فیک چاک', 'بریک استراکچر']
+    };
     
     const journalsData = localStorage.getItem(`journals_${dbPath}_${currentProfile}`);
     journals = journalsData ? JSON.parse(journalsData) : [];
     
     updateSymbolSelect();
+    updateStopButtons();
     updateJournalList();
 }
 
 // Symbol Management
 function updateSymbolSelect() {
     const select = document.getElementById('symbol');
+    if (!select) return;
+    
     select.innerHTML = '<option value="">انتخاب کنید</option>' +
         profileSettings.symbols.map(s => `<option value="${s}">${s}</option>`).join('');
 }
@@ -167,21 +181,23 @@ function manageSymbols() {
     const modal = document.getElementById('symbolModal');
     const list = document.getElementById('symbolList');
     
-    list.innerHTML = profileSettings.symbols.map(symbol => `
-        <div class="symbol-item">
-            <span>${symbol}</span>
-            <button onclick="removeSymbol('${symbol}')" class="btn-danger text-sm">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    `).join('');
+    if (list) {
+        list.innerHTML = profileSettings.symbols.map(symbol => `
+            <div class="symbol-item">
+                <span>${symbol}</span>
+                <button onclick="removeSymbol('${symbol}')" class="btn-danger text-sm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+    }
     
-    modal.classList.add('active');
+    modal?.classList.add('active');
 }
 
 function addSymbol() {
     const input = document.getElementById('newSymbol');
-    const symbol = input.value.trim().toUpperCase();
+    const symbol = input?.value.trim().toUpperCase();
     
     if (!symbol) return;
     
@@ -192,7 +208,7 @@ function addSymbol() {
     
     profileSettings.symbols.push(symbol);
     saveProfileSettings();
-    input.value = '';
+    if (input) input.value = '';
     manageSymbols();
     updateSymbolSelect();
 }
@@ -202,6 +218,73 @@ function removeSymbol(symbol) {
     saveProfileSettings();
     manageSymbols();
     updateSymbolSelect();
+}
+
+// Stop Management
+function updateStopButtons() {
+    const container = document.getElementById('stopButtons');
+    if (!container) return;
+    
+    if (!profileSettings.stops) {
+        profileSettings.stops = ['فیک چاک', 'بریک استراکچر'];
+    }
+    
+    container.innerHTML = profileSettings.stops.map(stop => `
+        <button type="button" class="quick-btn" onclick="selectStop('${stop}')">${stop}</button>
+    `).join('');
+}
+
+function selectStop(stop) {
+    document.getElementById('stopType').value = stop;
+    document.querySelectorAll('#stopButtons .quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === stop) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function manageStops() {
+    const modal = document.getElementById('stopModal');
+    const list = document.getElementById('stopList');
+    
+    if (list) {
+        list.innerHTML = profileSettings.stops.map(stop => `
+            <div class="symbol-item">
+                <span>${stop}</span>
+                <button onclick="removeStop('${stop}')" class="btn-danger text-sm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    modal?.classList.add('active');
+}
+
+function addStop() {
+    const input = document.getElementById('newStop');
+    const stop = input?.value.trim();
+    
+    if (!stop) return;
+    
+    if (profileSettings.stops.includes(stop)) {
+        alert('این استاپ قبلاً اضافه شده است');
+        return;
+    }
+    
+    profileSettings.stops.push(stop);
+    saveProfileSettings();
+    if (input) input.value = '';
+    manageStops();
+    updateStopButtons();
+}
+
+function removeStop(stop) {
+    profileSettings.stops = profileSettings.stops.filter(s => s !== stop);
+    saveProfileSettings();
+    manageStops();
+    updateStopButtons();
 }
 
 function saveProfileSettings() {
@@ -217,15 +300,21 @@ function showSection(section) {
         }
     });
     
-    document.getElementById('profileManager').classList.add('hidden');
-    document.getElementById('newJournalSection').classList.add('hidden');
-    document.getElementById('journalListSection').classList.add('hidden');
+    document.getElementById('profileManager')?.classList.add('hidden');
+    document.getElementById('newJournalSection')?.classList.add('hidden');
+    document.getElementById('journalListSection')?.classList.add('hidden');
+    document.getElementById('dashboardSection')?.classList.add('hidden');
+    document.getElementById('settingsSection')?.classList.add('hidden');
     
     if (section === 'new-journal') {
-        document.getElementById('newJournalSection').classList.remove('hidden');
+        document.getElementById('newJournalSection')?.classList.remove('hidden');
     } else if (section === 'journal-list') {
-        document.getElementById('journalListSection').classList.remove('hidden');
+        document.getElementById('journalListSection')?.classList.remove('hidden');
         updateJournalList();
+    } else if (section === 'dashboard') {
+        document.getElementById('dashboardSection')?.classList.remove('hidden');
+    } else if (section === 'settings') {
+        document.getElementById('settingsSection')?.classList.remove('hidden');
     }
 }
 
@@ -244,22 +333,29 @@ function setupEventListeners() {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.quality-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById('quality').value = btn.dataset.value;
+            const qualityInput = document.getElementById('quality');
+            if (qualityInput) qualityInput.value = btn.dataset.value;
         });
     });
     
     // Form submission
-    document.getElementById('journalForm').addEventListener('submit', saveJournal);
+    const form = document.getElementById('journalForm');
+    if (form) {
+        form.addEventListener('submit', saveJournal);
+    }
 }
 
-// Set Current Date
-function setCurrentDate() {
+// Auto Fill Date Time
+function autoFillDateTime() {
     const now = new Date();
     const persianDate = new Intl.DateTimeFormat('fa-IR').format(now);
     const time = now.toTimeString().slice(0, 5);
     
-    document.getElementById('tradeDate').value = persianDate;
-    document.getElementById('tradeTime').value = time;
+    const dateInput = document.getElementById('tradeDate');
+    const timeInput = document.getElementById('tradeTime');
+    
+    if (dateInput) dateInput.value = persianDate;
+    if (timeInput) timeInput.value = time;
 }
 
 // Save Journal
@@ -271,116 +367,157 @@ function saveJournal(event) {
         return;
     }
     
+    // Check if editing
+    const form = document.getElementById('journalForm');
+    const editingId = form?.dataset.editingId;
+    
     const journal = {
-        id: Date.now(),
-        symbol: document.getElementById('symbol').value,
-        risk: document.getElementById('risk').value,
-        riskReward: document.getElementById('riskReward').value,
-        session: document.getElementById('session').value,
-        tradeType: document.getElementById('tradeType').value,
-        timeframe: document.getElementById('timeframe').value,
-        result: document.getElementById('result').value,
-        stopType: document.getElementById('stopType').value,
-        mistake: document.getElementById('mistake').value,
-        quality: document.getElementById('quality').value,
-        emotion: document.getElementById('emotion').value,
-        wouldRetake: document.querySelector('input[name="wouldRetake"]:checked').value,
-        followedPlan: document.querySelector('input[name="followedPlan"]:checked').value,
-        comment: document.getElementById('comment').value,
-        chartLink: document.getElementById('chartLink').value,
-        tradeDate: document.getElementById('tradeDate').value,
-        tradeTime: document.getElementById('tradeTime').value,
+        id: editingId ? parseInt(editingId) : Date.now(),
+        symbol: document.getElementById('symbol')?.value || '',
+        risk: document.getElementById('risk')?.value || '',
+        riskReward: document.getElementById('riskReward')?.value || '',
+        session: document.getElementById('session')?.value || '',
+        tradeType: document.getElementById('tradeType')?.value || '',
+        timeframe: document.getElementById('timeframe')?.value || '',
+        result: document.getElementById('result')?.value || '',
+        stopType: document.getElementById('stopType')?.value || '',
+        mistake: document.getElementById('mistake')?.value || '',
+        quality: document.getElementById('quality')?.value || '',
+        emotion: document.getElementById('emotion')?.value || '',
+        wouldRetake: document.querySelector('input[name="wouldRetake"]:checked')?.value || '',
+        followedPlan: document.querySelector('input[name="followedPlan"]:checked')?.value || '',
+        comment: document.getElementById('comment')?.value || '',
+        chartLink: document.getElementById('chartLink')?.value || '',
+        tradeDate: document.getElementById('tradeDate')?.value || '',
+        tradeTime: document.getElementById('tradeTime')?.value || '',
         createdAt: new Date().toISOString()
     };
     
     // Handle image upload
-    const imageFile = document.getElementById('tradeImage').files[0];
+    const imageFile = document.getElementById('tradeImage')?.files[0];
     if (imageFile) {
         const reader = new FileReader();
         reader.onload = function(e) {
             journal.tradeImage = e.target.result;
-            saveJournalToStorage(journal);
+            saveJournalToStorage(journal, editingId);
         };
         reader.readAsDataURL(imageFile);
     } else {
-        saveJournalToStorage(journal);
+        // Keep existing image if editing
+        if (editingId) {
+            const existing = journals.find(j => j.id === parseInt(editingId));
+            if (existing?.tradeImage) {
+                journal.tradeImage = existing.tradeImage;
+            }
+        }
+        saveJournalToStorage(journal, editingId);
     }
 }
 
-function saveJournalToStorage(journal) {
-    journals.unshift(journal);
+function saveJournalToStorage(journal, editingId) {
+    if (editingId) {
+        // Update existing
+        const index = journals.findIndex(j => j.id === parseInt(editingId));
+        if (index !== -1) {
+            journals[index] = journal;
+        }
+    } else {
+        // Add new
+        journals.unshift(journal);
+    }
+    
     localStorage.setItem(`journals_${dbPath}_${currentProfile}`, JSON.stringify(journals));
     
-    alert('ژورنال با موفقیت ذخیره شد!');
+    alert(editingId ? 'ژورنال با موفقیت بروزرسانی شد!' : 'ژورنال با موفقیت ذخیره شد!');
     resetForm();
     showSection('journal-list');
 }
 
 // Reset Form
 function resetForm() {
-    document.getElementById('journalForm').reset();
+    const form = document.getElementById('journalForm');
+    if (form) {
+        form.reset();
+        delete form.dataset.editingId;
+    }
+    
     document.querySelectorAll('.quality-btn').forEach(b => b.classList.remove('active'));
-    setCurrentDate();
+    document.querySelectorAll('#stopButtons .quick-btn').forEach(b => b.classList.remove('active'));
+    
+    // Reset submit button
+    const submitBtn = document.querySelector('#journalForm button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-save ml-2"></i>ذخیره ژورنال';
+    }
+    
+    autoFillDateTime();
 }
 
 // Update Journal List
 function updateJournalList() {
     const container = document.getElementById('journalListContainer');
+    if (!container) return;
     
     if (journals.length === 0) {
         container.innerHTML = '<div class="glass-card text-center"><p class="text-gray-500">هنوز ژورنالی ثبت نشده است</p></div>';
         return;
     }
     
-    container.innerHTML = journals.map(j => `
-        <div class="journal-card">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <h3 class="text-xl font-bold text-gray-900">${j.symbol}</h3>
-                    <p class="text-sm text-gray-500">${j.tradeDate} - ${j.tradeTime}</p>
+    // Use createJournalCard from features.js if available
+    if (typeof createJournalCard === 'function') {
+        container.innerHTML = journals.map(j => createJournalCard(j)).join('');
+    } else {
+        // Fallback simple display
+        container.innerHTML = journals.map(j => `
+            <div class="journal-card">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900">${j.symbol}</h3>
+                        <p class="text-sm text-gray-500">${j.tradeDate} - ${j.tradeTime}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="tag tag-${j.tradeType === 'خرید' ? 'buy' : 'sell'}">${j.tradeType}</span>
+                        <span class="tag tag-${j.result.toLowerCase()}">${j.result}</span>
+                    </div>
                 </div>
-                <div class="flex gap-2">
-                    <span class="tag tag-${j.tradeType === 'خرید' ? 'buy' : 'sell'}">${j.tradeType}</span>
-                    <span class="tag tag-${j.result.toLowerCase()}">${j.result}</span>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div>
+                        <p class="text-sm text-gray-500">ریسک</p>
+                        <p class="font-semibold">${j.risk}%</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">R:R</p>
+                        <p class="font-semibold">${j.riskReward}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">تایم فریم</p>
+                        <p class="font-semibold">${j.timeframe}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">کیفیت</p>
+                        <p class="font-semibold">${j.quality}/5</p>
+                    </div>
                 </div>
+                
+                ${j.comment ? `<p class="text-gray-700 mb-4">${j.comment}</p>` : ''}
+                
+                <div class="flex gap-2 flex-wrap">
+                    <span class="text-sm text-gray-600"><i class="fas fa-brain ml-1"></i>${j.emotion}</span>
+                    <span class="text-sm text-gray-600"><i class="fas fa-clipboard-check ml-1"></i>طبق پلن: ${j.followedPlan}</span>
+                    <span class="text-sm text-gray-600"><i class="fas fa-redo ml-1"></i>دوباره می‌گرفتم: ${j.wouldRetake}</span>
+                </div>
+                
+                ${j.chartLink ? `<a href="${j.chartLink}" target="_blank" class="text-blue-500 text-sm mt-2 inline-block"><i class="fas fa-chart-line ml-1"></i>مشاهده چارت</a>` : ''}
+                ${j.tradeImage ? `<img src="${j.tradeImage}" class="mt-4 rounded-lg max-w-full" alt="Trade Screenshot">` : ''}
             </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                <div>
-                    <p class="text-sm text-gray-500">ریسک</p>
-                    <p class="font-semibold">${j.risk}%</p>
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">R:R</p>
-                    <p class="font-semibold">${j.riskReward}</p>
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">تایم فریم</p>
-                    <p class="font-semibold">${j.timeframe}</p>
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">کیفیت</p>
-                    <p class="font-semibold">${j.quality}/5</p>
-                </div>
-            </div>
-            
-            ${j.comment ? `<p class="text-gray-700 mb-4">${j.comment}</p>` : ''}
-            
-            <div class="flex gap-2 flex-wrap">
-                <span class="text-sm text-gray-600"><i class="fas fa-brain ml-1"></i>${j.emotion}</span>
-                <span class="text-sm text-gray-600"><i class="fas fa-clipboard-check ml-1"></i>طبق پلن: ${j.followedPlan}</span>
-                <span class="text-sm text-gray-600"><i class="fas fa-redo ml-1"></i>دوباره می‌گرفتم: ${j.wouldRetake}</span>
-            </div>
-            
-            ${j.chartLink ? `<a href="${j.chartLink}" target="_blank" class="text-blue-500 text-sm mt-2 inline-block"><i class="fas fa-chart-line ml-1"></i>مشاهده چارت</a>` : ''}
-            ${j.tradeImage ? `<img src="${j.tradeImage}" class="mt-4 rounded-lg max-w-full" alt="Trade Screenshot">` : ''}
-        </div>
-    `).join('');
+        `).join('');
+    }
 }
 
 // Modal Functions
 function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
+    document.getElementById(modalId)?.classList.remove('active');
 }
 
 // Theme Toggle
@@ -391,11 +528,11 @@ function toggleTheme() {
     
     if (currentTheme === 'dark') {
         html.removeAttribute('data-theme');
-        icon.className = 'fas fa-moon';
+        if (icon) icon.className = 'fas fa-moon';
         localStorage.setItem('theme', 'light');
     } else {
         html.setAttribute('data-theme', 'dark');
-        icon.className = 'fas fa-sun';
+        if (icon) icon.className = 'fas fa-sun';
         localStorage.setItem('theme', 'dark');
     }
 }
@@ -407,22 +544,8 @@ window.addEventListener('DOMContentLoaded', () => {
     
     if (savedTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
-        icon.className = 'fas fa-sun';
+        if (icon) icon.className = 'fas fa-sun';
     }
 });
 
-
-// Dashboard and Statistics
-function showDashboard() {
-    calculateStats();
-}
-
-function calculateStats() {
-    const total = journals.length;
-    const wins = journals.filter(j => j.result === 'TP').length;
-    const losses = journals.filter(j => j.result === 'SL').length;
-    const winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : 0;
-    
-    document.getElementById('totalTrades').textContent = total;
-    document.getElementById('winTrades').textContent = wins;
-    document.getElementById('lossTrades').textContent = lo
+console.log('✅ App.js loaded successfully');
