@@ -1,1 +1,328 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ژورنال معاملاتی - ARQ Trading</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233b82f6'/%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='44' font-weight='900' fill='white' text-anchor='middle'%3EARQ%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="organic-canvas"></canvas>
 
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-glass">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-4">
+                    <a href="/" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        ARQ Trading
+                    </a>
+                    <span class="text-gray-600">|</span>
+                    <span class="text-lg font-semibold text-gray-700">ژورنال معاملاتی</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span id="currentProfile" class="text-sm text-gray-600"></span>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="mb-6">
+            <button onclick="showProfileManager()" class="w-full btn-secondary text-sm">
+                <i class="fas fa-user-cog ml-2"></i>
+                مدیریت پروفایل‌ها
+            </button>
+        </div>
+        <div class="sidebar-item active" data-section="new-journal">
+            <i class="fas fa-plus-circle text-xl"></i>
+            <span class="font-semibold">ثبت ژورنال جدید</span>
+        </div>
+        <div class="sidebar-item" data-section="journal-list">
+            <i class="fas fa-list text-xl"></i>
+            <span class="font-semibold">لیست ژورنال‌ها</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Setup Screen -->
+        <div id="setupScreen" class="max-w-2xl mx-auto mt-20">
+            <div class="glass-card text-center">
+                <i class="fas fa-folder-open text-6xl text-blue-500 mb-4"></i>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">خوش آمدید!</h2>
+                <p class="text-gray-600 mb-6">برای شروع، یک پوشه برای ذخیره‌سازی دیتابیس انتخاب کنید</p>
+                <div class="text-right mb-4">
+                    <label class="form-label">مسیر پوشه:</label>
+                    <input type="text" id="dbPath" class="form-input" placeholder="مثال: C:\TradingJournal" dir="ltr">
+                </div>
+                <button onclick="setupDatabase()" class="btn-primary">
+                    <i class="fas fa-check ml-2"></i>
+                    تایید و ادامه
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Manager -->
+        <div id="profileManager" class="hidden max-w-2xl mx-auto mt-20">
+            <div class="glass-card">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">مدیریت پروفایل‌ها</h2>
+                
+                <div class="mb-6">
+                    <button onclick="showNewProfileForm()" class="btn-primary">
+                        <i class="fas fa-plus ml-2"></i>
+                        پروفایل جدید
+                    </button>
+                </div>
+
+                <div id="profileList"></div>
+            </div>
+        </div>
+
+        <!-- New Journal Section -->
+        <div id="newJournalSection" class="hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="glass-card">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-plus-circle ml-2 text-blue-500"></i>
+                        ثبت ژورنال جدید
+                    </h2>
+                    
+                    <form id="journalForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- نماد -->
+                            <div class="form-group">
+                                <label class="form-label">نماد</label>
+                                <select id="symbol" class="form-select" required></select>
+                                <button type="button" onclick="manageSymbols()" class="text-sm text-blue-500 mt-1">
+                                    <i class="fas fa-cog ml-1"></i>مدیریت نمادها
+                                </button>
+                            </div>
+
+                            <!-- ریسک -->
+                            <div class="form-group">
+                                <label class="form-label">ریسک (%)</label>
+                                <input type="number" id="risk" class="form-input" step="0.1" required>
+                            </div>
+
+                            <!-- نسبت ریسک به ریوارد -->
+                            <div class="form-group">
+                                <label class="form-label">نسبت ریسک به ریوارد</label>
+                                <input type="text" id="riskReward" class="form-input" placeholder="1:2" required>
+                            </div>
+
+                            <!-- سشن -->
+                            <div class="form-group">
+                                <label class="form-label">سشن معاملاتی</label>
+                                <select id="session" class="form-select" required>
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="لندن">لندن</option>
+                                    <option value="نیویورک">نیویورک</option>
+                                    <option value="آسیا">آسیا</option>
+                                </select>
+                            </div>
+
+                            <!-- نوع معامله -->
+                            <div class="form-group">
+                                <label class="form-label">نوع معامله</label>
+                                <select id="tradeType" class="form-select" required>
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="خرید">خرید</option>
+                                    <option value="فروش">فروش</option>
+                                </select>
+                            </div>
+
+                            <!-- تایم فریم -->
+                            <div class="form-group">
+                                <label class="form-label">تایم فریم</label>
+                                <select id="timeframe" class="form-select" required>
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="15s">15 ثانیه</option>
+                                    <option value="1m">1 دقیقه</option>
+                                    <option value="5m">5 دقیقه</option>
+                                    <option value="15m">15 دقیقه</option>
+                                    <option value="1h">1 ساعت</option>
+                                    <option value="4h">4 ساعت</option>
+                                    <option value="1d">1 روز</option>
+                                </select>
+                            </div>
+
+                            <!-- نتیجه -->
+                            <div class="form-group">
+                                <label class="form-label">نتیجه</label>
+                                <select id="result" class="form-select" required>
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="TP">تیک پروفیت</option>
+                                    <option value="SL">استاپ لاس</option>
+                                    <option value="BE">ریسک فری</option>
+                                </select>
+                            </div>
+
+                            <!-- استاپ معاملاتی -->
+                            <div class="form-group">
+                                <label class="form-label">استاپ معاملاتی</label>
+                                <input type="text" id="stopType" class="form-input" placeholder="مثال: فیک چاک">
+                            </div>
+                        </div>
+
+                        <!-- مهمترین اشتباه -->
+                        <div class="form-group">
+                            <label class="form-label">مهمترین اشتباه</label>
+                            <textarea id="mistake" class="form-textarea"></textarea>
+                        </div>
+
+                        <!-- کیفیت اجرا -->
+                        <div class="form-group">
+                            <label class="form-label">کیفیت اجرا (1-5)</label>
+                            <div class="flex gap-2">
+                                <button type="button" class="quality-btn" data-value="1">1</button>
+                                <button type="button" class="quality-btn" data-value="2">2</button>
+                                <button type="button" class="quality-btn" data-value="3">3</button>
+                                <button type="button" class="quality-btn" data-value="4">4</button>
+                                <button type="button" class="quality-btn" data-value="5">5</button>
+                            </div>
+                            <input type="hidden" id="quality" required>
+                        </div>
+
+                        <!-- احساسات -->
+                        <div class="form-group">
+                            <label class="form-label">احساسات غالب</label>
+                            <select id="emotion" class="form-select" required>
+                                <option value="">انتخاب کنید</option>
+                                <option value="آرام">آرام</option>
+                                <option value="مضطرب">مضطرب</option>
+                                <option value="عصبی">عصبی</option>
+                                <option value="با اعتماد به نفس">با اعتماد به نفس</option>
+                            </select>
+                        </div>
+
+                        <!-- دوباره میگرفتم -->
+                        <div class="form-group">
+                            <label class="form-label">دوباره می‌گرفتم؟</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="wouldRetake" value="بله" required>
+                                    <span>بله</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="wouldRetake" value="خیر">
+                                    <span>خیر</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- طبق پلن -->
+                        <div class="form-group">
+                            <label class="form-label">طبق پلن بود؟</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="followedPlan" value="بله" required>
+                                    <span>بله</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="followedPlan" value="خیر">
+                                    <span>خیر</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- کامنت -->
+                        <div class="form-group">
+                            <label class="form-label">کامنت</label>
+                            <textarea id="comment" class="form-textarea"></textarea>
+                        </div>
+
+                        <!-- لینک چارت -->
+                        <div class="form-group">
+                            <label class="form-label">لینک چارت (TradingView یا سایر)</label>
+                            <input type="url" id="chartLink" class="form-input" placeholder="https://">
+                        </div>
+
+                        <!-- آپلود عکس -->
+                        <div class="form-group">
+                            <label class="form-label">عکس معامله</label>
+                            <input type="file" id="tradeImage" class="form-input" accept="image/*">
+                        </div>
+
+                        <!-- تاریخ و ساعت -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label">تاریخ</label>
+                                <input type="text" id="tradeDate" class="form-input" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">ساعت</label>
+                                <input type="time" id="tradeTime" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-6">
+                            <button type="submit" class="btn-primary flex-1">
+                                <i class="fas fa-save ml-2"></i>
+                                ذخیره ژورنال
+                            </button>
+                            <button type="button" onclick="resetForm()" class="btn-secondary">
+                                <i class="fas fa-redo ml-2"></i>
+                                پاک کردن فرم
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal List Section -->
+        <div id="journalListSection" class="hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="glass-card mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                        <i class="fas fa-list ml-2 text-blue-500"></i>
+                        لیست ژورنال‌ها
+                    </h2>
+                </div>
+                <div id="journalListContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="newProfileModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">پروفایل جدید</h3>
+            <div class="form-group">
+                <label class="form-label">نام پروفایل</label>
+                <input type="text" id="newProfileName" class="form-input" placeholder="مثال: حساب اصلی">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="createProfile()" class="btn-primary flex-1">ایجاد</button>
+                <button onclick="closeModal('newProfileModal')" class="btn-secondary">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="symbolModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت نمادها</h3>
+            <div id="symbolList" class="mb-4"></div>
+            <div class="form-group">
+                <input type="text" id="newSymbol" class="form-input" placeholder="نماد جدید">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addSymbol()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('symbolModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="canvas.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
