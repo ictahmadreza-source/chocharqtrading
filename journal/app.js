@@ -11,7 +11,48 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     autoFillDateTime();
     updateDbPathButton();
+    
+    // Try to load directory handle on startup
+    if (typeof loadDirectoryHandle === 'function') {
+        loadDirectoryHandle().then(handle => {
+            if (handle) {
+                console.log('✅ Directory handle loaded:', handle.name);
+            }
+        });
+    }
 });
+
+// Select Folder (for setup screen)
+async function selectFolder() {
+    if (!isFileSystemSupported()) {
+        alert('⚠️ مرورگر شما از File System Access API پشتیبانی نمی‌کند.\n\nلطفاً از Chrome، Edge یا مرورگرهای مدرن استفاده کنید.\n\nدر حال حاضر داده‌ها فقط در localStorage ذخیره می‌شوند.');
+        
+        // Fallback: ask for path
+        const path = prompt('لطفاً مسیر پوشه را وارد کنید (فقط برای مرجع):', 'C:\\TradingJournal');
+        if (path) {
+            dbPath = path;
+            localStorage.setItem('journalDbPath', dbPath);
+            document.getElementById('selectedPath').textContent = dbPath;
+            document.getElementById('setupScreen')?.classList.add('hidden');
+            updateDbPathButton();
+            showProfileManager();
+        }
+        return;
+    }
+    
+    const handle = await selectDirectory();
+    if (handle) {
+        dbPath = handle.name;
+        localStorage.setItem('journalDbPath', dbPath);
+        document.getElementById('selectedPath').textContent = handle.name;
+        
+        setTimeout(() => {
+            document.getElementById('setupScreen')?.classList.add('hidden');
+            updateDbPathButton();
+            showProfileManager();
+        }, 500);
+    }
+}
 
 // Load Settings
 function loadSettings() {
@@ -32,7 +73,7 @@ function loadSettings() {
 }
 
 // Setup Database
-function setupDatabase() {
+async function setupDatabase() {
     const path = document.getElementById('dbPath')?.value.trim();
     
     if (!path) {
@@ -40,12 +81,26 @@ function setupDatabase() {
         return;
     }
     
-    dbPath = path;
-    localStorage.setItem('journalDbPath', dbPath);
-    
-    document.getElementById('setupScreen')?.classList.add('hidden');
-    updateDbPathButton();
-    showProfileManager();
+    // Try to select directory using File System API
+    if (isFileSystemSupported()) {
+        const handle = await selectDirectory();
+        if (handle) {
+            dbPath = handle.name;
+            localStorage.setItem('journalDbPath', dbPath);
+            document.getElementById('setupScreen')?.classList.add('hidden');
+            updateDbPathButton();
+            showProfileManager();
+        }
+    } else {
+        // Fallback to localStorage only
+        dbPath = path;
+        localStorage.setItem('journalDbPath', dbPath);
+        document.getElementById('setupScreen')?.classList.add('hidden');
+        updateDbPathButton();
+        showProfileManager();
+        
+        alert('⚠️ مرورگر شما از ذخیره‌سازی فایل پشتیبانی نمی‌کند.\n\nداده‌ها فقط در localStorage ذخیره می‌شوند.\n\nبرای ذخیره‌سازی روی دیسک، از Chrome یا Edge استفاده کنید.');
+    }
 }
 
 // Profile Management
@@ -113,10 +168,21 @@ function createProfile() {
     };
     localStorage.setItem(`profile_${dbPath}_${name}`, JSON.stringify(settings));
     
+    // Create physical directory if supported
+    if (typeof createProfileDirectory === 'function') {
+        createProfileDirectory(name).then(success => {
+            if (success) {
+                console.log(`✅ Profile directory created: ${name}`);
+            }
+        });
+    }
+    
     const input = document.getElementById('newProfileName');
     if (input) input.value = '';
     closeModal('newProfileModal');
     updateProfileList();
+    
+    alert(`پروفایل "${name}" با موفقیت ایجاد شد!`);
 }
 
 function selectProfile(profile) {
@@ -426,7 +492,17 @@ function saveJournalToStorage(journal, editingId) {
         journals.unshift(journal);
     }
     
+    // Save to localStorage
     localStorage.setItem(`journals_${dbPath}_${currentProfile}`, JSON.stringify(journals));
+    
+    // Save to file system if supported
+    if (typeof saveJournalsToFile === 'function') {
+        saveJournalsToFile(currentProfile, journals).then(success => {
+            if (success) {
+                console.log('✅ Journals saved to file system');
+            }
+        });
+    }
     
     alert(editingId ? 'ژورنال با موفقیت بروزرسانی شد!' : 'ژورنال با موفقیت ذخیره شد!');
     resetForm();
