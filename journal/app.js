@@ -108,6 +108,7 @@ function loadProfiles() {
     const savedProfiles = localStorage.getItem(`profiles_${dbPath}`);
     profiles = savedProfiles ? JSON.parse(savedProfiles) : [];
     updateProfileList();
+    updateProfileSwitcher();
 }
 
 function showProfileManager() {
@@ -181,6 +182,7 @@ function createProfile() {
     if (input) input.value = '';
     closeModal('newProfileModal');
     updateProfileList();
+    updateProfileSwitcher();
     
     alert(`پروفایل "${name}" با موفقیت ایجاد شد!`);
 }
@@ -188,10 +190,9 @@ function createProfile() {
 function selectProfile(profile) {
     currentProfile = profile;
     localStorage.setItem('currentProfile', profile);
-    const elem = document.getElementById('currentProfile');
-    if (elem) elem.textContent = `پروفایل: ${profile}`;
     
     loadProfileData();
+    updateProfileSwitcher();
     document.getElementById('profileManager')?.classList.add('hidden');
     showSection('new-journal');
 }
@@ -211,11 +212,10 @@ function deleteProfile(event, profile) {
     if (currentProfile === profile) {
         currentProfile = null;
         localStorage.removeItem('currentProfile');
-        const elem = document.getElementById('currentProfile');
-        if (elem) elem.textContent = '';
     }
     
     updateProfileList();
+    updateProfileSwitcher();
 }
 
 // Load Profile Data
@@ -232,6 +232,7 @@ function loadProfileData() {
     updateSymbolSelect();
     updateStopButtons();
     updateJournalList();
+    updateProfileSwitcher();
     
     // Initialize quick buttons
     initializeQuickButtons();
@@ -279,14 +280,14 @@ function addSymbol() {
     saveProfileSettings();
     if (input) input.value = '';
     manageSymbols();
-    updateSymbolSelect();
+    updateSymbolButtons();
 }
 
 function removeSymbol(symbol) {
     profileSettings.symbols = profileSettings.symbols.filter(s => s !== symbol);
     saveProfileSettings();
     manageSymbols();
-    updateSymbolSelect();
+    updateSymbolButtons();
 }
 
 // Stop Management
@@ -354,6 +355,238 @@ function removeStop(stop) {
     saveProfileSettings();
     manageStops();
     updateStopButtons();
+}
+
+// Timeframe Management
+function manageTimeframes() {
+    const modal = document.getElementById('timeframeModal');
+    const list = document.getElementById('timeframeList');
+    
+    if (!profileSettings.timeframePresets) {
+        profileSettings.timeframePresets = ['15s', '1m', '5m'];
+    }
+    
+    if (list) {
+        list.innerHTML = profileSettings.timeframePresets.map(tf => `
+            <div class="symbol-item">
+                <span>${tf}</span>
+                <button onclick="removeTimeframe('${tf}')" class="btn-danger text-sm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    modal?.classList.add('active');
+}
+
+function addTimeframe() {
+    const input = document.getElementById('newTimeframe');
+    const tf = input?.value.trim();
+    
+    if (!tf) return;
+    
+    if (!profileSettings.timeframePresets) {
+        profileSettings.timeframePresets = ['15s', '1m', '5m'];
+    }
+    
+    if (profileSettings.timeframePresets.includes(tf)) {
+        alert('این تایم‌فریم قبلاً اضافه شده است');
+        return;
+    }
+    
+    profileSettings.timeframePresets.push(tf);
+    saveProfileSettings();
+    if (input) input.value = '';
+    manageTimeframes();
+    updateTimeframeButtons();
+}
+
+function removeTimeframe(tf) {
+    profileSettings.timeframePresets = profileSettings.timeframePresets.filter(t => t !== tf);
+    saveProfileSettings();
+    manageTimeframes();
+    updateTimeframeButtons();
+}
+
+// Risk Management
+function manageRisks() {
+    const modal = document.getElementById('riskModal');
+    const list = document.getElementById('riskList');
+    
+    if (!profileSettings.riskPresets) {
+        profileSettings.riskPresets = ['1', '2'];
+    }
+    
+    if (list) {
+        list.innerHTML = profileSettings.riskPresets.map(risk => `
+            <div class="symbol-item">
+                <span>${risk}%</span>
+                <button onclick="removeRisk('${risk}')" class="btn-danger text-sm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    modal?.classList.add('active');
+}
+
+function addRisk() {
+    const input = document.getElementById('newRisk');
+    const risk = input?.value.trim();
+    
+    if (!risk) return;
+    
+    if (!profileSettings.riskPresets) {
+        profileSettings.riskPresets = ['1', '2'];
+    }
+    
+    if (profileSettings.riskPresets.includes(risk)) {
+        alert('این ریسک قبلاً اضافه شده است');
+        return;
+    }
+    
+    profileSettings.riskPresets.push(risk);
+    saveProfileSettings();
+    if (input) input.value = '';
+    manageRisks();
+    updateRiskButtons();
+}
+
+function removeRisk(risk) {
+    profileSettings.riskPresets = profileSettings.riskPresets.filter(r => r !== risk);
+    saveProfileSettings();
+    manageRisks();
+    updateRiskButtons();
+}
+
+// R:R Management
+function manageRRs() {
+    const modal = document.getElementById('rrModal');
+    const list = document.getElementById('rrList');
+    
+    if (!profileSettings.rrPresets) {
+        profileSettings.rrPresets = ['1:2', '1:3'];
+    }
+    
+    if (list) {
+        list.innerHTML = profileSettings.rrPresets.map(rr => `
+            <div class="symbol-item">
+                <span>${rr}</span>
+                <button onclick="removeRR('${rr}')" class="btn-danger text-sm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    modal?.classList.add('active');
+}
+
+function addRR() {
+    const input = document.getElementById('newRR');
+    const rr = input?.value.trim();
+    
+    if (!rr) return;
+    
+    if (!profileSettings.rrPresets) {
+        profileSettings.rrPresets = ['1:2', '1:3'];
+    }
+    
+    if (profileSettings.rrPresets.includes(rr)) {
+        alert('این نسبت قبلاً اضافه شده است');
+        return;
+    }
+    
+    profileSettings.rrPresets.push(rr);
+    saveProfileSettings();
+    if (input) input.value = '';
+    manageRRs();
+    updateRRButtons();
+}
+
+function removeRR(rr) {
+    profileSettings.rrPresets = profileSettings.rrPresets.filter(r => r !== rr);
+    saveProfileSettings();
+    manageRRs();
+    updateRRButtons();
+}
+
+// Mistake/Note Presets Management
+function manageMistakes() {
+    const modal = document.getElementById('mistakeModal');
+    const list = document.getElementById('mistakeList');
+    
+    if (!profileSettings.mistakePresets) {
+        profileSettings.mistakePresets = [];
+    }
+    
+    if (list) {
+        list.innerHTML = profileSettings.mistakePresets.map(mistake => `
+            <div class="symbol-item">
+                <span>${mistake}</span>
+                <button onclick="removeMistakePreset('${mistake.replace(/'/g, "\\\'")}')" class="btn-danger text-sm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    modal?.classList.add('active');
+}
+
+function addMistakePreset() {
+    const input = document.getElementById('newMistake');
+    const mistake = input?.value.trim();
+    
+    if (!mistake) return;
+    
+    if (!profileSettings.mistakePresets) {
+        profileSettings.mistakePresets = [];
+    }
+    
+    if (profileSettings.mistakePresets.includes(mistake)) {
+        alert('این جمله قبلاً اضافه شده است');
+        return;
+    }
+    
+    profileSettings.mistakePresets.push(mistake);
+    saveProfileSettings();
+    if (input) input.value = '';
+    manageMistakes();
+    updateMistakeButtons();
+}
+
+function removeMistakePreset(mistake) {
+    profileSettings.mistakePresets = profileSettings.mistakePresets.filter(m => m !== mistake);
+    saveProfileSettings();
+    manageMistakes();
+    updateMistakeButtons();
+}
+
+function updateMistakeButtons() {
+    const container = document.getElementById('mistakeButtons');
+    if (!container) return;
+    
+    if (!profileSettings.mistakePresets || profileSettings.mistakePresets.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+    
+    container.innerHTML = profileSettings.mistakePresets.map(mistake => `
+        <button type="button" class="quick-btn" onclick="selectMistake('${mistake.replace(/'/g, "\\'")}')">${mistake}</button>
+    `).join('');
+}
+
+function selectMistake(mistake) {
+    document.getElementById('mistake').value = mistake;
+    document.querySelectorAll('#mistakeButtons .quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === mistake) {
+            btn.classList.add('active');
+        }
+    });
 }
 
 function saveProfileSettings() {
@@ -508,7 +741,7 @@ function saveJournal(event) {
         tradeType: tradeTypeValue,
         timeframe: timeframeValue,
         result: resultValue,
-        stopType: document.getElementById('stopType')?.value || document.getElementById('stopCustom')?.value || '',
+        stopType: document.getElementById('stopType')?.value || '',
         mistake: document.getElementById('mistake')?.value || '',
         quality: qualityValue,
         emotion: emotionValue,
@@ -592,11 +825,6 @@ function resetForm() {
     document.getElementById('emotion').value = '';
     document.getElementById('wouldRetake').value = '';
     document.getElementById('followedPlan').value = '';
-    
-    // Clear custom inputs
-    document.getElementById('riskCustom').value = '';
-    document.getElementById('rrCustom').value = '';
-    document.getElementById('stopCustom').value = '';
     
     // Remove active class from all buttons
     document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
@@ -733,6 +961,9 @@ function initializeQuickButtons() {
     // Timeframe buttons
     updateTimeframeButtons();
     
+    // Mistake buttons
+    updateMistakeButtons();
+    
     // Generic quick buttons (session, tradeType, result, emotion, etc.)
     document.querySelectorAll('.quick-btn[data-field]').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -804,26 +1035,14 @@ function updateRiskButtons() {
     const container = document.getElementById('riskButtons');
     if (!container) return;
     
-    const risks = profileSettings.riskPresets || ['0.5', '1', '1.5', '2', '3'];
+    const risks = profileSettings.riskPresets || ['1', '2'];
     container.innerHTML = risks.map(risk => `
         <button type="button" class="quick-btn" onclick="selectRisk('${risk}')">${risk}%</button>
     `).join('');
-    
-    // Custom risk input
-    const customInput = document.getElementById('riskCustom');
-    if (customInput) {
-        customInput.addEventListener('input', function() {
-            if (this.value) {
-                document.getElementById('risk').value = this.value;
-                document.querySelectorAll('#riskButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
-            }
-        });
-    }
 }
 
 function selectRisk(risk) {
     document.getElementById('risk').value = risk;
-    document.getElementById('riskCustom').value = '';
     document.querySelectorAll('#riskButtons .quick-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.textContent === risk + '%') {
@@ -832,75 +1051,25 @@ function selectRisk(risk) {
     });
 }
 
-function saveRiskPreset() {
-    const customValue = document.getElementById('riskCustom').value;
-    if (!customValue) {
-        alert('لطفاً ابتدا مقدار دلخواه را وارد کنید');
-        return;
-    }
-    
-    if (!profileSettings.riskPresets) {
-        profileSettings.riskPresets = ['0.5', '1', '1.5', '2', '3'];
-    }
-    
-    if (!profileSettings.riskPresets.includes(customValue)) {
-        profileSettings.riskPresets.push(customValue);
-        saveProfileSettings();
-        updateRiskButtons();
-        alert('ریسک به پیش‌فرض‌ها اضافه شد');
-    }
-}
-
 // Update Risk:Reward Buttons
 function updateRRButtons() {
     const container = document.getElementById('rrButtons');
     if (!container) return;
     
-    const rrs = profileSettings.rrPresets || ['1:1', '1:2', '1:3', '1:4', '1:5'];
+    const rrs = profileSettings.rrPresets || ['1:2', '1:3'];
     container.innerHTML = rrs.map(rr => `
         <button type="button" class="quick-btn" onclick="selectRR('${rr}')">${rr}</button>
     `).join('');
-    
-    // Custom RR input
-    const customInput = document.getElementById('rrCustom');
-    if (customInput) {
-        customInput.addEventListener('input', function() {
-            if (this.value) {
-                document.getElementById('riskReward').value = this.value;
-                document.querySelectorAll('#rrButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
-            }
-        });
-    }
 }
 
 function selectRR(rr) {
     document.getElementById('riskReward').value = rr;
-    document.getElementById('rrCustom').value = '';
     document.querySelectorAll('#rrButtons .quick-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.textContent === rr) {
             btn.classList.add('active');
         }
     });
-}
-
-function saveRRPreset() {
-    const customValue = document.getElementById('rrCustom').value;
-    if (!customValue) {
-        alert('لطفاً ابتدا مقدار دلخواه را وارد کنید');
-        return;
-    }
-    
-    if (!profileSettings.rrPresets) {
-        profileSettings.rrPresets = ['1:1', '1:2', '1:3', '1:4', '1:5'];
-    }
-    
-    if (!profileSettings.rrPresets.includes(customValue)) {
-        profileSettings.rrPresets.push(customValue);
-        saveProfileSettings();
-        updateRRButtons();
-        alert('نسبت به پیش‌فرض‌ها اضافه شد');
-    }
 }
 
 // Update Timeframe Buttons
@@ -916,7 +1085,6 @@ function updateTimeframeButtons() {
 
 function selectTimeframe(tf) {
     document.getElementById('timeframe').value = tf;
-    document.getElementById('tfCustom').value = '';
     document.querySelectorAll('#timeframeButtons .quick-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.textContent === tf) {
@@ -925,31 +1093,11 @@ function selectTimeframe(tf) {
     });
 }
 
-function saveTimeframePreset() {
-    const customValue = document.getElementById('tfCustom').value.trim();
-    if (!customValue) {
-        alert('لطفاً ابتدا تایم فریم دلخواه را وارد کنید');
-        return;
-    }
-    
-    if (!profileSettings.timeframePresets) {
-        profileSettings.timeframePresets = ['15s', '1m', '5m'];
-    }
-    
-    if (!profileSettings.timeframePresets.includes(customValue)) {
-        profileSettings.timeframePresets.push(customValue);
-        saveProfileSettings();
-        updateTimeframeButtons();
-        alert('تایم فریم به پیش‌فرض‌ها اضافه شد');
-    } else {
-        alert('این تایم فریم قبلاً اضافه شده است');
-    }
-}
+// Remove old saveTimeframePreset function as it's no longer needed
 
 // Update Stop Buttons (already exists but let's make sure it's called)
 function selectStop(stop) {
     document.getElementById('stopType').value = stop;
-    document.getElementById('stopCustom').value = '';
     document.querySelectorAll('#stopButtons .quick-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.textContent === stop) {
@@ -958,28 +1106,213 @@ function selectStop(stop) {
     });
 }
 
-// Custom stop input handler
-document.addEventListener('DOMContentLoaded', () => {
-    const stopCustom = document.getElementById('stopCustom');
-    if (stopCustom) {
-        stopCustom.addEventListener('input', function() {
-            if (this.value) {
-                document.getElementById('stopType').value = this.value;
-                document.querySelectorAll('#stopButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
-            }
-        });
+console.log('✅ Quick select buttons initialized');
+
+
+// Profile Switcher
+function toggleProfileDropdown() {
+    const dropdown = document.getElementById('profileDropdown');
+    if (dropdown) {
+        const isActive = dropdown.classList.contains('active');
+        dropdown.classList.toggle('active');
+        
+        // Force styles with JavaScript
+        if (!isActive) {
+            // Opening - apply all styles
+            dropdown.style.cssText = `
+                position: absolute !important;
+                top: calc(100% + 0.5rem) !important;
+                right: 0 !important;
+                min-width: 220px !important;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 0.98)) !important;
+                backdrop-filter: blur(20px) !important;
+                border: 2px solid rgba(59, 130, 246, 0.2) !important;
+                border-radius: 16px !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.1) !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) scale(1) !important;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                z-index: 10000 !important;
+                max-height: 400px !important;
+                overflow-y: auto !important;
+                padding: 0.75rem !important;
+                pointer-events: auto !important;
+            `;
+        } else {
+            // Closing
+            dropdown.style.cssText = `
+                position: absolute !important;
+                top: calc(100% + 0.5rem) !important;
+                right: 0 !important;
+                min-width: 220px !important;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 0.98)) !important;
+                backdrop-filter: blur(20px) !important;
+                border: 2px solid rgba(59, 130, 246, 0.2) !important;
+                border-radius: 16px !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.1) !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transform: translateY(-10px) scale(0.95) !important;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                z-index: 10000 !important;
+                max-height: 400px !important;
+                overflow-y: auto !important;
+                padding: 0.75rem !important;
+                pointer-events: none !important;
+            `;
+        }
+        
+        console.log('🔄 Dropdown toggled:', !isActive ? 'OPENED' : 'CLOSED');
+        console.log('   - Position:', dropdown.style.position, dropdown.style.top);
+    } else {
+        console.error('❌ Dropdown element not found!');
+    }
+}
+
+function updateProfileSwitcher() {
+    console.log('updateProfileSwitcher called:', { currentProfile, profiles });
+    
+    // Update profile name
+    const profileName = document.getElementById('currentProfileName');
+    if (profileName) {
+        if (currentProfile) {
+            profileName.textContent = currentProfile;
+        } else {
+            profileName.textContent = 'انتخاب پروفایل';
+        }
     }
     
-    // Custom timeframe input handler
-    const tfCustom = document.getElementById('tfCustom');
-    if (tfCustom) {
-        tfCustom.addEventListener('input', function() {
-            if (this.value) {
-                document.getElementById('timeframe').value = this.value;
-                document.querySelectorAll('#timeframeButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
-            }
-        });
+    // Update dropdown list
+    const dropdownList = document.getElementById('profileDropdownList');
+    if (dropdownList) {
+        if (profiles.length > 0) {
+            dropdownList.innerHTML = profiles.map(profile => `
+                <div class="profile-dropdown-item ${profile === currentProfile ? 'active' : ''}" onclick="switchProfile('${profile}')">
+                    <span>${profile}</span>
+                    ${profile === currentProfile ? '<i class="fas fa-check"></i>' : ''}
+                </div>
+            `).join('');
+        } else {
+            dropdownList.innerHTML = `
+                <div class="profile-dropdown-item" style="cursor: default; opacity: 0.6; pointer-events: none;">
+                    <span>پروفایلی وجود ندارد</span>
+                </div>
+                <div class="profile-dropdown-item" onclick="showProfileManager(); toggleProfileDropdown();" style="color: #3b82f6; font-weight: 600;">
+                    <i class="fas fa-plus-circle" style="margin-left: 0.5rem;"></i>
+                    <span>ایجاد پروفایل جدید</span>
+                </div>
+            `;
+        }
+    }
+}
+
+function switchProfile(profileName) {
+    if (profileName === currentProfile) {
+        toggleProfileDropdown();
+        return;
+    }
+    
+    currentProfile = profileName;
+    localStorage.setItem('currentProfile', currentProfile);
+    
+    loadProfileData();
+    updateProfileSwitcher();
+    toggleProfileDropdown();
+    
+    // Show success message
+    showNotification(`پروفایل به "${profileName}" تغییر یافت`, 'success');
+}
+
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} ml-2"></i>
+        <span>${message}</span>
+    `;
+    notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #3b82f6, #2563eb)'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        animation: slideInRight 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Add animation styles
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Sidebar Toggle for Mobile
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    sidebar?.classList.toggle('active');
+    overlay?.classList.toggle('active');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('profileDropdown');
+    const switcher = document.querySelector('.profile-switcher');
+    
+    if (dropdown && switcher && !switcher.contains(e.target)) {
+        dropdown.classList.remove('active');
     }
 });
 
-console.log('✅ Quick select buttons initialized');
+// Close sidebar when clicking on sidebar items (mobile)
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 1024) {
+                toggleSidebar();
+            }
+        });
+    });
+});
+
+console.log('✅ Profile switcher and responsive sidebar initialized');
