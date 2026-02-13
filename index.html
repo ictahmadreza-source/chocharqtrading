@@ -3746,21 +3746,34 @@
 
         function shouldShowPopup() {
             // Check if user has already submitted
-            return !localStorage.getItem(LEAD_STORAGE_KEY);
+            const hasSubmitted = localStorage.getItem(LEAD_STORAGE_KEY);
+            console.log('🔍 Checking popup status:', {
+                hasSubmitted: !!hasSubmitted,
+                storageValue: hasSubmitted
+            });
+            return !hasSubmitted;
         }
 
         function showLeadPopup() {
+            console.log('⏰ Popup timer started - will show in 3 seconds');
             if (shouldShowPopup()) {
                 setTimeout(() => {
+                    console.log('✅ Showing popup now');
                     const popup = document.getElementById('leadPopup');
                     if (popup) {
                         popup.classList.add('active');
+                        console.log('✅ Popup activated');
+                    } else {
+                        console.error('❌ Popup element not found!');
                     }
                 }, POPUP_DELAY);
+            } else {
+                console.log('⏭️ Popup skipped - user already submitted');
             }
         }
 
         function closeLeadPopup() {
+            console.log('🚪 Closing popup');
             const popup = document.getElementById('leadPopup');
             if (popup) {
                 popup.classList.remove('active');
@@ -3768,32 +3781,46 @@
         }
 
         async function submitLead(source) {
+            console.log('📤 Submitting lead:', source);
+            
             // Prevent multiple submissions
             const buttons = document.querySelectorAll('.lead-popup-option');
             buttons.forEach(btn => btn.classList.add('loading'));
 
             try {
+                const payload = {
+                    source: source,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent
+                };
+                
+                console.log('📦 Payload:', payload);
+
                 const response = await fetch('/api/lead', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        source: source,
-                        timestamp: new Date().toISOString(),
-                        userAgent: navigator.userAgent
-                    })
+                    body: JSON.stringify(payload)
                 });
 
+                console.log('📡 Response status:', response.status);
+
                 if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ API Error:', errorText);
                     throw new Error('Failed to submit');
                 }
+
+                const result = await response.json();
+                console.log('✅ Success:', result);
 
                 // Mark as submitted
                 localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify({
                     source: source,
                     timestamp: new Date().toISOString()
                 }));
+                console.log('💾 Saved to localStorage');
 
                 // Close popup
                 closeLeadPopup();
@@ -3803,6 +3830,7 @@
                     const successMsg = document.getElementById('successMessage');
                     if (successMsg) {
                         successMsg.classList.add('active');
+                        console.log('🎉 Success message shown');
                         
                         // Hide after 5 seconds
                         setTimeout(() => {
@@ -3812,12 +3840,12 @@
                 }, 400);
 
             } catch (error) {
-                console.error('Error submitting lead:', error);
+                console.error('❌ Error submitting lead:', error);
                 
                 // Re-enable buttons on error
                 buttons.forEach(btn => btn.classList.remove('loading'));
                 
-                // Show error message (optional)
+                // Show error message
                 alert('خطا در ارسال اطلاعات. لطفاً دوباره تلاش کنید.');
             }
         }
@@ -3836,10 +3864,33 @@
             }
         });
 
+        // Debug function - add to window for testing
+        window.testPopup = function() {
+            console.log('🧪 Manual test triggered');
+            const popup = document.getElementById('leadPopup');
+            if (popup) {
+                popup.classList.add('active');
+            }
+        };
+
+        window.resetPopup = function() {
+            console.log('🔄 Resetting popup state');
+            localStorage.removeItem(LEAD_STORAGE_KEY);
+            console.log('✅ localStorage cleared - refresh page to see popup');
+        };
+
         // Initialize popup on page load
+        console.log('🚀 Lead popup script loaded');
+        console.log('📍 Document ready state:', document.readyState);
+        
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', showLeadPopup);
+            console.log('⏳ Waiting for DOMContentLoaded');
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('✅ DOMContentLoaded fired');
+                showLeadPopup();
+            });
         } else {
+            console.log('✅ Document already loaded');
             showLeadPopup();
         }
     </script>
