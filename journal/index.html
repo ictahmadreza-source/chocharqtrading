@@ -18,7 +18,7 @@
         <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center gap-4">
-                    <a href="/" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <a href="/" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:scale-105 transition-transform">
                         ARQ Trading
                     </a>
                     <span class="text-gray-600">|</span>
@@ -26,6 +26,10 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <span id="currentProfile" class="text-sm text-gray-600"></span>
+                    <a href="/" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-home ml-1"></i>
+                        صفحه اصلی
+                    </a>
                     <button class="theme-toggle" onclick="toggleTheme()">
                         <i class="fas fa-moon" id="theme-icon"></i>
                     </button>
@@ -50,6 +54,14 @@
             <i class="fas fa-list text-xl"></i>
             <span class="font-semibold">لیست ژورنال‌ها</span>
         </div>
+        <div class="sidebar-item" data-section="dashboard">
+            <i class="fas fa-chart-line text-xl"></i>
+            <span class="font-semibold">داشبورد و آمار</span>
+        </div>
+        <div class="sidebar-item" data-section="settings">
+            <i class="fas fa-cog text-xl"></i>
+            <span class="font-semibold">تنظیمات</span>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -60,21 +72,24 @@
                 <i class="fas fa-folder-open text-6xl text-blue-500 mb-4"></i>
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">خوش آمدید!</h2>
                 <p class="text-gray-600 mb-6">برای شروع، یک پوشه برای ذخیره‌سازی دیتابیس انتخاب کنید</p>
-                <div class="text-right mb-4">
-                    <label class="form-label">مسیر پوشه:</label>
-                    <input type="text" id="dbPath" class="form-input" placeholder="مثال: C:\TradingJournal" dir="ltr">
-                </div>
-                <button onclick="setupDatabase()" class="btn-primary">
-                    <i class="fas fa-check ml-2"></i>
-                    تایید و ادامه
+                <button onclick="selectFolder()" class="btn-primary mb-4">
+                    <i class="fas fa-folder ml-2"></i>
+                    انتخاب پوشه
                 </button>
+                <p class="text-sm text-gray-500">پوشه انتخابی: <span id="selectedPath" class="font-mono text-blue-600">-</span></p>
             </div>
         </div>
 
         <!-- Profile Manager -->
         <div id="profileManager" class="hidden max-w-2xl mx-auto mt-20">
             <div class="glass-card">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">مدیریت پروفایل‌ها</h2>
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">مدیریت پروفایل‌ها</h2>
+                    <a href="/" class="text-blue-600 hover:text-blue-700">
+                        <i class="fas fa-home ml-1"></i>
+                        بازگشت به سایت
+                    </a>
+                </div>
                 
                 <div class="mb-6">
                     <button onclick="showNewProfileForm()" class="btn-primary">
@@ -89,100 +104,133 @@
 
         <!-- New Journal Section -->
         <div id="newJournalSection" class="hidden">
-            <div class="max-w-4xl mx-auto">
+            <div class="max-w-5xl mx-auto">
                 <div class="glass-card">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                        <i class="fas fa-plus-circle ml-2 text-blue-500"></i>
-                        ثبت ژورنال جدید
-                    </h2>
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">
+                            <i class="fas fa-plus-circle ml-2 text-blue-500"></i>
+                            ثبت ژورنال جدید
+                        </h2>
+                        <button onclick="autoFillDateTime()" class="btn-secondary text-sm">
+                            <i class="fas fa-clock ml-1"></i>
+                            تاریخ و ساعت فعلی
+                        </button>
+                    </div>
                     
                     <form id="journalForm">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- نماد -->
-                            <div class="form-group">
-                                <label class="form-label">نماد</label>
-                                <select id="symbol" class="form-select" required></select>
-                                <button type="button" onclick="manageSymbols()" class="text-sm text-blue-500 mt-1">
-                                    <i class="fas fa-cog ml-1"></i>مدیریت نمادها
-                                </button>
-                            </div>
+                        <!-- نماد -->
+                        <div class="form-group">
+                            <label class="form-label">نماد</label>
+                            <div class="quick-select-grid" id="symbolButtons"></div>
+                            <button type="button" onclick="manageSymbols()" class="text-sm text-blue-500 mt-2">
+                                <i class="fas fa-cog ml-1"></i>مدیریت نمادها
+                            </button>
+                            <input type="hidden" id="symbol" required>
+                        </div>
 
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- ریسک -->
                             <div class="form-group">
                                 <label class="form-label">ریسک (%)</label>
-                                <input type="number" id="risk" class="form-input" step="0.1" required>
+                                <div class="quick-select-grid" id="riskButtons"></div>
+                                <input type="number" id="riskCustom" class="form-input mt-2" step="0.1" placeholder="یا مقدار دلخواه وارد کنید">
+                                <button type="button" onclick="saveRiskPreset()" class="text-sm text-blue-500 mt-1">
+                                    <i class="fas fa-save ml-1"></i>ذخیره به عنوان پیش‌فرض
+                                </button>
+                                <input type="hidden" id="risk" required>
                             </div>
 
                             <!-- نسبت ریسک به ریوارد -->
                             <div class="form-group">
                                 <label class="form-label">نسبت ریسک به ریوارد</label>
-                                <input type="text" id="riskReward" class="form-input" placeholder="1:2" required>
-                            </div>
-
-                            <!-- سشن -->
-                            <div class="form-group">
-                                <label class="form-label">سشن معاملاتی</label>
-                                <select id="session" class="form-select" required>
-                                    <option value="">انتخاب کنید</option>
-                                    <option value="لندن">لندن</option>
-                                    <option value="نیویورک">نیویورک</option>
-                                    <option value="آسیا">آسیا</option>
-                                </select>
-                            </div>
-
-                            <!-- نوع معامله -->
-                            <div class="form-group">
-                                <label class="form-label">نوع معامله</label>
-                                <select id="tradeType" class="form-select" required>
-                                    <option value="">انتخاب کنید</option>
-                                    <option value="خرید">خرید</option>
-                                    <option value="فروش">فروش</option>
-                                </select>
-                            </div>
-
-                            <!-- تایم فریم -->
-                            <div class="form-group">
-                                <label class="form-label">تایم فریم</label>
-                                <select id="timeframe" class="form-select" required>
-                                    <option value="">انتخاب کنید</option>
-                                    <option value="15s">15 ثانیه</option>
-                                    <option value="1m">1 دقیقه</option>
-                                    <option value="5m">5 دقیقه</option>
-                                    <option value="15m">15 دقیقه</option>
-                                    <option value="1h">1 ساعت</option>
-                                    <option value="4h">4 ساعت</option>
-                                    <option value="1d">1 روز</option>
-                                </select>
-                            </div>
-
-                            <!-- نتیجه -->
-                            <div class="form-group">
-                                <label class="form-label">نتیجه</label>
-                                <select id="result" class="form-select" required>
-                                    <option value="">انتخاب کنید</option>
-                                    <option value="TP">تیک پروفیت</option>
-                                    <option value="SL">استاپ لاس</option>
-                                    <option value="BE">ریسک فری</option>
-                                </select>
-                            </div>
-
-                            <!-- استاپ معاملاتی -->
-                            <div class="form-group">
-                                <label class="form-label">استاپ معاملاتی</label>
-                                <input type="text" id="stopType" class="form-input" placeholder="مثال: فیک چاک">
+                                <div class="quick-select-grid" id="rrButtons"></div>
+                                <input type="text" id="rrCustom" class="form-input mt-2" placeholder="یا مقدار دلخواه (مثال: 1:3)">
+                                <button type="button" onclick="saveRRPreset()" class="text-sm text-blue-500 mt-1">
+                                    <i class="fas fa-save ml-1"></i>ذخیره به عنوان پیش‌فرض
+                                </button>
+                                <input type="hidden" id="riskReward" required>
                             </div>
                         </div>
 
-                        <!-- مهمترین اشتباه -->
+                        <!-- سشن معاملاتی -->
                         <div class="form-group">
-                            <label class="form-label">مهمترین اشتباه</label>
-                            <textarea id="mistake" class="form-textarea"></textarea>
+                            <label class="form-label">سشن معاملاتی</label>
+                            <div class="quick-select-grid-3">
+                                <button type="button" class="quick-btn" data-field="session" data-value="لندن">
+                                    <i class="fas fa-globe ml-1"></i>لندن
+                                </button>
+                                <button type="button" class="quick-btn" data-field="session" data-value="نیویورک">
+                                    <i class="fas fa-globe ml-1"></i>نیویورک
+                                </button>
+                                <button type="button" class="quick-btn" data-field="session" data-value="آسیا">
+                                    <i class="fas fa-globe ml-1"></i>آسیا
+                                </button>
+                            </div>
+                            <input type="hidden" id="session" required>
+                        </div>
+
+                        <!-- نوع معامله -->
+                        <div class="form-group">
+                            <label class="form-label">نوع معامله</label>
+                            <div class="quick-select-grid-2">
+                                <button type="button" class="quick-btn quick-btn-buy" data-field="tradeType" data-value="خرید">
+                                    <i class="fas fa-arrow-up ml-1"></i>خرید
+                                </button>
+                                <button type="button" class="quick-btn quick-btn-sell" data-field="tradeType" data-value="فروش">
+                                    <i class="fas fa-arrow-down ml-1"></i>فروش
+                                </button>
+                            </div>
+                            <input type="hidden" id="tradeType" required>
+                        </div>
+
+                        <!-- تایم فریم -->
+                        <div class="form-group">
+                            <label class="form-label">تایم فریم</label>
+                            <div class="quick-select-grid" id="timeframeButtons"></div>
+                            <button type="button" onclick="saveTimeframePreset()" class="text-sm text-blue-500 mt-2">
+                                <i class="fas fa-save ml-1"></i>ذخیره انتخاب شده به عنوان پیش‌فرض
+                            </button>
+                            <input type="hidden" id="timeframe" required>
+                        </div>
+
+                        <!-- نتیجه -->
+                        <div class="form-group">
+                            <label class="form-label">نتیجه</label>
+                            <div class="quick-select-grid-3">
+                                <button type="button" class="quick-btn quick-btn-tp" data-field="result" data-value="TP">
+                                    <i class="fas fa-check-circle ml-1"></i>تیک پروفیت
+                                </button>
+                                <button type="button" class="quick-btn quick-btn-sl" data-field="result" data-value="SL">
+                                    <i class="fas fa-times-circle ml-1"></i>استاپ لاس
+                                </button>
+                                <button type="button" class="quick-btn quick-btn-be" data-field="result" data-value="BE">
+                                    <i class="fas fa-minus-circle ml-1"></i>ریسک فری
+                                </button>
+                            </div>
+                            <input type="hidden" id="result" required>
+                        </div>
+
+                        <!-- استاپ معاملاتی -->
+                        <div class="form-group">
+                            <label class="form-label">استاپ معاملاتی</label>
+                            <div class="quick-select-grid" id="stopButtons"></div>
+                            <input type="text" id="stopCustom" class="form-input mt-2" placeholder="یا مقدار دلخواه">
+                            <button type="button" onclick="manageStops()" class="text-sm text-blue-500 mt-1">
+                                <i class="fas fa-cog ml-1"></i>مدیریت استاپ‌ها
+                            </button>
+                            <input type="hidden" id="stopType">
+                        </div>
+
+                        <!-- مهمترین اشتباه / نکته -->
+                        <div class="form-group">
+                            <label class="form-label" id="mistakeLabel">مهمترین اشتباه</label>
+                            <textarea id="mistake" class="form-textarea" placeholder="توضیحات..."></textarea>
                         </div>
 
                         <!-- کیفیت اجرا -->
                         <div class="form-group">
-                            <label class="form-label">کیفیت اجرا (1-5)</label>
-                            <div class="flex gap-2">
+                            <label class="form-label">کیفیت اجرا معامله</label>
+                            <div class="quality-grid">
                                 <button type="button" class="quality-btn" data-value="1">1</button>
                                 <button type="button" class="quality-btn" data-value="2">2</button>
                                 <button type="button" class="quality-btn" data-value="3">3</button>
@@ -195,49 +243,57 @@
                         <!-- احساسات -->
                         <div class="form-group">
                             <label class="form-label">احساسات غالب</label>
-                            <select id="emotion" class="form-select" required>
-                                <option value="">انتخاب کنید</option>
-                                <option value="آرام">آرام</option>
-                                <option value="مضطرب">مضطرب</option>
-                                <option value="عصبی">عصبی</option>
-                                <option value="با اعتماد به نفس">با اعتماد به نفس</option>
-                            </select>
-                        </div>
-
-                        <!-- دوباره میگرفتم -->
-                        <div class="form-group">
-                            <label class="form-label">دوباره می‌گرفتم؟</label>
-                            <div class="flex gap-4">
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="wouldRetake" value="بله" required>
-                                    <span>بله</span>
-                                </label>
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="wouldRetake" value="خیر">
-                                    <span>خیر</span>
-                                </label>
+                            <div class="quick-select-grid-4">
+                                <button type="button" class="quick-btn" data-field="emotion" data-value="آرام">
+                                    <i class="fas fa-smile ml-1"></i>آرام
+                                </button>
+                                <button type="button" class="quick-btn" data-field="emotion" data-value="مضطرب">
+                                    <i class="fas fa-meh ml-1"></i>مضطرب
+                                </button>
+                                <button type="button" class="quick-btn" data-field="emotion" data-value="عصبی">
+                                    <i class="fas fa-frown ml-1"></i>عصبی
+                                </button>
+                                <button type="button" class="quick-btn" data-field="emotion" data-value="با اعتماد به نفس">
+                                    <i class="fas fa-grin-stars ml-1"></i>با اعتماد
+                                </button>
                             </div>
+                            <input type="hidden" id="emotion" required>
                         </div>
 
-                        <!-- طبق پلن -->
-                        <div class="form-group">
-                            <label class="form-label">طبق پلن بود؟</label>
-                            <div class="flex gap-4">
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="followedPlan" value="بله" required>
-                                    <span>بله</span>
-                                </label>
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" name="followedPlan" value="خیر">
-                                    <span>خیر</span>
-                                </label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- دوباره میگرفتم -->
+                            <div class="form-group">
+                                <label class="form-label">دوباره می‌گرفتم؟</label>
+                                <div class="quick-select-grid-2">
+                                    <button type="button" class="quick-btn" data-field="wouldRetake" data-value="بله">
+                                        <i class="fas fa-check ml-1"></i>بله
+                                    </button>
+                                    <button type="button" class="quick-btn" data-field="wouldRetake" data-value="خیر">
+                                        <i class="fas fa-times ml-1"></i>خیر
+                                    </button>
+                                </div>
+                                <input type="hidden" id="wouldRetake" required>
+                            </div>
+
+                            <!-- طبق پلن -->
+                            <div class="form-group">
+                                <label class="form-label">طبق پلن بود؟</label>
+                                <div class="quick-select-grid-2">
+                                    <button type="button" class="quick-btn" data-field="followedPlan" data-value="بله">
+                                        <i class="fas fa-check ml-1"></i>بله
+                                    </button>
+                                    <button type="button" class="quick-btn" data-field="followedPlan" data-value="خیر">
+                                        <i class="fas fa-times ml-1"></i>خیر
+                                    </button>
+                                </div>
+                                <input type="hidden" id="followedPlan" required>
                             </div>
                         </div>
 
                         <!-- کامنت -->
                         <div class="form-group">
-                            <label class="form-label">کامنت</label>
-                            <textarea id="comment" class="form-textarea"></textarea>
+                            <label class="form-label">کامنت و توضیحات</label>
+                            <textarea id="comment" class="form-textarea" placeholder="توضیحات تکمیلی..."></textarea>
                         </div>
 
                         <!-- لینک چارت -->
@@ -250,28 +306,29 @@
                         <div class="form-group">
                             <label class="form-label">عکس معامله</label>
                             <input type="file" id="tradeImage" class="form-input" accept="image/*">
+                            <p class="text-sm text-gray-500 mt-1">فرمت‌های مجاز: JPG, PNG, GIF</p>
                         </div>
 
                         <!-- تاریخ و ساعت -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="form-group">
-                                <label class="form-label">تاریخ</label>
+                                <label class="form-label">تاریخ (شمسی)</label>
                                 <input type="text" id="tradeDate" class="form-input" readonly>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">ساعت</label>
+                                <label class="form-label">ساعت (به وقت تهران)</label>
                                 <input type="time" id="tradeTime" class="form-input">
                             </div>
                         </div>
 
-                        <div class="flex gap-4 mt-6">
+                        <div class="flex gap-4 mt-8">
                             <button type="submit" class="btn-primary flex-1">
                                 <i class="fas fa-save ml-2"></i>
                                 ذخیره ژورنال
                             </button>
                             <button type="button" onclick="resetForm()" class="btn-secondary">
                                 <i class="fas fa-redo ml-2"></i>
-                                پاک کردن فرم
+                                پاک کردن
                             </button>
                         </div>
                     </form>
@@ -283,10 +340,13 @@
         <div id="journalListSection" class="hidden">
             <div class="max-w-6xl mx-auto">
                 <div class="glass-card mb-4">
-                    <h2 class="text-2xl font-bold text-gray-900">
-                        <i class="fas fa-list ml-2 text-blue-500"></i>
-                        لیست ژورنال‌ها
-                    </h2>
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-gray-900">
+                            <i class="fas fa-list ml-2 text-blue-500"></i>
+                            لیست ژورنال‌ها
+                        </h2>
+                        <span class="text-sm text-gray-600" id="journalCount"></span>
+                    </div>
                 </div>
                 <div id="journalListContainer"></div>
             </div>
@@ -313,7 +373,7 @@
             <h3 class="text-xl font-bold mb-4">مدیریت نمادها</h3>
             <div id="symbolList" class="mb-4"></div>
             <div class="form-group">
-                <input type="text" id="newSymbol" class="form-input" placeholder="نماد جدید">
+                <input type="text" id="newSymbol" class="form-input" placeholder="نماد جدید (مثال: BTCUSD)">
             </div>
             <div class="flex gap-4">
                 <button onclick="addSymbol()" class="btn-primary flex-1">افزودن</button>
@@ -322,7 +382,22 @@
         </div>
     </div>
 
+    <div id="stopModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت استاپ‌های معاملاتی</h3>
+            <div id="stopList" class="mb-4"></div>
+            <div class="form-group">
+                <input type="text" id="newStop" class="form-input" placeholder="استاپ جدید (مثال: فیک چاک)">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addStop()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('stopModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
     <script src="canvas.js"></script>
     <script src="app.js"></script>
+    <script src="features.js"></script>
 </body>
 </html>

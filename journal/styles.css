@@ -326,6 +326,81 @@ body {
     border-color: var(--primary);
 }
 
+.quality-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+.quick-select-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+}
+
+.quick-select-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.quick-select-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.quick-select-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.quick-btn {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-btn:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.quick-btn.active {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    color: white;
+    border-color: transparent;
+}
+
+.quick-btn-buy.active {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.quick-btn-sell.active {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.quick-btn-tp.active {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.quick-btn-sl.active {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.quick-btn-be.active {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
 .symbol-item {
     display: flex;
     justify-content: space-between;

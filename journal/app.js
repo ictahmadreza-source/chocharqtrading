@@ -9,17 +9,17 @@ let profileSettings = {};
 document.addEventListener('DOMContentLoaded', () => {
     loadSettings();
     setupEventListeners();
-    setCurrentDate();
+    autoFillDateTime();
 });
 
-// Load Settings from localStorage
+// Load Settings
 function loadSettings() {
     dbPath = localStorage.getItem('journalDbPath');
     currentProfile = localStorage.getItem('currentProfile');
     
     if (dbPath) {
         document.getElementById('setupScreen').classList.add('hidden');
-        loadProfiles();
+        document.getElementById('selected
         
         if (currentProfile) {
             loadProfileData();
@@ -409,3 +409,19 @@ window.addEventListener('DOMContentLoaded', () => {
         icon.className = 'fas fa-sun';
     }
 });
+
+
+// Dashboard and Statistics
+function showDashboard() {
+    calculateStats();
+}
+
+function calculateStats() {
+    const total = journals.length;
+    const wins = journals.filter(j => j.result === 'TP').length;
+    const losses = journals.filter(j => j.result === 'SL').length;
+    const winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : 0;
+    
+    document.getElementById('totalTrades').textContent = total;
+    document.getElementById('winTrades').textContent = wins;
+    document.getElementById('lossTrades').textContent = lo
