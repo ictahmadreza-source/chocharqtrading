@@ -1,85 +1,200 @@
 // Form Enhancement - Add sections and better styling
 
 document.addEventListener('DOMContentLoaded', () => {
-    enhanceForm();
+    setTimeout(() => {
+        enhanceForm();
+        highlightRequiredFields();
+    }, 500);
 });
 
 function enhanceForm() {
     const form = document.getElementById('journalForm');
     if (!form) return;
     
-    // Wrap form groups in sections
-    wrapFormSections();
-}
-
-function wrapFormSections() {
-    const form = document.getElementById('journalForm');
-    if (!form) return;
-    
-    // Get all form groups
-    const formGroups = Array.from(form.querySelectorAll('.form-group'));
-    
-    // Define sections
+    // Create sections structure
     const sections = [
         {
+            id: 'section-basic',
             title: 'اطلاعات پایه معامله',
+            subtitle: 'نماد و شناسایی معامله',
             icon: 'fa-chart-line',
             color: 'blue',
-            groups: formGroups.slice(0, 1) // نماد
+            fields: ['symbol']
         },
         {
+            id: 'section-risk',
             title: 'مدیریت ریسک',
+            subtitle: 'ریسک و نسبت ریوارد',
             icon: 'fa-shield-alt',
             color: 'purple',
-            groups: formGroups.slice(1, 3) // ریسک و R:R (if in grid)
+            fields: ['risk', 'riskReward']
         },
         {
+            id: 'section-details',
             title: 'جزئیات معامله',
+            subtitle: 'سشن، نوع و تایم فریم',
             icon: 'fa-info-circle',
             color: 'green',
-            groups: [] // سشن، نوع، تایم فریم
+            fields: ['session', 'tradeType', 'timeframe']
         },
         {
+            id: 'section-result',
             title: 'نتیجه و عملکرد',
+            subtitle: 'نتیجه، استاپ و کیفیت اجرا',
             icon: 'fa-flag-checkered',
             color: 'amber',
-            groups: [] // نتیجه، استاپ، کیفیت
+            fields: ['result', 'stopType', 'quality']
         },
         {
+            id: 'section-psychology',
             title: 'تحلیل روانشناسی',
+            subtitle: 'احساسات و تصمیم‌گیری',
             icon: 'fa-brain',
             color: 'pink',
-            groups: [] // احساسات، دوباره میگرفتم، طبق پلن
+            fields: ['emotion', 'wouldRetake', 'followedPlan']
         },
         {
+            id: 'section-notes',
             title: 'یادداشت‌ها و مستندات',
+            subtitle: 'اشتباهات، نکات و مدارک',
             icon: 'fa-file-alt',
             color: 'red',
-            groups: [] // اشتباه/نکته، کامنت، لینک، عکس، تاریخ
+            fields: ['mistake', 'comment', 'chartLink', 'tradeImage', 'tradeDate']
         }
     ];
     
-    console.log('✅ Form sections enhanced');
+    // Get all form groups
+    const formGroups = Array.from(form.children).filter(el => 
+        el.classList.contains('form-group') || el.classList.contains('grid')
+    );
+    
+    // Create a document fragment for better performance
+    const fragment = document.createDocumentFragment();
+    
+    sections.forEach(section => {
+        const sectionDiv = createSection(section);
+        
+        // Find and move relevant form groups to this section
+        formGroups.forEach(group => {
+            const inputs = group.querySelectorAll('input[id], select[id], textarea[id]');
+            inputs.forEach(input => {
+                if (section.fields.includes(input.id)) {
+                    sectionDiv.appendChild(group.cloneNode(true));
+                }
+            });
+        });
+        
+        // Only add section if it has content
+        if (sectionDiv.children.length > 1) { // More than just header
+            fragment.appendChild(sectionDiv);
+        }
+    });
+    
+    // Clear form and add sections
+    // Note: We'll keep original structure for now and just add visual enhancements
+    
+    console.log('✅ Form sections structure created');
+}
+
+function createSection(config) {
+    const section = document.createElement('div');
+    section.className = `form-section section-${config.color}`;
+    section.id = config.id;
+    
+    const header = document.createElement('div');
+    header.className = 'form-section-header';
+    
+    const icon = document.createElement('div');
+    icon.className = 'form-section-icon';
+    icon.innerHTML = `<i class="fas ${config.icon}"></i>`;
+    
+    const titleContainer = document.createElement('div');
+    titleContainer.className = 'flex-1';
+    
+    const title = document.createElement('h3');
+    title.className = 'form-section-title';
+    title.textContent = config.title;
+    
+    const subtitle = document.createElement('p');
+    subtitle.className = 'form-section-subtitle';
+    subtitle.textContent = config.subtitle;
+    
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(subtitle);
+    
+    header.appendChild(icon);
+    header.appendChild(titleContainer);
+    
+    section.appendChild(header);
+    
+    return section;
 }
 
 // Add visual feedback for required fields
 function highlightRequiredFields() {
-    const requiredInputs = document.querySelectorAll('[required]');
+    const requiredInputs = document.querySelectorAll('input[required], select[required], textarea[required]');
     
     requiredInputs.forEach(input => {
-        const label = input.closest('.form-group')?.querySelector('.form-label');
+        const formGroup = input.closest('.form-group');
+        if (!formGroup) return;
+        
+        const label = formGroup.querySelector('.form-label');
         if (label && !label.querySelector('.required-star')) {
             const star = document.createElement('span');
-            star.className = 'required-star text-red-500 mr-1';
+            star.className = 'required-star';
             star.textContent = '*';
-            label.appendChild(star);
+            label.insertBefore(star, label.firstChild);
         }
     });
 }
 
-// Call on load
+// Add helper text to complex fields
+function addHelperTexts() {
+    const helpers = {
+        'riskReward': 'مثال: 1:2 یعنی برای هر 1 واحد ریسک، 2 واحد سود',
+        'chartLink': 'لینک TradingView یا هر سایت دیگری که چارت را نمایش می‌دهد',
+        'tradeImage': 'فرمت‌های مجاز: JPG, PNG, GIF - حداکثر 5MB'
+    };
+    
+    Object.keys(helpers).forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field) return;
+        
+        const formGroup = field.closest('.form-group');
+        if (!formGroup || formGroup.querySelector('.form-helper-text')) return;
+        
+        const helper = document.createElement('p');
+        helper.className = 'form-helper-text';
+        helper.innerHTML = `<i class="fas fa-info-circle"></i><span>${helpers[fieldId]}</span>`;
+        
+        field.parentNode.insertBefore(helper, field.nextSibling);
+    });
+}
+
+// Wrap action buttons
+function wrapActionButtons() {
+    const form = document.getElementById('journalForm');
+    if (!form) return;
+    
+    const buttonContainer = form.querySelector('.flex.gap-4.mt-8');
+    if (buttonContainer && !buttonContainer.classList.contains('form-actions')) {
+        buttonContainer.classList.add('form-actions');
+        buttonContainer.classList.remove('mt-8');
+        
+        const submitBtn = buttonContainer.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.classList.add('btn-submit');
+        }
+    }
+}
+
+// Initialize all enhancements
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(highlightRequiredFields, 500);
+    setTimeout(() => {
+        addHelperTexts();
+        wrapActionButtons();
+    }, 600);
 });
 
 console.log('✅ Form enhancer loaded');
+
