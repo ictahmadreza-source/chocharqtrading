@@ -456,3 +456,129 @@ body {
     color: #34d399;
     background: rgba(16, 185, 129, 0.1);
 }
+
+
+/* Quick Select Buttons */
+.quick-select-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.quick-select-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.quick-select-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.quick-select-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .quick-select-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.quick-btn {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.quick-btn:hover {
+    border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.quick-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.quick-btn-buy {
+    border-color: #10b981;
+    color: #10b981;
+}
+
+.quick-btn-buy:hover,
+.quick-btn-buy.active {
+    background: #10b981;
+    color: white;
+}
+
+.quick-btn-sell {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.quick-btn-sell:hover,
+.quick-btn-sell.active {
+    background: #ef4444;
+    color: white;
+}
+
+.quick-btn-tp {
+    border-color: #10b981;
+    color: #10b981;
+}
+
+.quick-btn-tp:hover,
+.quick-btn-tp.active {
+    background: #10b981;
+    color: white;
+}
+
+.quick-btn-sl {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.quick-btn-sl:hover,
+.quick-btn-sl.active {
+    background: #ef4444;
+    color: white;
+}
+
+.quick-btn-be {
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.quick-btn-be:hover,
+.quick-btn-be.active {
+    background: #f59e0b;
+    color: white;
+}
+
+.quality-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+    .quality-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
