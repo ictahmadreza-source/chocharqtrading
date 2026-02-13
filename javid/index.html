@@ -1,1 +1,411 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کورس جاوید 11780 - ARQ Trading</title>
+    <meta name="description" content="کورس پیشرفته جاوید 11780 - آموزش اختصاصی معامله‌گری با احمد در ARQ Trading">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233b82f6'/%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6'/%3E%3C/linearGradient%3E%3Cfilter id='shadow'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-family='Arial Black,Arial,sans-serif' font-size='44' font-weight='900' fill='white' text-anchor='middle' filter='url(%23shadow)' letter-spacing='1'%3EARQ%3C/text%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --bg: #fafbff;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--bg);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #organic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: morph 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            top: -100px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 2s;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+        }
+
+        @keyframes morph {
+            0%, 100% { 
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% { 
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+                transform: translate(20px, -20px) rotate(180deg);
+            }
+        }
+
+        .dollar-sign {
+            position: fixed;
+            font-size: 2rem;
+            font-weight: bold;
+            color: rgba(16, 185, 129, 0.3);
+            animation: float-dollar 15s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes float-dollar {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7, #ec4899, #f43f5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.8); }
+        }
+
+        .coming-soon-badge {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            transition: all 0.4s ease;
+        }
+
+        .feature-icon:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        @keyframes chart-up {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .chart-icon {
+            animation: chart-up 2s ease-in-out infinite;
+        }
+
+        .money-icon {
+            position: fixed;
+            font-size: 1.5rem;
+            animation: money-fall 10s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes money-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="organic-canvas"></canvas>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <nav class="fixed w-full z-50 nav-glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-white text-xl shadow-lg transition-transform duration-500 group-hover:scale-110">
+                            ARQ
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-black text-gray-800">ARQ Trading</div>
+                        <div class="text-xs text-blue-600 font-bold">کورس جاوید 11780</div>
+                    </div>
+                </a>
+                <a href="/" class="text-gray-600 hover:text-blue-600 text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fas fa-arrow-right"></i>
+                    <span class="hidden sm:inline">بازگشت</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 px-4 relative">
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-red-500 to-pink-600 text-white text-sm font-bold mb-8 coming-soon-badge">
+                <i class="fas fa-clock"></i>
+                <span>به زودی</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-6">
+                کورس <span class="gradient-text">جاوید 11780</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+                کورس پیشرفته و اختصاصی ARQ Trading
+                <br>
+                <span class="text-blue-600">جزئیات کامل به زودی اعلام می‌شود</span>
+            </p>
+
+            <a href="https://t.me/ARQtrading" target="_blank" class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-3xl hover:scale-105 transition-all">
+                <i class="fab fa-telegram text-2xl"></i>
+                <span>عضویت در کانال</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass-card rounded-3xl p-8 md:p-12">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-bold mb-4">
+                        <i class="fas fa-info-circle"></i>
+                        <span>اطلاعات کورس</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+                        درباره کورس جاوید 11780
+                    </h2>
+                    <p class="text-gray-600 text-lg">
+                        این صفحه در حال تکمیل است و به زودی اطلاعات کامل کورس اضافه خواهد شد
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="feature-icon bg-gradient-to-br from-purple-500 to-pink-600 text-white mx-auto mb-4 shadow-xl chart-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2 text-xl">محتوای اختصاصی</h3>
+                        <p class="text-gray-600">جزئیات به زودی</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="feature-icon bg-gradient-to-br from-blue-500 to-indigo-600 text-white mx-auto mb-4 shadow-xl">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2 text-xl">پیشرفته</h3>
+                        <p class="text-gray-600">جزئیات به زودی</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="feature-icon bg-gradient-to-br from-green-500 to-emerald-600 text-white mx-auto mb-4 shadow-xl">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2 text-xl">حرفه‌ای</h3>
+                        <p class="text-gray-600">جزئیات به زودی</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 glass-card p-6 rounded-2xl border-2 border-purple-200">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white flex-shrink-0">
+                            <i class="fas fa-bell text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-2 text-lg">اطلاعیه مهم</h4>
+                            <p class="text-gray-700 leading-relaxed">
+                                این کورس در حال آماده‌سازی است. برای دریافت اطلاعات کامل و زمان شروع کورس، حتماً در کانال تلگرام ARQ Trading عضو شوید.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 px-4 bg-white/80 backdrop-blur-md border-t border-gray-200 relative z-10">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-white">ARQ</div>
+                <div class="text-gray-900 font-bold">ARQ Trading</div>
+            </div>
+            <p class="text-gray-600 text-sm mb-6">آموزش معامله‌گری حرفه‌ای با رویکرد Smart Money Concepts</p>
+            <div class="flex items-center justify-center gap-6">
+                <a href="/" class="text-gray-600 hover:text-blue-600 text-sm transition">صفحه اصلی</a>
+                <a href="/coaching" class="text-gray-600 hover:text-blue-600 text-sm transition">کوچینگ</a>
+                <a href="/blog" class="text-gray-600 hover:text-blue-600 text-sm transition">وبلاگ</a>
+            </div>
+            <p class="text-gray-500 text-xs mt-6">© 2024 ARQ Trading</p>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('organic-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = `rgba(${Math.random() * 100 + 100}, ${Math.random() * 100 + 150}, 255, 0.3)`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        function createDollarSign() {
+            const dollar = document.createElement('div');
+            dollar.className = 'dollar-sign';
+            dollar.innerHTML = '$';
+            dollar.style.left = Math.random() * 100 + '%';
+            dollar.style.animationDelay = Math.random() * 5 + 's';
+            dollar.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+            document.body.appendChild(dollar);
+            setTimeout(() => dollar.remove(), 15000);
+        }
+
+        function createMoneyIcon() {
+            const icons = ['💰', '💵', '💸', '💴', '💶', '💷'];
+            const money = document.createElement('div');
+            money.className = 'money-icon';
+            money.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            money.style.left = Math.random() * 100 + '%';
+            money.style.animationDelay = Math.random() * 3 + 's';
+            money.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            document.body.appendChild(money);
+            setTimeout(() => money.remove(), 13000);
+        }
+
+        setInterval(createDollarSign, 2000);
+        setInterval(createMoneyIcon, 1500);
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createDollarSign, i * 400);
+            setTimeout(createMoneyIcon, i * 300);
+        }
+    </script>
+
+</body>
+</html>
