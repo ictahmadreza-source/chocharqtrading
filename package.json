@@ -1,0 +1,10 @@
+{
+  "name": "arq-coaching",
+  "version": "1.0.0",
+  "description": "ARQ Trading & Coaching Website",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'"
+  }
+}
