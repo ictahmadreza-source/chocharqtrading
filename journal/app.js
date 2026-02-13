@@ -579,8 +579,28 @@ function resetForm() {
         delete form.dataset.editingId;
     }
     
+    // Clear all hidden inputs
+    document.getElementById('symbol').value = '';
+    document.getElementById('risk').value = '';
+    document.getElementById('riskReward').value = '';
+    document.getElementById('session').value = '';
+    document.getElementById('tradeType').value = '';
+    document.getElementById('timeframe').value = '';
+    document.getElementById('result').value = '';
+    document.getElementById('stopType').value = '';
+    document.getElementById('quality').value = '';
+    document.getElementById('emotion').value = '';
+    document.getElementById('wouldRetake').value = '';
+    document.getElementById('followedPlan').value = '';
+    
+    // Clear custom inputs
+    document.getElementById('riskCustom').value = '';
+    document.getElementById('rrCustom').value = '';
+    document.getElementById('stopCustom').value = '';
+    
+    // Remove active class from all buttons
+    document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.quality-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('#stopButtons .quick-btn').forEach(b => b.classList.remove('active'));
     
     // Reset submit button
     const submitBtn = document.querySelector('#journalForm button[type="submit"]');
@@ -588,7 +608,17 @@ function resetForm() {
         submitBtn.innerHTML = '<i class="fas fa-save ml-2"></i>ذخیره ژورنال';
     }
     
+    // Reset mistake label
+    const label = document.getElementById('mistakeLabel');
+    if (label) {
+        label.innerHTML = '<i class="fas fa-exclamation-triangle text-red-500 ml-2"></i>مهمترین اشتباه';
+        label.classList.remove('text-yellow-600');
+        label.classList.add('text-red-600');
+    }
+    
     autoFillDateTime();
+    
+    alert('فرم پاک شد');
 }
 
 // Update Journal List
@@ -720,8 +750,33 @@ function initializeQuickButtons() {
             if (input) {
                 input.value = value;
             }
+            
+            // Update mistake label based on result
+            if (field === 'result') {
+                updateMistakeLabel(value);
+            }
         });
     });
+}
+
+// Update Mistake Label based on result
+function updateMistakeLabel(result) {
+    const label = document.getElementById('mistakeLabel');
+    const textarea = document.getElementById('mistake');
+    
+    if (!label || !textarea) return;
+    
+    if (result === 'TP') {
+        label.innerHTML = '<i class="fas fa-lightbulb text-yellow-500 ml-2"></i>مهمترین نکته';
+        textarea.placeholder = 'چه نکته‌ای باعث موفقیت این معامله شد؟';
+        label.classList.remove('text-red-600');
+        label.classList.add('text-yellow-600');
+    } else {
+        label.innerHTML = '<i class="fas fa-exclamation-triangle text-red-500 ml-2"></i>مهمترین اشتباه';
+        textarea.placeholder = 'چه اشتباهی در این معامله رخ داد؟';
+        label.classList.remove('text-yellow-600');
+        label.classList.add('text-red-600');
+    }
 }
 
 // Update Symbol Buttons
@@ -853,7 +908,7 @@ function updateTimeframeButtons() {
     const container = document.getElementById('timeframeButtons');
     if (!container) return;
     
-    const timeframes = profileSettings.timeframePresets || ['1m', '5m', '15m', '30m', '1h', '4h', '1d'];
+    const timeframes = profileSettings.timeframePresets || ['15s', '1m', '5m'];
     container.innerHTML = timeframes.map(tf => `
         <button type="button" class="quick-btn" onclick="selectTimeframe('${tf}')">${tf}</button>
     `).join('');
@@ -861,6 +916,7 @@ function updateTimeframeButtons() {
 
 function selectTimeframe(tf) {
     document.getElementById('timeframe').value = tf;
+    document.getElementById('tfCustom').value = '';
     document.querySelectorAll('#timeframeButtons .quick-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.textContent === tf) {
@@ -870,13 +926,24 @@ function selectTimeframe(tf) {
 }
 
 function saveTimeframePreset() {
-    const selected = document.getElementById('timeframe').value;
-    if (!selected) {
-        alert('لطفاً ابتدا یک تایم فریم انتخاب کنید');
+    const customValue = document.getElementById('tfCustom').value.trim();
+    if (!customValue) {
+        alert('لطفاً ابتدا تایم فریم دلخواه را وارد کنید');
         return;
     }
     
-    alert('تایم فریم انتخاب شده: ' + selected);
+    if (!profileSettings.timeframePresets) {
+        profileSettings.timeframePresets = ['15s', '1m', '5m'];
+    }
+    
+    if (!profileSettings.timeframePresets.includes(customValue)) {
+        profileSettings.timeframePresets.push(customValue);
+        saveProfileSettings();
+        updateTimeframeButtons();
+        alert('تایم فریم به پیش‌فرض‌ها اضافه شد');
+    } else {
+        alert('این تایم فریم قبلاً اضافه شده است');
+    }
 }
 
 // Update Stop Buttons (already exists but let's make sure it's called)
@@ -899,6 +966,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.value) {
                 document.getElementById('stopType').value = this.value;
                 document.querySelectorAll('#stopButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
+            }
+        });
+    }
+    
+    // Custom timeframe input handler
+    const tfCustom = document.getElementById('tfCustom');
+    if (tfCustom) {
+        tfCustom.addEventListener('input', function() {
+            if (this.value) {
+                document.getElementById('timeframe').value = this.value;
+                document.querySelectorAll('#timeframeButtons .quick-btn').forEach(btn => btn.classList.remove('active'));
             }
         });
     }
