@@ -320,6 +320,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 600;
+    color: #64748b;
 }
 
 [data-theme="dark"] .quality-btn {
@@ -330,6 +331,8 @@ body {
 
 .quality-btn:hover {
     border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.05);
+    color: var(--primary);
 }
 
 [data-theme="dark"] .quality-btn:hover {
@@ -338,14 +341,16 @@ body {
 }
 
 .quality-btn.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+    color: #3b82f6;
+    border-color: rgba(59, 130, 246, 0.4);
+    font-weight: 700;
 }
 
 [data-theme="dark"] .quality-btn.active {
     background: rgba(59, 130, 246, 0.7);
     border-color: rgba(59, 130, 246, 0.5);
+    color: white;
 }
 
 .quality-grid {
@@ -390,37 +395,101 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #64748b;
 }
 
 .quick-btn:hover {
     border-color: var(--primary);
     transform: translateY(-2px);
+    background: rgba(59, 130, 246, 0.05);
+    color: var(--primary);
 }
 
 .quick-btn.active {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    color: white;
-    border-color: transparent;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+    color: #3b82f6;
+    border-color: rgba(59, 130, 246, 0.4);
+    font-weight: 700;
+}
+
+.quick-btn-buy {
+    color: #059669;
+}
+
+.quick-btn-buy:hover {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: #10b981;
+    color: #059669;
 }
 
 .quick-btn-buy.active {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.15));
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+.quick-btn-sell {
+    color: #dc2626;
+}
+
+.quick-btn-sell:hover {
+    background: rgba(239, 68, 68, 0.05);
+    border-color: #ef4444;
+    color: #dc2626;
 }
 
 .quick-btn-sell.active {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15));
+    color: #dc2626;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.quick-btn-tp {
+    color: #059669;
+}
+
+.quick-btn-tp:hover {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: #10b981;
+    color: #059669;
 }
 
 .quick-btn-tp.active {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.15));
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+.quick-btn-sl {
+    color: #dc2626;
+}
+
+.quick-btn-sl:hover {
+    background: rgba(239, 68, 68, 0.05);
+    border-color: #ef4444;
+    color: #dc2626;
 }
 
 .quick-btn-sl.active {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15));
+    color: #dc2626;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.quick-btn-be {
+    color: #d97706;
+}
+
+.quick-btn-be:hover {
+    background: rgba(245, 158, 11, 0.05);
+    border-color: #f59e0b;
+    color: #d97706;
 }
 
 .quick-btn-be.active {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15));
+    color: #d97706;
+    border-color: rgba(245, 158, 11, 0.4);
 }
 
 .symbol-item {
