@@ -562,46 +562,40 @@
         .javid-course-card {
             position: relative;
             padding: 2rem;
-        }
-
-        .javid-course-card::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            background: linear-gradient(45deg, 
-                #a855f7, #ec4899, #f43f5e, #fb923c, 
-                #fbbf24, #a855f7, #ec4899);
-            background-size: 400% 400%;
-            border-radius: 24px;
-            z-index: -1;
-            animation: rotate-border 8s linear infinite;
-            filter: blur(8px);
-            opacity: 0.8;
-        }
-
-        .javid-course-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
             background: white;
             border-radius: 24px;
-            z-index: -1;
         }
 
+        /* Animated rotating border */
         .javid-border {
             position: absolute;
             inset: -3px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(168, 85, 247, 0.8), 
-                rgba(236, 72, 153, 0.8), 
-                rgba(251, 146, 60, 0.8),
-                transparent);
-            background-size: 200% 100%;
             border-radius: 24px;
-            animation: rotate-border 3s linear infinite;
-            z-index: 0;
+            background: conic-gradient(
+                from 0deg,
+                #a855f7,
+                #ec4899,
+                #fb923c,
+                #fbbf24,
+                #a855f7
+            );
+            z-index: -1;
+            animation: rotate-border 4s linear infinite;
             pointer-events: none;
+        }
+
+        @keyframes rotate-border {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Dark mode support for javid card */
+        [data-theme="dark"] .javid-course-card {
+            background: rgba(17, 24, 39, 0.95) !important;
         }
 
         .javid-course-card:hover::before {
