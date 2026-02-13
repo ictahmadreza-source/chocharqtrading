@@ -1339,9 +1339,293 @@
         .session-btn-amber:hover .session-play-amber {
             box-shadow: 0 6px 8px -1px rgba(245, 158, 11, 0.4);
         }
+
+        /* Lead Popup Styles */
+        .lead-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 1rem;
+        }
+
+        .lead-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lead-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 480px;
+            width: 100%;
+            padding: 2.5rem 2rem;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .lead-popup-overlay.active .lead-popup {
+            transform: scale(1) translateY(0);
+        }
+
+        .lead-popup-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .lead-popup-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #1e293b;
+            transform: rotate(90deg);
+        }
+
+        .lead-popup-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        .lead-popup-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #1e293b;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .lead-popup-description {
+            font-size: 0.95rem;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .lead-popup-options {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .lead-popup-option {
+            background: linear-gradient(135deg, #ffffff 0%, rgba(59, 130, 246, 0.03) 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .lead-popup-option:hover {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(59, 130, 246, 0.08) 100%);
+            transform: translateX(-4px);
+            box-shadow: 0 4px 12px -2px rgba(59, 130, 246, 0.2);
+        }
+
+        .lead-popup-option:active {
+            transform: translateX(-4px) scale(0.98);
+        }
+
+        .lead-popup-option-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .lead-popup-option.loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .lead-success-message {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .lead-success-message.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        [data-theme="dark"] .lead-popup {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        [data-theme="dark"] .lead-popup-title {
+            color: #f1f5f9;
+        }
+
+        [data-theme="dark"] .lead-popup-description {
+            color: #94a3b8;
+        }
+
+        [data-theme="dark"] .lead-popup-option {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+
+        [data-theme="dark"] .lead-popup-option:hover {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(59, 130, 246, 0.1) 100%);
+        }
+
+        [data-theme="dark"] .lead-popup-close {
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+        }
+
+        [data-theme="dark"] .lead-popup-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f1f5f9;
+        }
+
+        @media (max-width: 640px) {
+            .lead-popup {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .lead-popup-title {
+                font-size: 1.25rem;
+            }
+
+            .lead-popup-description {
+                font-size: 0.9rem;
+            }
+
+            .lead-success-message {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Lead Popup -->
+    <div class="lead-popup-overlay" id="leadPopup">
+        <div class="lead-popup">
+            <button class="lead-popup-close" onclick="closeLeadPopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="lead-popup-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            
+            <h3 class="lead-popup-title">چطور با ARQ Coaching آشنا شدید؟</h3>
+            <p class="lead-popup-description">
+                با پاسخ شما، در قرعه‌کشی یک جلسه کوچینگ خصوصی رایگان شرکت داده می‌شوید.
+            </p>
+            
+            <div class="lead-popup-options">
+                <button class="lead-popup-option" onclick="submitLead('instagram')">
+                    <div class="lead-popup-option-icon" style="background: linear-gradient(135deg, #E1306C, #C13584); color: white;">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <span>اینستاگرام</span>
+                </button>
+                
+                <button class="lead-popup-option" onclick="submitLead('telegram')">
+                    <div class="lead-popup-option-icon" style="background: linear-gradient(135deg, #0088cc, #229ED9); color: white;">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <span>تلگرام</span>
+                </button>
+                
+                <button class="lead-popup-option" onclick="submitLead('youtube')">
+                    <div class="lead-popup-option-icon" style="background: linear-gradient(135deg, #FF0000, #CC0000); color: white;">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <span>یوتیوب</span>
+                </button>
+                
+                <button class="lead-popup-option" onclick="submitLead('friend')">
+                    <div class="lead-popup-option-icon" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <span>معرفی دوستان</span>
+                </button>
+                
+                <button class="lead-popup-option" onclick="submitLead('google')">
+                    <div class="lead-popup-option-icon" style="background: linear-gradient(135deg, #4285F4, #34A853); color: white;">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <span>جستجوی گوگل</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="lead-success-message" id="successMessage">
+        <i class="fas fa-check-circle" style="font-size: 1.5rem;"></i>
+        <span>ممنون، شما در قرعه‌کشی ثبت شدید.</span>
+    </div>
 
     <!-- Organic Animated Background -->
     <canvas id="organic-canvas"></canvas>
@@ -3452,6 +3736,112 @@
                 }
             }, 1000);
         });
+    </script>
+
+    <!-- Lead Popup Script -->
+    <script>
+        // Lead Popup Management
+        const LEAD_STORAGE_KEY = 'arq_lead_submitted';
+        const POPUP_DELAY = 3000; // 3 seconds
+
+        function shouldShowPopup() {
+            // Check if user has already submitted
+            return !localStorage.getItem(LEAD_STORAGE_KEY);
+        }
+
+        function showLeadPopup() {
+            if (shouldShowPopup()) {
+                setTimeout(() => {
+                    const popup = document.getElementById('leadPopup');
+                    if (popup) {
+                        popup.classList.add('active');
+                    }
+                }, POPUP_DELAY);
+            }
+        }
+
+        function closeLeadPopup() {
+            const popup = document.getElementById('leadPopup');
+            if (popup) {
+                popup.classList.remove('active');
+            }
+        }
+
+        async function submitLead(source) {
+            // Prevent multiple submissions
+            const buttons = document.querySelectorAll('.lead-popup-option');
+            buttons.forEach(btn => btn.classList.add('loading'));
+
+            try {
+                const response = await fetch('/api/lead', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        source: source,
+                        timestamp: new Date().toISOString(),
+                        userAgent: navigator.userAgent
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit');
+                }
+
+                // Mark as submitted
+                localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify({
+                    source: source,
+                    timestamp: new Date().toISOString()
+                }));
+
+                // Close popup
+                closeLeadPopup();
+
+                // Show success message
+                setTimeout(() => {
+                    const successMsg = document.getElementById('successMessage');
+                    if (successMsg) {
+                        successMsg.classList.add('active');
+                        
+                        // Hide after 5 seconds
+                        setTimeout(() => {
+                            successMsg.classList.remove('active');
+                        }, 5000);
+                    }
+                }, 400);
+
+            } catch (error) {
+                console.error('Error submitting lead:', error);
+                
+                // Re-enable buttons on error
+                buttons.forEach(btn => btn.classList.remove('loading'));
+                
+                // Show error message (optional)
+                alert('خطا در ارسال اطلاعات. لطفاً دوباره تلاش کنید.');
+            }
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('leadPopup')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLeadPopup();
+            }
+        });
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLeadPopup();
+            }
+        });
+
+        // Initialize popup on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', showLeadPopup);
+        } else {
+            showLeadPopup();
+        }
     </script>
 
 </body>
