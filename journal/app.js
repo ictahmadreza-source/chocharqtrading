@@ -615,8 +615,17 @@ function showSection(section) {
         updateJournalList();
     } else if (section === 'dashboard') {
         document.getElementById('dashboardSection')?.classList.remove('hidden');
+        // Update dashboard stats
+        if (typeof showDashboard === 'function') {
+            showDashboard();
+        }
     } else if (section === 'settings') {
         document.getElementById('settingsSection')?.classList.remove('hidden');
+        // Update settings
+        const currentDbPath = document.getElementById('currentDbPath');
+        const currentProfileNameSetting = document.getElementById('currentProfileName');
+        if (currentDbPath) currentDbPath.value = dbPath || '';
+        if (currentProfileNameSetting) currentProfileNameSetting.value = currentProfile || '';
     }
 }
 

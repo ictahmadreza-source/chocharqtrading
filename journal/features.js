@@ -2,20 +2,27 @@
 
 // Dashboard and Statistics
 function showDashboard() {
+    console.log('📊 Dashboard loading...', { journalsCount: journals.length });
     calculateStats();
 }
 
 function calculateStats() {
+    console.log('📈 Calculating stats for', journals.length, 'journals');
+    
     const total = journals.length;
     const wins = journals.filter(j => j.result === 'TP').length;
     const losses = journals.filter(j => j.result === 'SL').length;
     const winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : 0;
+    
+    console.log('Stats:', { total, wins, losses, winRate });
     
     if (document.getElementById('totalTrades')) {
         document.getElementById('totalTrades').textContent = total;
         document.getElementById('winTrades').textContent = wins;
         document.getElementById('lossTrades').textContent = losses;
         document.getElementById('winRate').textContent = winRate + '%';
+    } else {
+        console.error('❌ Dashboard elements not found!');
     }
     
     // Symbol Stats
