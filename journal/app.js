@@ -241,6 +241,9 @@ function loadProfileData() {
     const journalsData = localStorage.getItem(`journals_${dbPath}_${currentProfile}`);
     journals = journalsData ? JSON.parse(journalsData) : [];
     
+    // Load custom order if exists
+    loadCustomOrder();
+    
     updateSymbolSelect();
     updateStopButtons();
     updateJournalList();
@@ -918,6 +921,9 @@ function updateJournalList() {
                         <button id="sortIndicator" onclick="window.resetSort()" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #e2e8f0; color: #64748b; border: none; border-radius: 0.5rem; font-size: 1.125rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" title="مرتب‌سازی غیرفعال - کلیک برای رفرش">
                             <i class="fas fa-sort-amount-down"></i>
                         </button>
+                        <button id="dragToggleBtn" onclick="window.toggleDragMode()" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #e2e8f0; color: #64748b; border: none; border-radius: 0.5rem; font-size: 1.125rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" title="فعال کردن حالت جابجایی دستی">
+                            <i class="fas fa-grip-vertical"></i>
+                        </button>
                         <input type="text" id="searchJournal" onkeyup="window.searchJournals()" placeholder="جستجو..." style="padding: 0.5rem 1rem; border: 2px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.875rem; width: 200px;">
                     </div>
                 </div>
@@ -1041,6 +1047,11 @@ function updateJournalList() {
     
     // Update sort indicator if sorting is active
     updateSortIndicator();
+    
+    // Re-enable drag mode if it was active
+    if (dragModeEnabled) {
+        setTimeout(enableDragAndDrop, 100);
+    }
 }
 
 // View Journal Details (Modal)
@@ -1267,6 +1278,599 @@ window.addEventListener('DOMContentLoaded', () => {
         if (icon) icon.className = 'fas fa-sun';
     }
 });
+
+// Drag & Drop Functions
+window.toggleDragMode = function toggleDragMode() {
+    dragModeEnabled = !dragModeEnabled;
+    const btn = document.getElementById('dragToggleBtn');
+    
+    if (dragModeEnabled) {
+        // Enable drag mode
+        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        btn.style.color = 'white';
+        btn.style.boxShadow = '0 4px 6px rgba(16, 185, 129, 0.4)';
+        btn.title = 'غیرفعال کردن حالت جابجایی دستی';
+        enableDragAndDrop();
+    } else {
+        // Disable drag mode
+        btn.style.background = '#e2e8f0';
+        btn.style.color = '#64748b';
+        btn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+        btn.title = 'فعال کردن حالت جابجایی دستی';
+        disableDragAndDrop();
+    }
+}
+
+function enableDragAndDrop() {
+    const tbody = document.querySelector('.journal-table tbody');
+    if (!tbody) return;
+    
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach(row => {
+        row.draggable = true;
+        row.style.cursor = 'move';
+        
+        row.addEventListener('dragstart', handleDragStart);
+        row.addEventListener('dragover', handleDragOver);
+        row.addEventListener('drop', handleDrop);
+        row.addEventListener('dragend', handleDragEnd);
+    });
+}
+
+function disableDragAndDrop() {
+    const tbody = document.querySelector('.journal-table tbody');
+    if (!tbody) return;
+    
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach(row => {
+        row.draggable = false;
+        row.style.cursor = 'pointer';
+        
+        row.removeEventListener('dragstart', handleDragStart);
+        row.removeEventListener('dragover', handleDragOver);
+        row.removeEventListener('drop', handleDrop);
+        row.removeEventListener('dragend', handleDragEnd);
+    });
+}
+
+function handleDragStart(e) {
+    draggedElement = this;
+    this.style.opacity = '0.4';
+    e.dataTransfer.effectAllowed = 'move';
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) {
+        e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    
+    // Visual feedback
+    if (this !== draggedElement) {
+        this.style.borderTop = '3px solid #3b82f6';
+    }
+    
+    return false;
+}
+
+function handleDrop(e) {
+    if (e.stopPropagation) {
+        e.stopPropagation();
+    }
+    
+    if (draggedElement !== this) {
+        // Get the tbody
+        const tbody = this.parentNode;
+        
+        // Insert dragged element before this element
+        tbody.insertBefore(draggedElement, this);
+        
+        // Show custom confirmation modal
+        setTimeout(() => {
+            showConfirmModal(
+                'ذخیره ترتیب جدید',
+                'آیا می‌خواهید این ترتیب جدید را ذخیره کنید؟',
+                'این تغییر دائمی خواهد بود و با رفرش صفحه نیز حفظ می‌شود.',
+                () => {
+                    // Confirmed
+                    saveCustomOrder();
+                    showSuccessModal('ترتیب جدید با موفقیت ذخیره شد!');
+                },
+                () => {
+                    // Cancelled
+                    updateJournalList();
+                    if (dragModeEnabled) {
+                        setTimeout(enableDragAndDrop, 100);
+                    }
+                }
+            );
+        }, 100);
+    }
+    
+    return false;
+}
+
+function handleDragEnd(e) {
+    this.style.opacity = '1';
+    
+    // Remove all border highlights
+    const rows = document.querySelectorAll('.journal-table tbody tr');
+    rows.forEach(row => {
+        row.style.borderTop = '';
+    });
+}
+
+function saveCustomOrder() {
+    const tbody = document.querySelector('.journal-table tbody');
+    if (!tbody) {
+        console.error('❌ tbody not found');
+        return;
+    }
+    
+    const rows = tbody.querySelectorAll('tr');
+    console.log('📋 Total rows:', rows.length);
+    console.log('📋 Current journals array length:', journals.length);
+    
+    // Get IDs from rows and convert to numbers
+    customOrder = Array.from(rows).map(row => {
+        const id = row.getAttribute('data-journal-id');
+        // Convert string ID to number to match journal.id format
+        return id ? (isNaN(id) ? id : Number(id)) : null;
+    }).filter(id => id !== null);
+    
+    console.log('📋 Custom order IDs:', customOrder);
+    console.log('📋 Filtered custom order length:', customOrder.length);
+    
+    if (customOrder.length === 0) {
+        console.error('❌ No journal IDs found in rows!');
+        showErrorModal('خطا: شناسه ژورنال‌ها یافت نشد. لطفاً صفحه را رفرش کنید.');
+        return;
+    }
+    
+    if (customOrder.length !== journals.length) {
+        console.warn('⚠️ Mismatch: rows=' + customOrder.length + ', journals=' + journals.length);
+    }
+    
+    // Debug: Check journal IDs
+    console.log('📋 Sample journal IDs from array:', journals.slice(0, 3).map(j => ({id: j.id, type: typeof j.id})));
+    console.log('📋 Sample custom order IDs:', customOrder.slice(0, 3).map(id => ({id: id, type: typeof id})));
+    
+    // Update journals array to match new order
+    const orderedJournals = [];
+    const notFoundIds = [];
+    
+    customOrder.forEach(id => {
+        const journal = journals.find(j => j.id === id);
+        if (journal) {
+            orderedJournals.push(journal);
+        } else {
+            notFoundIds.push(id);
+            console.error('❌ Journal not found for ID:', id, 'Type:', typeof id);
+        }
+    });
+    
+    console.log('📊 Original journals count:', journals.length);
+    console.log('📊 Ordered journals count:', orderedJournals.length);
+    console.log('📊 Not found IDs:', notFoundIds);
+    
+    if (orderedJournals.length === 0) {
+        console.error('❌ No journals matched! Aborting save.');
+        showErrorModal('خطا: هیچ ژورنالی یافت نشد. تغییرات ذخیره نمی‌شود.');
+        return;
+    }
+    
+    if (orderedJournals.length < journals.length) {
+        console.error('❌ Some journals were lost! Aborting save.');
+        showErrorModal(`خطا: ${journals.length - orderedJournals.length} ژورنال گم شده است. تغییرات ذخیره نمی‌شود.`);
+        return;
+    }
+    
+    // Save to localStorage FIRST (backup)
+    const currentProfile = localStorage.getItem('currentProfile') || 'default';
+    const backupKey = `journals_${dbPath}_${currentProfile}_backup`;
+    localStorage.setItem(backupKey, JSON.stringify(journals));
+    console.log('✅ Backup created');
+    
+    // Replace journals array
+    journals.length = 0;
+    journals.push(...orderedJournals);
+    
+    console.log('✅ Journals array updated, new count:', journals.length);
+    
+    // Save custom order
+    localStorage.setItem(`customOrder_${currentProfile}`, JSON.stringify(customOrder));
+    
+    // Save journals to localStorage with new order
+    localStorage.setItem(`journals_${dbPath}_${currentProfile}`, JSON.stringify(journals));
+    
+    console.log('✅ Saved to localStorage');
+    
+    // Save to file system if supported
+    if (typeof saveJournalsToFile === 'function') {
+        saveJournalsToFile(currentProfile, journals).then(success => {
+            if (success) {
+                console.log('✅ Custom order saved to file system');
+            }
+        });
+    }
+}
+
+function showErrorModal(message) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 3px solid #ef4444;
+            text-align: center;
+        ">
+            <div style="
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #ef4444, #dc2626);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1.5rem;
+                box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+            ">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: white;"></i>
+            </div>
+            <h3 style="
+                font-size: 1.5rem;
+                font-weight: 800;
+                color: #1e293b;
+                margin-bottom: 0.5rem;
+            ">خطا!</h3>
+            <p style="
+                font-size: 1.125rem;
+                color: #dc2626;
+                font-weight: 600;
+                margin-bottom: 1.5rem;
+            ">${message}</p>
+            <button onclick="this.closest('div').parentElement.remove()" style="
+                padding: 0.875rem 2rem;
+                background: linear-gradient(135deg, #ef4444, #dc2626);
+                color: white;
+                border: none;
+                border-radius: 12px;
+                font-size: 1rem;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            ">
+                متوجه شدم
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+function loadCustomOrder() {
+    const currentProfile = localStorage.getItem('currentProfile') || 'default';
+    const savedOrder = localStorage.getItem(`customOrder_${currentProfile}`);
+    
+    if (savedOrder) {
+        try {
+            customOrder = JSON.parse(savedOrder);
+            console.log('✅ Custom order loaded:', customOrder.length, 'items');
+        } catch (e) {
+            console.error('Error loading custom order:', e);
+            customOrder = [];
+        }
+    }
+}
+
+// Restore from backup if needed
+window.restoreFromBackup = function() {
+    const currentProfile = localStorage.getItem('currentProfile') || 'default';
+    const backupKey = `journals_${dbPath}_${currentProfile}_backup`;
+    const backup = localStorage.getItem(backupKey);
+    
+    if (backup) {
+        if (confirm('آیا می‌خواهید از نسخه پشتیبان بازیابی کنید؟')) {
+            localStorage.setItem(`journals_${dbPath}_${currentProfile}`, backup);
+            location.reload();
+        }
+    } else {
+        alert('نسخه پشتیبانی یافت نشد.');
+    }
+}
+
+// Custom Modal Functions
+function showConfirmModal(title, message, description, onConfirm, onCancel) {
+    // Remove existing modal if any
+    const existingModal = document.getElementById('customConfirmModal');
+    if (existingModal) existingModal.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'customConfirmModal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            border: 3px solid #e2e8f0;
+        ">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 1rem;
+                    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+                ">
+                    <i class="fas fa-question" style="font-size: 2.5rem; color: white;"></i>
+                </div>
+                <h3 style="
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    color: #1e293b;
+                    margin-bottom: 0.5rem;
+                ">${title}</h3>
+                <p style="
+                    font-size: 1.125rem;
+                    color: #475569;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                ">${message}</p>
+                <p style="
+                    font-size: 0.875rem;
+                    color: #64748b;
+                    line-height: 1.6;
+                ">${description}</p>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button id="confirmBtn" style="
+                    flex: 1;
+                    padding: 0.875rem 1.5rem;
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    color: white;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+                ">
+                    <i class="fas fa-check ml-2"></i>
+                    بله، ذخیره شود
+                </button>
+                <button id="cancelBtn" style="
+                    flex: 1;
+                    padding: 0.875rem 1.5rem;
+                    background: linear-gradient(135deg, #ef4444, #dc2626);
+                    color: white;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+                ">
+                    <i class="fas fa-times ml-2"></i>
+                    خیر، لغو شود
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Add hover effects
+    const confirmBtn = modal.querySelector('#confirmBtn');
+    const cancelBtn = modal.querySelector('#cancelBtn');
+    
+    confirmBtn.addEventListener('mouseover', () => {
+        confirmBtn.style.transform = 'translateY(-2px)';
+        confirmBtn.style.boxShadow = '0 6px 16px rgba(16, 185, 129, 0.4)';
+    });
+    confirmBtn.addEventListener('mouseout', () => {
+        confirmBtn.style.transform = 'translateY(0)';
+        confirmBtn.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.3)';
+    });
+    
+    cancelBtn.addEventListener('mouseover', () => {
+        cancelBtn.style.transform = 'translateY(-2px)';
+        cancelBtn.style.boxShadow = '0 6px 16px rgba(239, 68, 68, 0.4)';
+    });
+    cancelBtn.addEventListener('mouseout', () => {
+        cancelBtn.style.transform = 'translateY(0)';
+        cancelBtn.style.boxShadow = '0 4px 12px rgba(239, 68, 68, 0.3)';
+    });
+    
+    confirmBtn.addEventListener('click', () => {
+        modal.remove();
+        if (onConfirm) onConfirm();
+    });
+    
+    cancelBtn.addEventListener('click', () => {
+        modal.remove();
+        if (onCancel) onCancel();
+    });
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+            if (onCancel) onCancel();
+        }
+    });
+}
+
+function showSuccessModal(message) {
+    // Remove existing modal if any
+    const existingModal = document.getElementById('customSuccessModal');
+    if (existingModal) existingModal.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'customSuccessModal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            border: 3px solid #10b981;
+            text-align: center;
+        ">
+            <div style="
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #10b981, #059669);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1.5rem;
+                box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+                animation: scaleIn 0.5s ease;
+            ">
+                <i class="fas fa-check" style="font-size: 2.5rem; color: white;"></i>
+            </div>
+            <h3 style="
+                font-size: 1.5rem;
+                font-weight: 800;
+                color: #1e293b;
+                margin-bottom: 0.5rem;
+            ">موفقیت آمیز!</h3>
+            <p style="
+                font-size: 1.125rem;
+                color: #059669;
+                font-weight: 600;
+                margin-bottom: 1.5rem;
+            ">${message}</p>
+            <button onclick="this.closest('#customSuccessModal').remove()" style="
+                padding: 0.875rem 2rem;
+                background: linear-gradient(135deg, #10b981, #059669);
+                color: white;
+                border: none;
+                border-radius: 12px;
+                font-size: 1rem;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            ">
+                <i class="fas fa-thumbs-up ml-2"></i>
+                عالی!
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Auto close after 3 seconds
+    setTimeout(() => {
+        if (modal.parentNode) {
+            modal.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => modal.remove(), 300);
+        }
+    }, 3000);
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+}
+
+// Add animations to document
+if (!document.getElementById('customModalStyles')) {
+    const style = document.createElement('style');
+    style.id = 'customModalStyles';
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
 
 console.log('✅ App.js loaded successfully');
 
@@ -1647,6 +2251,9 @@ let filteredJournals = [];
 let sortedJournals = []; // Array to hold sorted data
 let sortColumn = null;
 let sortDirection = 'asc';
+let dragModeEnabled = false;
+let draggedElement = null;
+let customOrder = []; // Store custom order of journal IDs
 
 // Make sure filterJournals is in global scope
 window.filterJournals = function filterJournals() {
@@ -1854,6 +2461,11 @@ function renderSortedJournals() {
     
     // Update sort indicator
     updateSortIndicator();
+    
+    // Re-enable drag mode if it was active
+    if (dragModeEnabled) {
+        setTimeout(enableDragAndDrop, 100);
+    }
 }
 
 function renderFilteredJournals() {
@@ -1895,6 +2507,11 @@ function renderFilteredJournals() {
     
     // Update sort indicator
     updateSortIndicator();
+    
+    // Re-enable drag mode if it was active
+    if (dragModeEnabled) {
+        setTimeout(enableDragAndDrop, 100);
+    }
 }
 
 function generateTableRows(journalList) {
@@ -2005,19 +2622,178 @@ function deleteSelectedJournals() {
     
     if (ids.length === 0) return;
     
-    if (confirm(`آیا مطمئن هستید که می‌خواهید ${ids.length} ژورنال را حذف کنید؟`)) {
-        journals = journals.filter(j => !ids.includes(j.id));
-        localStorage.setItem(`journals_${dbPath}_${currentProfile}`, JSON.stringify(journals));
-        
-        // Save to file system if supported
-        if (typeof saveJournalsToFile === 'function') {
-            saveJournalsToFile(currentProfile, journals);
+    // Show custom delete confirmation modal
+    showDeleteConfirmModal(
+        ids.length,
+        () => {
+            // Confirmed - delete journals
+            journals = journals.filter(j => !ids.includes(j.id));
+            localStorage.setItem(`journals_${dbPath}_${currentProfile}`, JSON.stringify(journals));
+            
+            // Save to file system if supported
+            if (typeof saveJournalsToFile === 'function') {
+                saveJournalsToFile(currentProfile, journals);
+            }
+            
+            showSuccessModal(`${ids.length} ژورنال با موفقیت حذف شد!`);
+            updateJournalList();
         }
-        
-        showNotification(`${ids.length} ژورنال با موفقیت حذف شد`, 'success');
-        updateJournalList();
-    }
+    );
 }
+
+// Custom Delete Confirmation Modal
+function showDeleteConfirmModal(count, onConfirm) {
+    // Remove existing modal if any
+    const existingModal = document.getElementById('customDeleteModal');
+    if (existingModal) existingModal.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'customDeleteModal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            border: 3px solid #ef4444;
+        ">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background: linear-gradient(135deg, #ef4444, #dc2626);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 1rem;
+                    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+                    animation: shake 0.5s ease;
+                ">
+                    <i class="fas fa-trash-alt" style="font-size: 2.5rem; color: white;"></i>
+                </div>
+                <h3 style="
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    color: #1e293b;
+                    margin-bottom: 0.5rem;
+                ">حذف ژورنال‌ها</h3>
+                <p style="
+                    font-size: 1.25rem;
+                    color: #dc2626;
+                    font-weight: 700;
+                    margin-bottom: 0.5rem;
+                ">آیا مطمئن هستید؟</p>
+                <p style="
+                    font-size: 1rem;
+                    color: #475569;
+                    line-height: 1.6;
+                    background: rgba(239, 68, 68, 0.1);
+                    padding: 0.75rem;
+                    border-radius: 12px;
+                    margin-top: 1rem;
+                ">
+                    <i class="fas fa-exclamation-circle" style="color: #ef4444; margin-left: 0.5rem;"></i>
+                    <strong>${count} ژورنال</strong> به طور دائمی حذف خواهند شد و قابل بازگشت نیستند!
+                </p>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button id="deleteConfirmBtn" style="
+                    flex: 1;
+                    padding: 0.875rem 1.5rem;
+                    background: linear-gradient(135deg, #ef4444, #dc2626);
+                    color: white;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+                ">
+                    <i class="fas fa-trash ml-2"></i>
+                    بله، حذف شود
+                </button>
+                <button id="deleteCancelBtn" style="
+                    flex: 1;
+                    padding: 0.875rem 1.5rem;
+                    background: linear-gradient(135deg, #64748b, #475569);
+                    color: white;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+                ">
+                    <i class="fas fa-times ml-2"></i>
+                    خیر، لغو شود
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Add hover effects
+    const confirmBtn = modal.querySelector('#deleteConfirmBtn');
+    const cancelBtn = modal.querySelector('#deleteCancelBtn');
+    
+    confirmBtn.addEventListener('mouseover', () => {
+        confirmBtn.style.transform = 'translateY(-2px) scale(1.02)';
+        confirmBtn.style.boxShadow = '0 6px 16px rgba(239, 68, 68, 0.5)';
+    });
+    confirmBtn.addEventListener('mouseout', () => {
+        confirmBtn.style.transform = 'translateY(0) scale(1)';
+        confirmBtn.style.boxShadow = '0 4px 12px rgba(239, 68, 68, 0.3)';
+    });
+    
+    cancelBtn.addEventListener('mouseover', () => {
+        cancelBtn.style.transform = 'translateY(-2px)';
+        cancelBtn.style.boxShadow = '0 6px 16px rgba(100, 116, 139, 0.4)';
+    });
+    cancelBtn.addEventListener('mouseout', () => {
+        cancelBtn.style.transform = 'translateY(0)';
+        cancelBtn.style.boxShadow = '0 4px 12px rgba(100, 116, 139, 0.3)';
+    });
+    
+    confirmBtn.addEventListener('click', () => {
+        modal.remove();
+        if (onConfirm) onConfirm();
+    });
+    
+    cancelBtn.addEventListener('click', () => {
+        modal.remove();
+    });
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+}
+
 
 // Edit Journal Function
 function editJournal(id) {
