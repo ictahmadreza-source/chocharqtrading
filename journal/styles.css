@@ -1644,6 +1644,16 @@ body {
 [data-theme="dark"] .table-container {
     background: #1e293b;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .journal-table thead {
+    background: linear-gradient(135deg, #1e3a8a 0%, #6b21a8 50%, #9f1239 100%);
+}
+
+[data-theme="dark"] .journal-table th {
+    color: #f1f5f9;
+    border-right-color: rgba(255, 255, 255, 0.1);
 }
 
 .journal-table {

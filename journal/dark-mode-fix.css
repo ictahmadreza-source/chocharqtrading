@@ -1,0 +1,237 @@
+/* Dark Mode Fixes for Journal Table */
+
+/* Table Container Border */
+[data-theme="dark"] .table-container,
+[data-theme="dark"] #journalTableContainer {
+    border-color: #334155 !important;
+    background: #1e293b !important;
+}
+
+/* Table Header Background */
+[data-theme="dark"] .journal-table thead {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Table Header Cells */
+[data-theme="dark"] .journal-table th {
+    color: #cbd5e1 !important;
+    border-right-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Header Icons - Softer Colors */
+[data-theme="dark"] .journal-table th i {
+    opacity: 0.7;
+    filter: brightness(0.9);
+}
+
+/* Table Body Rows */
+[data-theme="dark"] .journal-table tbody tr {
+    background: #1e293b !important;
+}
+
+[data-theme="dark"] .journal-table tbody tr:nth-child(even) {
+    background: #1a2332 !important;
+}
+
+[data-theme="dark"] .journal-table tbody tr:hover {
+    background: linear-gradient(90deg, #334155 0%, #3b4a5f 50%, #334155 100%) !important;
+}
+
+/* Table Cells */
+[data-theme="dark"] .journal-table td {
+    border-right-color: #334155 !important;
+    border-bottom-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+/* Symbol Column */
+[data-theme="dark"] .journal-table td:nth-child(3) {
+    color: #60a5fa !important;
+    opacity: 0.9;
+}
+
+/* Number Column */
+[data-theme="dark"] .journal-table td:nth-child(2) {
+    color: #60a5fa !important;
+    opacity: 0.85;
+}
+
+/* Chart Link Button */
+[data-theme="dark"] .journal-table a[href*="http"] {
+    background: linear-gradient(135deg, #1e3a8a, #1e40af) !important;
+    border-color: #3b82f6 !important;
+    color: #93c5fd !important;
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .journal-table a[href*="http"]:hover {
+    background: linear-gradient(135deg, #1e40af, #2563eb) !important;
+    border-color: #60a5fa !important;
+    opacity: 1;
+}
+
+/* Image Button */
+[data-theme="dark"] .journal-table button[onclick*="viewImage"] {
+    background: linear-gradient(135deg, #581c87, #6b21a8) !important;
+    border-color: #7c3aed !important;
+    color: #c4b5fd !important;
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .journal-table button[onclick*="viewImage"]:hover {
+    background: linear-gradient(135deg, #6b21a8, #7c3aed) !important;
+    border-color: #8b5cf6 !important;
+    opacity: 1;
+}
+
+/* Action Buttons (Edit/Delete) */
+[data-theme="dark"] .journal-table button[onclick*="editJournal"] {
+    background: linear-gradient(135deg, #0e7490, #0891b2) !important;
+    border-color: #06b6d4 !important;
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .journal-table button[onclick*="editJournal"]:hover {
+    opacity: 1;
+}
+
+[data-theme="dark"] .journal-table button[onclick*="deleteJournal"] {
+    background: linear-gradient(135deg, #7f1d1d, #991b1b) !important;
+    border-color: #b91c1c !important;
+    opacity: 0.75;
+}
+
+[data-theme="dark"] .journal-table button[onclick*="deleteJournal"]:hover {
+    opacity: 0.9;
+}
+
+/* Details Button (View) */
+[data-theme="dark"] .journal-table button[onclick*="viewJournalDetails"] {
+    background: #334155 !important;
+    border-color: #475569 !important;
+    color: #93c5fd !important;
+}
+
+[data-theme="dark"] .journal-table button[onclick*="viewJournalDetails"]:hover {
+    background: #3b82f6 !important;
+    border-color: #60a5fa !important;
+    color: white !important;
+}
+
+/* Filter Dropdowns and Search */
+[data-theme="dark"] select,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="search"] {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] select option {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+/* Buttons */
+[data-theme="dark"] button {
+    color: white !important;
+}
+
+/* Checkboxes */
+[data-theme="dark"] input[type="checkbox"] {
+    filter: brightness(0.8) contrast(1.2);
+}
+
+/* Tags */
+[data-theme="dark"] .tag {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Empty State Text */
+[data-theme="dark"] .journal-table td span[style*="color: #cbd5e1"] {
+    color: #64748b !important;
+}
+
+/* Sort Indicator Button */
+[data-theme="dark"] #sortIndicator {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] #sortIndicator[style*="linear-gradient"] {
+    /* When sort is active, keep the gradient */
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    color: white !important;
+}
+
+/* Drag Toggle Button */
+[data-theme="dark"] #dragToggleBtn {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] #dragToggleBtn[style*="linear-gradient"] {
+    /* When drag is active, keep the gradient */
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+}
+
+/* Glass Card */
+[data-theme="dark"] .glass-card {
+    background: rgba(30, 41, 59, 0.7) !important;
+    border-color: rgba(71, 85, 105, 0.3) !important;
+}
+
+/* Text Colors */
+[data-theme="dark"] .text-gray-900 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .text-gray-700 {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .text-gray-600,
+[data-theme="dark"] .text-gray-500 {
+    color: #94a3b8 !important;
+}
+
+/* Quality Stars */
+[data-theme="dark"] .journal-table td span[style*="color: #fbbf24"] {
+    color: #fcd34d !important;
+    opacity: 0.8;
+}
+
+/* Date and Time */
+[data-theme="dark"] .journal-table td:nth-last-child(3),
+[data-theme="dark"] .journal-table td:nth-last-child(2) {
+    color: #94a3b8 !important;
+}
+
+/* Trade Type Tags (Buy/Sell) */
+[data-theme="dark"] .journal-table td span[style*="background: linear-gradient(135deg, #10b981"] {
+    background: linear-gradient(135deg, #065f46, #047857) !important;
+    opacity: 0.85;
+}
+
+[data-theme="dark"] .journal-table td span[style*="background: linear-gradient(135deg, #ef4444"] {
+    background: linear-gradient(135deg, #7f1d1d, #991b1b) !important;
+    opacity: 0.8;
+}
+
+/* Result Tags (TP/SL/BE) */
+[data-theme="dark"] .journal-table td span[style*="10b981, #059669"] {
+    background: linear-gradient(135deg, #065f46, #047857) !important;
+    opacity: 0.85;
+}
+
+[data-theme="dark"] .journal-table td span[style*="ef4444, #dc2626"] {
+    background: linear-gradient(135deg, #7f1d1d, #991b1b) !important;
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .journal-table td span[style*="f59e0b, #d97706"] {
+    background: linear-gradient(135deg, #92400e, #b45309) !important;
+    opacity: 0.85;
+}
