@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انتخاب نوع ژورنال - ARQ Trading</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233b82f6'/%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='44' font-weight='900' fill='white' text-anchor='middle'%3EARQ%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: #fafbff;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Organic Canvas Background */
+        #organic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: shimmer 3s linear infinite, logoFloat 3s ease-in-out infinite;
+            position: relative;
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
+        }
+
+        .logo::before {
+            content: 'ARQ Trading';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: blur(15px);
+            opacity: 0.5;
+            z-index: -1;
+            animation: shimmer 3s linear infinite;
+        }
+
+        .logo::after {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            right: -20px;
+            font-size: 1.5rem;
+            animation: sparkle 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 1s ease 0.3s both;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .description {
+            font-size: 1rem;
+            color: #64748b;
+            animation: fadeIn 1s ease 0.5s both;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.02);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                opacity: 0.7;
+                transform: scale(1.3) rotate(90deg);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8) rotate(180deg);
+            }
+            75% {
+                opacity: 0.7;
+                transform: scale(1.3) rotate(270deg);
+            }
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .journal-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease, cardFloat 6s ease-in-out infinite;
+            text-decoration: none;
+            display: block;
+            border: 2px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .journal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .journal-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: rotate(45deg);
+            transition: all 0.8s ease;
+        }
+
+        .journal-card:hover::before {
+            opacity: 1;
+        }
+
+        .journal-card:hover::after {
+            left: 150%;
+        }
+
+        .journal-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 0 40px 100px rgba(59, 130, 246, 0.25);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+
+        .journal-card:active {
+            transform: translateY(-15px) scale(1.01);
+        }
+
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .journal-card.premium {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.95));
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            animation: fadeInUp 0.8s ease 0.2s both, cardFloat 6s ease-in-out 0.5s infinite, premiumGlow 3s ease-in-out infinite;
+        }
+
+        .journal-card.premium::before {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(239, 68, 68, 0.05));
+        }
+
+        @keyframes premiumGlow {
+            0%, 100% {
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 30px rgba(245, 158, 11, 0.1);
+            }
+            50% {
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 50px rgba(245, 158, 11, 0.3);
+            }
+        }
+
+        .card-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: iconPulse 3s ease-in-out infinite, iconBounce 4s ease-in-out infinite;
+        }
+
+        .card-icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            filter: blur(15px);
+        }
+
+        .card-icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 22px;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: iconShine 3s linear infinite;
+        }
+
+        .journal-card:hover .card-icon {
+            transform: rotateY(360deg) scale(1.15);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.6);
+        }
+
+        .journal-card:hover .card-icon::before {
+            opacity: 0.8;
+        }
+
+        .journal-card.premium .card-icon {
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #f59e0b 100%);
+            background-size: 200% auto;
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+            animation: iconPulse 3s ease-in-out infinite, iconBounce 4s ease-in-out infinite, gradientRotate 4s linear infinite;
+        }
+
+        .journal-card.premium .card-icon::before {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+            }
+            50% {
+                box-shadow: 0 20px 50px rgba(59, 130, 246, 0.7);
+            }
+        }
+
+        @keyframes iconBounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(-3deg);
+            }
+            75% {
+                transform: translateY(-5px) rotate(3deg);
+            }
+        }
+
+        @keyframes iconShine {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes gradientRotate {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-features li {
+            padding: 0.5rem 0;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9375rem;
+        }
+
+        .card-features li i {
+            color: #10b981;
+            font-size: 1rem;
+        }
+
+        .journal-card.premium .card-features li i {
+            color: #8b5cf6;
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: badgeBounce 2s ease-in-out infinite;
+        }
+
+        .card-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .card-badge::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 25px;
+            padding: 2px;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.5), transparent, rgba(255, 255, 255, 0.5));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .journal-card:hover .card-badge::before {
+            left: 100%;
+        }
+
+        .journal-card:hover .card-badge::after {
+            opacity: 1;
+        }
+
+        .badge-free {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #f59e0b 100%);
+            background-size: 200% auto;
+            color: white;
+            animation: badgeShine 3s linear infinite, badgeBounce 2s ease-in-out infinite, badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgeShine {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes badgeBounce {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-5px) scale(1.05);
+            }
+        }
+
+        @keyframes badgePulse {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            }
+            50% {
+                box-shadow: 0 6px 25px rgba(245, 158, 11, 0.6);
+            }
+        }
+
+        .card-button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .card-button::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: buttonShine 3s linear infinite;
+        }
+
+        .card-button:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .card-button:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+            background-position: 100% center;
+        }
+
+        .card-button:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .journal-card.premium .card-button {
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #f59e0b 100%);
+            background-size: 200% auto;
+            animation: buttonGradient 3s linear infinite;
+        }
+
+        @keyframes buttonShine {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes buttonGradient {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .back-link a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Stagger animation for cards */
+        .journal-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .journal-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.25rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .journal-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Organic Canvas Background -->
+    <canvas id="organic-canvas"></canvas>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">ARQ Trading</div>
+            <h1 class="subtitle">انتخاب نوع ژورنال معاملاتی</h1>
+            <p class="description">ژورنال مناسب خود را انتخاب کنید و سفر موفقیت را آغاز کنید</p>
+        </div>
+
+        <div class="cards-container">
+            <!-- Free Journal Card -->
+            <a href="index.html" class="journal-card">
+                <span class="card-badge badge-free">
+                    <i class="fas fa-gift"></i> رایگان
+                </span>
+                <div class="card-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h2 class="card-title">ژورنال معاملاتی هوشمند</h2>
+                <p class="card-subtitle">رایگان و بدون محدودیت</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check-circle"></i> ثبت نامحدود معاملات</li>
+                    <li><i class="fas fa-check-circle"></i> داشبورد و آمار پیشرفته</li>
+                    <li><i class="fas fa-check-circle"></i> مدیریت چند پروفایل</li>
+                    <li><i class="fas fa-check-circle"></i> ذخیره‌سازی محلی</li>
+                    <li><i class="fas fa-check-circle"></i> رابط کاربری زیبا و سریع</li>
+                </ul>
+                <button class="card-button">
+                    <i class="fas fa-arrow-left ml-2"></i>
+                    شروع کنید
+                </button>
+            </a>
+
+            <!-- Premium Journal Card -->
+            <div class="journal-card premium" style="cursor: not-allowed;">
+                <span class="card-badge badge-premium">
+                    <i class="fas fa-crown"></i> ویژه
+                </span>
+                <div class="card-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h2 class="card-title">ژورنال مخصوص هنرجویان ARQ</h2>
+                <p class="card-subtitle">امکانات پیشرفته و اختصاصی</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-star"></i> تمام امکانات نسخه رایگان</li>
+                    <li><i class="fas fa-star"></i> تحلیل هوش مصنوعی</li>
+                    <li><i class="fas fa-star"></i> گزارش‌های تخصصی</li>
+                    <li><i class="fas fa-star"></i> پشتیبانی اختصاصی</li>
+                    <li><i class="fas fa-star"></i> آپدیت‌های منحصر به فرد</li>
+                </ul>
+                <button class="card-button" disabled style="opacity: 0.7; cursor: not-allowed; pointer-events: none;">
+                    <i class="fas fa-lock ml-2"></i>
+                    به زودی...
+                </button>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="/">
+                <i class="fas fa-home"></i>
+                بازگشت به صفحه اصلی
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Organic Flowing Background - Same as main site
+        const canvas = document.getElementById('organic-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class FlowParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.life = 0;
+                this.maxLife = Math.random() * 200 + 100;
+                this.opacity = 0;
+                this.hue = Math.random() * 60 + 200;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life++;
+
+                if (this.life < 50) {
+                    this.opacity = this.life / 50 * 0.3;
+                } else if (this.life > this.maxLife - 50) {
+                    this.opacity = (this.maxLife - this.life) / 50 * 0.3;
+                }
+
+                if (this.life >= this.maxLife) {
+                    this.reset();
+                }
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particles = [];
+            const particleCount = window.innerWidth < 768 ? 40 : 80;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new FlowParticle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.1 * (1 - dist/150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            init();
+        });
+
+        resize();
+        init();
+        animate();
+    </script>
+</body>
+</html>
