@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ژورنال معاملاتی - ARQ Trading</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233b82f6'/%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='44' font-weight='900' fill='white' text-anchor='middle'%3EARQ%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=2.4">
+    <link rel="stylesheet" href="compact-form.css?v=2.4">
+    <link rel="stylesheet" href="form-styles.css?v=2.4">
+</head>
+<body>
+    <canvas id="organic-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-glass">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-4">
+                    <!-- Hamburger Menu for Mobile -->
+                    <button id="menuToggle" class="lg:hidden text-gray-700 hover:text-blue-600 transition-colors" onclick="toggleSidebar()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    
+                    <div class="flex items-center gap-3">
+                        <a href="/" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:scale-105 transition-transform" title="بازگشت به صفحه اصلی">
+                            ARQ Trading
+                        </a>
+                        <a href="/" class="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-all" title="بازگشت به سایت اصلی">
+                            <i class="fas fa-home"></i>
+                            <span>سایت اصلی</span>
+                        </a>
+                    </div>
+                    <span class="text-gray-600 hidden sm:inline">|</span>
+                    <span class="text-lg font-semibold text-gray-700 hidden sm:inline">ژورنال معاملاتی</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <!-- Profile Switcher (All Sizes) -->
+                    <div class="profile-switcher" id="profileSwitcher" style="position: relative;">
+                        <button class="profile-btn" onclick="toggleProfileDropdown()">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="currentProfileName">پروفایل</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="profile-dropdown" id="profileDropdown" style="position: absolute; top: calc(100% + 0.5rem); right: 0; opacity: 0; visibility: hidden; pointer-events: none;">
+                            <div id="profileDropdownList"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Database Path Button -->
+                    <button id="dbPathBtn" onclick="showDbPathModal()" class="text-sm px-3 py-1.5 rounded-lg border-2 transition-all flex items-center" title="مسیر دیتابیس">
+                        <i class="fas fa-folder ml-1"></i>
+                        <span id="dbPathStatus" class="hidden sm:inline">تنظیم نشده</span>
+                    </button>
+                    
+                    <!-- Home Link -->
+                    <a href="/" class="text-sm text-gray-600 hover:text-blue-600 transition-colors hidden sm:flex items-center">
+                        <i class="fas fa-home ml-1"></i>
+                        صفحه اصلی
+                    </a>
+                    
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="mb-6">
+            <button onclick="showProfileManager()" class="w-full btn-secondary text-sm">
+                <i class="fas fa-user-cog ml-2"></i>
+                مدیریت پروفایل‌ها
+            </button>
+        </div>
+        <div class="sidebar-item active" data-section="new-journal">
+            <i class="fas fa-plus-circle text-xl"></i>
+            <span class="font-semibold">ثبت ژورنال جدید</span>
+        </div>
+        <div class="sidebar-item" data-section="journal-list">
+            <i class="fas fa-list text-xl"></i>
+            <span class="font-semibold">لیست ژورنال‌ها</span>
+        </div>
+        <div class="sidebar-item" data-section="dashboard">
+            <i class="fas fa-chart-line text-xl"></i>
+            <span class="font-semibold">داشبورد و آمار</span>
+        </div>
+        <div class="sidebar-item" data-section="settings">
+            <i class="fas fa-cog text-xl"></i>
+            <span class="font-semibold">تنظیمات</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Setup Screen -->
+        <div id="setupScreen" class="max-w-2xl mx-auto mt-20">
+            <div class="glass-card text-center">
+                <i class="fas fa-folder-open text-6xl text-blue-500 mb-4"></i>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">خوش آمدید!</h2>
+                <p class="text-gray-600 mb-6">برای شروع، یک پوشه برای ذخیره‌سازی دیتابیس انتخاب کنید</p>
+                <button onclick="selectFolder()" class="btn-primary mb-4">
+                    <i class="fas fa-folder ml-2"></i>
+                    انتخاب پوشه
+                </button>
+                <p class="text-sm text-gray-500">پوشه انتخابی: <span id="selectedPath" class="font-mono text-blue-600">-</span></p>
+            </div>
+        </div>
+
+        <!-- Profile Manager -->
+        <div id="profileManager" class="hidden max-w-2xl mx-auto mt-20">
+            <div class="glass-card">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">مدیریت پروفایل‌ها</h2>
+                    <a href="/" class="text-blue-600 hover:text-blue-700">
+                        <i class="fas fa-home ml-1"></i>
+                        بازگشت به سایت
+                    </a>
+                </div>
+                
+                <div class="mb-6">
+                    <button onclick="showNewProfileForm()" class="btn-primary">
+                        <i class="fas fa-plus ml-2"></i>
+                        پروفایل جدید
+                    </button>
+                </div>
+
+                <div id="profileList"></div>
+            </div>
+        </div>
+
+        <!-- New Journal Section -->
+        <div id="newJournalSection" class="hidden">
+            <div class="max-w-5xl mx-auto">
+                <div class="glass-card">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">
+                            <i class="fas fa-plus-circle ml-2 text-blue-500"></i>
+                            ثبت ژورنال جدید
+                        </h2>
+                        <button onclick="autoFillDateTime()" class="btn-secondary text-sm">
+                            <i class="fas fa-clock ml-1"></i>
+                            تاریخ و ساعت فعلی
+                        </button>
+                    </div>
+                    
+                    <form id="journalForm">
+                        <!-- Section 1: Basic Info (Blue) -->
+                        <div class="compact-section theme-blue">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h3 class="section-title">اطلاعات پایه معامله</h3>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">نماد<span class="required-star">*</span></label>
+                                <div class="quick-grid-compact" id="symbolButtons"></div>
+                                <button type="button" onclick="manageSymbols()" class="text-sm text-blue-500 mt-2">
+                                    <i class="fas fa-cog ml-1"></i>مدیریت نمادها
+                                </button>
+                                <input type="hidden" id="symbol" required>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Risk Management (Purple) -->
+                        <div class="compact-section theme-purple">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div>
+                                    <h3 class="section-title">مدیریت ریسک</h3>
+                                </div>
+                            </div>
+                            <div class="grid-compact-2">
+                                <div class="form-group">
+                                    <label class="form-label">ریسک (%)<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-2" id="riskButtons"></div>
+                                    <button type="button" onclick="manageRisks()" class="text-sm text-purple-500 mt-2">
+                                        <i class="fas fa-cog ml-1"></i>مدیریت ریسک‌ها
+                                    </button>
+                                    <input type="hidden" id="risk" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">نسبت R:R<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-2" id="rrButtons"></div>
+                                    <button type="button" onclick="manageRRs()" class="text-sm text-purple-500 mt-2">
+                                        <i class="fas fa-cog ml-1"></i>مدیریت نسبت‌ها
+                                    </button>
+                                    <input type="hidden" id="riskReward" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Trade Details (Green) -->
+                        <div class="compact-section theme-green">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div>
+                                    <h3 class="section-title">جزئیات معامله</h3>
+                                </div>
+                            </div>
+                            <div class="grid-compact-3">
+                                <div class="form-group">
+                                    <label class="form-label">سشن<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-3">
+                                        <button type="button" class="quick-btn" data-field="session" data-value="لندن">
+                                            <i class="fas fa-globe ml-1"></i>لندن
+                                        </button>
+                                        <button type="button" class="quick-btn" data-field="session" data-value="نیویورک">
+                                            <i class="fas fa-globe ml-1"></i>نیویورک
+                                        </button>
+                                        <button type="button" class="quick-btn" data-field="session" data-value="آسیا">
+                                            <i class="fas fa-globe ml-1"></i>آسیا
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="session" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">نوع<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-2">
+                                        <button type="button" class="quick-btn quick-btn-buy" data-field="tradeType" data-value="خرید">
+                                            <i class="fas fa-arrow-up ml-1"></i>خرید
+                                        </button>
+                                        <button type="button" class="quick-btn quick-btn-sell" data-field="tradeType" data-value="فروش">
+                                            <i class="fas fa-arrow-down ml-1"></i>فروش
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="tradeType" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">تایم فریم<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-3" id="timeframeButtons"></div>
+                                    <button type="button" onclick="manageTimeframes()" class="text-sm text-green-500 mt-2">
+                                        <i class="fas fa-cog ml-1"></i>مدیریت تایم‌فریم‌ها
+                                    </button>
+                                    <input type="hidden" id="timeframe" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Result & Performance (Amber) -->
+                        <div class="compact-section theme-amber">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-flag-checkered"></i>
+                                </div>
+                                <div>
+                                    <h3 class="section-title">نتیجه و عملکرد</h3>
+                                </div>
+                            </div>
+                            <div class="grid-compact-3">
+                                <div class="form-group">
+                                    <label class="form-label">نتیجه<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-3">
+                                        <button type="button" class="quick-btn quick-btn-tp" data-field="result" data-value="TP">
+                                            <i class="fas fa-check-circle ml-1"></i>TP
+                                        </button>
+                                        <button type="button" class="quick-btn quick-btn-sl" data-field="result" data-value="SL">
+                                            <i class="fas fa-times-circle ml-1"></i>SL
+                                        </button>
+                                        <button type="button" class="quick-btn quick-btn-be" data-field="result" data-value="BE">
+                                            <i class="fas fa-minus-circle ml-1"></i>BE
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="result" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">استاپ معاملاتی</label>
+                                    <div class="quick-grid-compact-2" id="stopButtons"></div>
+                                    <button type="button" onclick="manageStops()" class="text-sm text-amber-500 mt-2">
+                                        <i class="fas fa-cog ml-1"></i>مدیریت استاپ‌ها
+                                    </button>
+                                    <input type="hidden" id="stopType">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">کیفیت اجرا<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-5">
+                                        <button type="button" class="quality-btn" data-value="1">1</button>
+                                        <button type="button" class="quality-btn" data-value="2">2</button>
+                                        <button type="button" class="quality-btn" data-value="3">3</button>
+                                        <button type="button" class="quality-btn" data-value="4">4</button>
+                                        <button type="button" class="quality-btn" data-value="5">5</button>
+                                    </div>
+                                    <input type="hidden" id="quality" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label text-red-600" id="mistakeLabel">
+                                    <i class="fas fa-exclamation-triangle ml-2"></i>
+                                    مهمترین اشتباه
+                                </label>
+                                <div class="quick-grid-compact" id="mistakeButtons" style="margin-bottom: 0.5rem;"></div>
+                                <button type="button" onclick="manageMistakes()" class="text-sm text-amber-500 mb-2">
+                                    <i class="fas fa-cog ml-1"></i>مدیریت جملات
+                                </button>
+                                <textarea id="mistake" class="form-textarea" placeholder="چه اشتباهی در این معامله رخ داد؟" rows="2"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Section 5: Psychology (Pink) -->
+                        <div class="compact-section theme-pink">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div>
+                                    <h3 class="section-title">تحلیل روانشناسی</h3>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">احساسات غالب<span class="required-star">*</span></label>
+                                <div class="quick-grid-compact-4">
+                                    <button type="button" class="quick-btn" data-field="emotion" data-value="آرام">
+                                        <i class="fas fa-smile ml-1"></i>آرام
+                                    </button>
+                                    <button type="button" class="quick-btn" data-field="emotion" data-value="مضطرب">
+                                        <i class="fas fa-meh ml-1"></i>مضطرب
+                                    </button>
+                                    <button type="button" class="quick-btn" data-field="emotion" data-value="عصبی">
+                                        <i class="fas fa-frown ml-1"></i>عصبی
+                                    </button>
+                                    <button type="button" class="quick-btn" data-field="emotion" data-value="با اعتماد به نفس">
+                                        <i class="fas fa-grin-stars ml-1"></i>با اعتماد
+                                    </button>
+                                </div>
+                                <input type="hidden" id="emotion" required>
+                            </div>
+                            <div class="grid-compact-2">
+                                <div class="form-group">
+                                    <label class="form-label">دوباره می‌گرفتم؟<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-2">
+                                        <button type="button" class="quick-btn" data-field="wouldRetake" data-value="بله">
+                                            <i class="fas fa-check ml-1"></i>بله
+                                        </button>
+                                        <button type="button" class="quick-btn" data-field="wouldRetake" data-value="خیر">
+                                            <i class="fas fa-times ml-1"></i>خیر
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="wouldRetake" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">طبق پلن بود؟<span class="required-star">*</span></label>
+                                    <div class="quick-grid-compact-2">
+                                        <button type="button" class="quick-btn" data-field="followedPlan" data-value="بله">
+                                            <i class="fas fa-check ml-1"></i>بله
+                                        </button>
+                                        <button type="button" class="quick-btn" data-field="followedPlan" data-value="خیر">
+                                            <i class="fas fa-times ml-1"></i>خیر
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="followedPlan" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 6: Notes & Documentation (Red) -->
+                        <div class="compact-section theme-red">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div>
+                                    <h3 class="section-title">یادداشت‌ها و مستندات</h3>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">کامنت و توضیحات</label>
+                                <textarea id="comment" class="form-textarea" placeholder="توضیحات تکمیلی..." rows="2"></textarea>
+                            </div>
+                            <div class="grid-compact-2">
+                                <div class="form-group">
+                                    <label class="form-label">لینک چارت</label>
+                                    <input type="url" id="chartLink" class="form-input" placeholder="https://tradingview.com/...">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">عکس معامله</label>
+                                    <input type="file" id="tradeImage" class="form-input" accept="image/*">
+                                </div>
+                            </div>
+                            <div class="grid-compact-2">
+                                <div class="form-group">
+                                    <label class="form-label">تاریخ (شمسی)</label>
+                                    <input type="text" id="tradeDate" class="form-input" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">ساعت</label>
+                                    <input type="time" id="tradeTime" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions-compact">
+                            <button type="submit" class="btn-primary btn-premium-journal">
+                                <i class="fas fa-save ml-2"></i>
+                                ذخیره ژورنال
+                            </button>
+                            <button type="button" onclick="resetForm()" class="btn-secondary">
+                                <i class="fas fa-redo ml-2"></i>
+                                پاک کردن
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal List Section -->
+        <div id="journalListSection" class="hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="glass-card mb-4">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-gray-900">
+                            <i class="fas fa-list ml-2 text-blue-500"></i>
+                            لیست ژورنال‌ها
+                        </h2>
+                        <div class="flex gap-2">
+                            <input type="text" id="searchJournal" class="form-input" placeholder="جستجو..." style="width: 200px;">
+                            <select id="filterResult" class="form-select" style="width: 150px;">
+                                <option value="">همه نتایج</option>
+                                <option value="TP">تیک پروفیت</option>
+                                <option value="SL">استاپ لاس</option>
+                                <option value="BE">ریسک فری</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="journalListContainer"></div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="glass-card mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                        <i class="fas fa-chart-line ml-2 text-blue-500"></i>
+                        داشبورد و آمار
+                    </h2>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">کل معاملات</p>
+                                <p class="text-3xl font-bold text-gray-900" id="totalTrades">0</p>
+                            </div>
+                            <i class="fas fa-chart-bar text-4xl text-blue-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">درصد موفقیت</p>
+                                <p class="text-3xl font-bold text-green-600" id="winRate">0%</p>
+                            </div>
+                            <i class="fas fa-percentage text-4xl text-green-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">معاملات برنده</p>
+                                <p class="text-3xl font-bold text-green-600" id="winTrades">0</p>
+                            </div>
+                            <i class="fas fa-arrow-up text-4xl text-green-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">معاملات بازنده</p>
+                                <p class="text-3xl font-bold text-red-600" id="lossTrades">0</p>
+                            </div>
+                            <i class="fas fa-arrow-down text-4xl text-red-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                    <div class="glass-card">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">نتایج بر اساس نماد</h3>
+                        <div id="symbolStats"></div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">نتایج بر اساس سشن</h3>
+                        <div id="sessionStats"></div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">نتایج بر اساس تایم فریم</h3>
+                    <div id="timeframeStats"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settingsSection" class="hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="glass-card">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-cog ml-2 text-blue-500"></i>
+                        تنظیمات
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">مسیر دیتابیس فعلی</label>
+                        <input type="text" id="currentDbPath" class="form-input" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">پروفایل فعلی</label>
+                        <input type="text" id="currentProfileName" class="form-input" readonly>
+                    </div>
+                    
+                    <hr class="my-6 border-gray-200">
+                    
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">پشتیبان‌گیری و بازیابی</h3>
+                    
+                    <div class="form-group">
+                        <button onclick="exportData()" class="btn-primary w-full">
+                            <i class="fas fa-download ml-2"></i>
+                            دانلود بک‌آپ (JSON)
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">بازیابی از بک‌آپ</label>
+                        <input type="file" id="importFile" accept=".json" class="form-input">
+                        <button onclick="importData()" class="btn-secondary mt-2 w-full">
+                            <i class="fas fa-upload ml-2"></i>
+                            بازیابی داده‌ها
+                        </button>
+                    </div>
+                    
+                    <hr class="my-6 border-gray-200">
+                    
+                    <h3 class="text-lg font-bold text-red-600 mb-4">منطقه خطر</h3>
+                    
+                    <div class="form-group">
+                        <button onclick="clearAllData()" class="btn-danger w-full">
+                            <i class="fas fa-trash ml-2"></i>
+                            پاک کردن تمام داده‌ها
+                        </button>
+                        <p class="text-xs text-gray-500 mt-2">
+                            <i class="fas fa-exclamation-triangle ml-1"></i>
+                            این عمل قابل بازگشت نیست!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="newProfileModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">پروفایل جدید</h3>
+            <div class="form-group">
+                <label class="form-label">نام پروفایل</label>
+                <input type="text" id="newProfileName" class="form-input" placeholder="مثال: حساب اصلی">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="createProfile()" class="btn-primary flex-1">ایجاد</button>
+                <button onclick="closeModal('newProfileModal')" class="btn-secondary">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="symbolModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت نمادها</h3>
+            <div id="symbolList" class="mb-4"></div>
+            <div class="form-group">
+                <input type="text" id="newSymbol" class="form-input" placeholder="نماد جدید (مثال: BTCUSD)">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addSymbol()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('symbolModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="stopModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت استاپ‌های معاملاتی</h3>
+            <div id="stopList" class="mb-4"></div>
+            <div class="form-group">
+                <input type="text" id="newStop" class="form-input" placeholder="استاپ جدید (مثال: فیک چاک)">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addStop()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('stopModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="timeframeModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت تایم‌فریم‌ها</h3>
+            <div id="timeframeList" class="mb-4"></div>
+            <div class="form-group">
+                <input type="text" id="newTimeframe" class="form-input" placeholder="تایم‌فریم جدید (مثال: 15m)">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addTimeframe()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('timeframeModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="riskModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت ریسک‌ها</h3>
+            <div id="riskList" class="mb-4"></div>
+            <div class="form-group">
+                <input type="number" id="newRisk" class="form-input" step="0.1" placeholder="ریسک جدید (مثال: 1.5)">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addRisk()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('riskModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rrModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت نسبت‌های R:R</h3>
+            <div id="rrList" class="mb-4"></div>
+            <div class="form-group">
+                <input type="text" id="newRR" class="form-input" placeholder="نسبت جدید (مثال: 1:4)">
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addRR()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('rrModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mistakeModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">مدیریت جملات اشتباه/نکته</h3>
+            <div id="mistakeList" class="mb-4"></div>
+            <div class="form-group">
+                <textarea id="newMistake" class="form-textarea" placeholder="جمله جدید (مثال: عجله در ورود به معامله)" rows="2"></textarea>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="addMistakePreset()" class="btn-primary flex-1">افزودن</button>
+                <button onclick="closeModal('mistakeModal')" class="btn-secondary">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dbPathModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">
+                <i class="fas fa-folder-open text-blue-500 ml-2"></i>
+                تنظیم مسیر دیتابیس
+            </h3>
+            <p class="text-sm text-gray-600 mb-4">مسیر پوشه‌ای که می‌خواهید داده‌های ژورنال در آن ذخیره شود را وارد کنید.</p>
+            <div class="form-group">
+                <label class="form-label">مسیر پوشه</label>
+                <input type="text" id="dbPathInput" class="form-input" placeholder="مثال: C:\TradingJournal" dir="ltr">
+                <p class="text-xs text-gray-500 mt-2">
+                    <i class="fas fa-info-circle ml-1"></i>
+                    تغییر مسیر باعث بارگذاری مجدد صفحه می‌شود
+                </p>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="updateDbPath()" class="btn-primary flex-1">
+                    <i class="fas fa-check ml-2"></i>
+                    تایید و اعمال
+                </button>
+                <button onclick="closeModal('dbPathModal')" class="btn-secondary">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="canvas.js"></script>
+    <script src="filesystem.js"></script>
+    <script src="app.js"></script>
+    <script src="features.js"></script>
+    <script src="form-enhancer.js"></script>
+</body>
+</html>
