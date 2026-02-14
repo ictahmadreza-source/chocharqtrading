@@ -129,7 +129,10 @@ function setupFilters() {
     }
 }
 
-function filterJournals() {
+// OLD FILTER FUNCTIONS - DEPRECATED (replaced by new table-based filtering in app.js)
+// Keeping for reference only
+/*
+function filterJournals_OLD() {
     const searchTerm = document.getElementById('searchJournal')?.value.toLowerCase() || '';
     const resultFilter = document.getElementById('filterResult')?.value || '';
     
@@ -144,7 +147,7 @@ function filterJournals() {
     displayFilteredJournals(filtered);
 }
 
-function displayFilteredJournals(filteredJournals) {
+function displayFilteredJournals_OLD(filteredJournals) {
     const container = document.getElementById('journalListContainer');
     
     if (filteredJournals.length === 0) {
@@ -155,7 +158,7 @@ function displayFilteredJournals(filteredJournals) {
     container.innerHTML = filteredJournals.map(j => createJournalCard(j)).join('');
 }
 
-function createJournalCard(j) {
+function createJournalCard_OLD(j) {
     return `
         <div class="journal-card">
             <div class="flex justify-between items-start mb-4">
@@ -208,9 +211,12 @@ function createJournalCard(j) {
         </div>
     `;
 }
+*/
 
-// Edit Journal
-function editJournal(id) {
+// OLD EDIT/DELETE FUNCTIONS - DEPRECATED (replaced by versions in app.js)
+/*
+// Edit Journal (keeping this as it's still used)
+function editJournal_features(id) {
     const journal = journals.find(j => j.id === id);
     if (!journal) return;
     
@@ -260,7 +266,7 @@ function editJournal(id) {
 }
 
 // Delete Journal
-function deleteJournal(id) {
+function deleteJournal_features(id) {
     if (!confirm('آیا از حذف این ژورنال اطمینان دارید؟')) return;
     
     journals = journals.filter(j => j.id !== id);
@@ -268,6 +274,7 @@ function deleteJournal(id) {
     updateJournalList();
     alert('ژورنال با موفقیت حذف شد');
 }
+*/
 
 // Export Data
 function exportData() {
@@ -463,38 +470,11 @@ window.showSection = function(section) {
         return;
     }
     
-    // Call original function
+    // Call original function from app.js
     if (originalShowSection) {
         originalShowSection(section);
-    } else {
-        // Fallback implementation
-        document.querySelectorAll('.sidebar-item').forEach(item => {
-            item.classList.remove('active');
-            if (item.dataset.section === section) {
-                item.classList.add('active');
-            }
-        });
-        
-        document.getElementById('profileManager')?.classList.add('hidden');
-        document.getElementById('newJournalSection')?.classList.add('hidden');
-        document.getElementById('journalListSection')?.classList.add('hidden');
-        document.getElementById('dashboardSection')?.classList.add('hidden');
-        document.getElementById('settingsSection')?.classList.add('hidden');
-        
-        if (section === 'new-journal') {
-            document.getElementById('newJournalSection')?.classList.remove('hidden');
-        } else if (section === 'journal-list') {
-            document.getElementById('journalListSection')?.classList.remove('hidden');
-            if (typeof updateJournalList === 'function') updateJournalList();
-            if (typeof setupFilters === 'function') setupFilters();
-        } else if (section === 'dashboard') {
-            document.getElementById('dashboardSection')?.classList.remove('hidden');
-            if (typeof showDashboard === 'function') showDashboard();
-        } else if (section === 'settings') {
-            document.getElementById('settingsSection')?.classList.remove('hidden');
-            if (typeof showSettings === 'function') showSettings();
-        }
     }
+    // Note: Removed fallback implementation to avoid conflicts with app.js
 };
 
 // Update sidebar click handlers

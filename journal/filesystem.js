@@ -67,20 +67,30 @@ async function loadDirectoryHandle() {
             request.onsuccess = async () => {
                 const result = request.result;
                 if (result && result.handle) {
-                    // Verify permission
-                    const permission = await result.handle.queryPermission({ mode: 'readwrite' });
-                    if (permission === 'granted') {
-                        directoryHandle = result.handle;
-                        resolve(result.handle);
-                    } else {
-                        // Request permission again
-                        const newPermission = await result.handle.requestPermission({ mode: 'readwrite' });
-                        if (newPermission === 'granted') {
+                    try {
+                        // Verify permission
+                        const permission = await result.handle.queryPermission({ mode: 'readwrite' });
+                        if (permission === 'granted') {
                             directoryHandle = result.handle;
                             resolve(result.handle);
                         } else {
-                            resolve(null);
+                            // Request permission again (only works with user interaction)
+                            try {
+                                const newPermission = await result.handle.requestPermission({ mode: 'readwrite' });
+                                if (newPermission === 'granted') {
+                                    directoryHandle = result.handle;
+                                    resolve(result.handle);
+                                } else {
+                                    resolve(null);
+                                }
+                            } catch (permError) {
+                                console.log('Permission request failed (user interaction required):', permError.message);
+                                resolve(null);
+                            }
                         }
+                    } catch (error) {
+                        console.log('Permission check failed:', error.message);
+                        resolve(null);
                     }
                 } else {
                     resolve(null);
@@ -142,7 +152,7 @@ async function createInitialFiles(profileDir, profileName) {
         await settingsWritable.write(JSON.stringify({
             profileName: profileName,
             symbols: ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY'],
-            stops: ['فیک چاک', 'بریک استراکچر', 'تایم استاپ'],
+            stops: ['فیک چاک', 'بریک استراکچر'],
             createdAt: new Date().toISOString()
         }, null, 2));
         await settingsWritable.close();

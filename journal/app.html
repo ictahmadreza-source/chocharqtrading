@@ -8,9 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=2.4">
-    <link rel="stylesheet" href="compact-form.css?v=2.4">
-    <link rel="stylesheet" href="form-styles.css?v=2.4">
+    <link rel="stylesheet" href="styles-new.css">
+    <link rel="stylesheet" href="compact-form.css?v=4.0">
+    <link rel="stylesheet" href="form-styles.css?v=4.0">
 </head>
 <body>
     <canvas id="organic-canvas"></canvas>
@@ -280,10 +280,10 @@
                                     <input type="hidden" id="result" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">استاپ معاملاتی</label>
+                                    <label class="form-label">ستاپ معاملاتی</label>
                                     <div class="quick-grid-compact-2" id="stopButtons"></div>
                                     <button type="button" onclick="manageStops()" class="text-sm text-amber-500 mt-2">
-                                        <i class="fas fa-cog ml-1"></i>مدیریت استاپ‌ها
+                                        <i class="fas fa-cog ml-1"></i>مدیریت ستاپ‌ها
                                     </button>
                                     <input type="hidden" id="stopType">
                                 </div>
@@ -422,23 +422,6 @@
         <!-- Journal List Section -->
         <div id="journalListSection" class="hidden">
             <div class="max-w-6xl mx-auto">
-                <div class="glass-card mb-4">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold text-gray-900">
-                            <i class="fas fa-list ml-2 text-blue-500"></i>
-                            لیست ژورنال‌ها
-                        </h2>
-                        <div class="flex gap-2">
-                            <input type="text" id="searchJournal" class="form-input" placeholder="جستجو..." style="width: 200px;">
-                            <select id="filterResult" class="form-select" style="width: 150px;">
-                                <option value="">همه نتایج</option>
-                                <option value="TP">تیک پروفیت</option>
-                                <option value="SL">استاپ لاس</option>
-                                <option value="BE">ریسک فری</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
                 <div id="journalListContainer"></div>
             </div>
         </div>
@@ -605,10 +588,10 @@
 
     <div id="stopModal" class="modal">
         <div class="modal-content">
-            <h3 class="text-xl font-bold mb-4">مدیریت استاپ‌های معاملاتی</h3>
+            <h3 class="text-xl font-bold mb-4">مدیریت ستاپ‌های معاملاتی</h3>
             <div id="stopList" class="mb-4"></div>
             <div class="form-group">
-                <input type="text" id="newStop" class="form-input" placeholder="استاپ جدید (مثال: فیک چاک)">
+                <input type="text" id="newStop" class="form-input" placeholder="ستاپ جدید (مثال: فیک چاک)">
             </div>
             <div class="flex gap-4">
                 <button onclick="addStop()" class="btn-primary flex-1">افزودن</button>
@@ -700,7 +683,7 @@
 
     <script src="canvas.js"></script>
     <script src="filesystem.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=4.0"></script>
     <script src="features.js"></script>
     <script src="form-enhancer.js"></script>
 </body>
